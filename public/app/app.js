@@ -226,7 +226,7 @@ app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'angula
     angularAuth0Provider.init({
         clientID: 'PILub0nXdeUTCAMWc7BzVaSyWpAH54jW',
         domain: 'wilco.auth0.com',
-        responseType: 'token id_token',
+        responseType: 'token',
         audience: 'https://wilco.auth0.com/userinfo',
         redirectUri: window.location.protocol + '//' + window.location.host + '/callback',
         scope: REQUESTED_SCOPES
