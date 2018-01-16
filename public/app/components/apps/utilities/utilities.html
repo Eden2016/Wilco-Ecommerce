@@ -1,0 +1,220 @@
+<div
+        class="appcontent utilties-app small-12 grid-x grid-padding-x align-stretch"
+        ng-class="form.activeclass"
+>
+    <div class="cell small-12 large-2 app-side-menu">
+        <div class="app-side-menu-inner inner-view cell">
+            <div class="title-bar ">
+                <div class="title-bar-left">
+                    <a href="/dashboard"><img class="logo" src="app/assets/svgs/w_wilco_logo.svg"></a>
+                </div>
+            </div>
+            <div class="app-menu-container">
+
+
+                <div class="app-navigator">
+
+                    <dropdown-toggle class="dropdown-custom app-switcher" close-on-click="true">
+                        <toggle class="d-tog"><a class="app-name"><span>{{ $state.current.title }}</span><i
+                                class="icon-icons_chevron_down"></i></a></toggle>
+                        <pane>
+                            <ul class="menu vertical">
+                                <div app-nav></div>
+                            </ul>
+                        </pane>
+                    </dropdown-toggle>
+                </div>
+
+
+                <div class="app-filters">
+                    <ul class="vertical menu" data-drilldown id="m1" style="display:none;">
+
+                        <li>
+                            <ul class="dropdown vertical menu" data-responsive-menu="drilldown medium-dropdown"
+                                data-auto-height="true" data-animate-height="true" dropdown-menu data-click-open>
+
+                                <li class="app-switcher">
+                                    <a href="#">
+                                        <span class="avatar"></span>
+                                        <p class="username">Current App Name</p>
+                                        <i class="icon-icons_chevron_down"></i>
+                                    </a>
+                                    <ul class="menu"></ul>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li>
+                            <ul class="vertical menu">
+                                <li><a href="#0">Filter</a></li>
+                                <li><a href="#0">Filter</a></li>
+                                <li><a href="#0">Filter</a></li>
+                                <li><a href="#0">Filter</a></li>
+                                <li><a href="#0">Filter</a></li>
+                            </ul>
+                        </li>
+
+
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="app-filters">
+                <ul class="vertical menu" data-drilldown id="m1" >
+
+                    <li>
+                        <div id="utility-list">
+
+                            <ul id="utility-records" class="vertical menu">
+                                <li
+                                        id="{{ state.utState }}"
+                                        ng-repeat="state in states"
+                                        class="record"
+                                        name="record[]"
+                                        ng-class="{active: state.utStateID === selectedStateID}"
+
+                                        ng-click="filterByState({record: state, index: $index, event: $event})"
+                                >
+                                    <a>
+                                        <span>{{ state.utState }}</span>
+                                    </a>
+                                </li>
+                            </ul>
+
+
+                        </div>
+
+
+                    </li>
+
+
+                </ul>
+            </div>
+
+
+
+            <div class="title-bar-bottom">
+                <div class="title-bar-left">
+                    <div class="grid-x small-12 ">
+
+                        <div class="small-6 cell">
+
+
+                            <button class="button clean"><i class="icon-icons_gear"></i></button>
+                        </div>
+
+                        <div class="small-6 cell">
+                            <button class="button clean float-right" ng-click="addNewRecord()"><i class="icon-icons_plus"></i></button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cell small-4 large-4 app-side-nav">
+        <div class="title-bar title-bar-search">
+            <div class="title-bar-left">
+                <div class="input-group searchbar">
+                    <i class="icon-icons_search"></i>
+                    <input class="input-field search-field" placeholder="Search Utilities"
+                           ng-model="userSearch" ng-change="loadDataSet(userSearch)">
+                </div>
+            </div>
+        </div>
+        <div id="record-list" class="inner-view">
+            <ul id="app-records" class="app-records">
+                <li
+                        id="{{ utility.utName }}"
+                        ng-repeat="utility in data"
+                        ng-class="{active: utility.utUtilityID === selectedUtilityID && utility.type != 'letter'}"
+                        class="{{ utility.type }}"
+                        name="record[]"
+                        ng-click="loadClickedRecord({record: utility, index: $index, event: $event})"
+                >
+                    <a ng-if="utility.type == 'letter'"
+                    >
+                        <span class="inner"><span>{{ utility.utName }}</span></span>
+                    </a>
+                    <a
+                            ng-if="utility.type == 'record'"
+                    >
+                        <span class="inner"><span>{{ utility.utName }}</span></span>
+                    </a>
+                </li>
+            </ul>
+            <!--<div class="alphabet-controller">-->
+                <!--<ul class="alphabet-scroll" du-scroll-container="record-list">-->
+                    <!--<li ng-repeat="letter in letters">-->
+                        <!--<span du-smooth-scroll="{{ letter }}">{{ letter }}</span>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</div>-->
+
+        </div>
+    </div>
+    <div class="cell small-8 large-6 app-content-view">
+        <div class="grid-x grid-padding-x ">
+            <div class="cell small-12">
+                <nav class="top-bar app-topbar topbar-responsive">
+                    <div class="float-left">
+                        <a
+                                class="Edit"
+                                ng-if="view.record && vm.auth.isAuthenticated() && vm.auth.userHasScopes(['write:records'])"
+                                ng-click="editModeToggle()"
+                        >
+                            <span ng-if="!form.edit">Edit</span>
+                            <span ng-if="form.edit">Cancel</span>
+                        </a>
+                    </div>
+                    <div class="topbar-responsive-links">
+
+                        <div user-nav class="app-user-nav"></div>
+
+
+                    </div>
+                </nav>
+
+                <div
+                        ng-include="'app/components/apps/utilities/single.html'"
+                        class="slide-in single-view"
+                        style="height: 100%;"
+                        ng-class="form.activeclass"
+                >
+                </div>
+
+                <div class="title-bar-bottom">
+                    <div class="title-bar-left">
+                        <button
+                                ng-show="view.existingRecord"
+                                ng-click="deleteSingleUtility()"
+                                ng-if="form.edit && vm.auth.isAuthenticated() && vm.auth.userHasScopes(['delete:records'])"
+                        >
+                            Delete Record
+                        </button>
+                        <button
+                                ng-show="view.existingRecord"
+                                ng-click="updateSingleUtility()"
+                                ng-if="form.edit"
+                                style="float:right;"
+                                ng-disabled="singleUtilityForm.$pristine"
+                        >
+                            Done
+                        </button>
+                        <button
+                                ng-show="!view.existingRecord"
+                                ng-click="createRecord()"
+                                style="float:right;"
+                                ng-disabled="singleUtilityForm.$pristine"
+                        >
+                            Done
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

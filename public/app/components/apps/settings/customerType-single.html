@@ -1,0 +1,117 @@
+<div class="inner-view">
+    <form class=""
+          name="singleConsumerForm"
+          id="singleConsumerForm"
+          ng-submit="updateSingleConsumerType()">
+        <fieldset ng-disabled="!form.edit" ng-if="view.record">
+            <input type="hidden" id="longitude" name="longitude" ng-model="form.user.longitude">
+            <input type="hidden" id="latitude" name="latitude" ng-model="form.user.latitude">
+
+            <div class="record-content">
+
+                <div class="cell small-12 record-title">
+                    <div class="grid-x small-12 form-list">
+                        <div class="small-3 cell avatar-cell">
+                            <img class="avatar" src="app/assets/svgs/img_default_userimg.svg">
+                        </div>
+
+                        <div class="small-9 cell record-name">
+                            <span
+                                    ng-bind="form.user.ctCustomerType"
+                                    ng-if="form.user.ctCustomerType"
+                            ></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cell small-12 record-data">
+
+                    <div class="grid-x small-12 form-list">
+
+                        <!-- CustomerType ID -->
+                        <div class="grid-x small-12" ng-if="form.user.ctCustomerTypeID || form.edit">
+
+                            <div ng-if="form.user.ctCustomerTypeID || form.edit" class="small-3 cell">
+                                <label for="ctCustomerTypeID" class="text-right middle">
+                                    Consumer Type ID
+                                </label>
+                            </div>
+                            <div ng-if="form.user.ctCustomerTypeID || form.edit" class="small-9 cell">
+                                <input
+
+                                        id="ctCustomerTypeID"
+                                        name="ctCustomerTypeID"
+                                        type="text"
+                                        placeholder="Consumer Type ID"
+                                        ng-model="form.user.ctCustomerTypeID"
+                                        ng-disabled="true"
+                                >
+                            </div>
+
+                        </div>
+
+                        <!-- First Name -->
+                        <div class="grid-x small-12" ng-if="form.user.ctCustomerType|| form.edit">
+                            <div ng-if="form.user.ctCustomerType|| form.edit" class="small-3 cell">
+                                <label
+                                        for="ctCustomerType"
+                                        class="text-right middle"
+                                >
+                                    Customer Type
+                                </label>
+                            </div>
+                            <div ng-if="form.user.ctCustomerType || form.edit" class="small-9 cell">
+                                <input
+
+                                        id="ctCustomerType"
+                                        name="ctCustomerType"
+                                        type="text"
+                                        ng-model="form.user.ctCustomerType"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.ctCustomerType"
+                                        ng-if="form.user.ctCustomerType && !form.edit"
+                                ></span>
+                            </div>
+
+                        </div>
+
+
+                        <!-- Notes -->
+                        <div class="grid-x small-12" ng-if="form.user.ctNotes|| form.edit">
+                            <div ng-if="form.user.ctNotes|| form.edit" class="small-3 cell">
+                                <label
+                                        for="ctNotes"
+                                        class="text-right middle"
+                                >
+                                    Notes
+                                </label>
+                            </div>
+                            <div ng-if="form.user.ctNotes || form.edit" class="small-9 cell">
+                                <input
+
+                                        id="ctNotes"
+                                        name="ctNotes"
+                                        type="text"
+                                        ng-model="form.user.ctNotes"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.ctNotes"
+                                        ng-if="form.user.ctNotes && !form.edit"
+                                ></span>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

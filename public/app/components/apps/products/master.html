@@ -1,0 +1,431 @@
+<div class="inner-view">
+    <form class=""
+          name="singleProductForm"
+          id="singleProductForm"
+          ng-submit="updateSingleProduct()">
+        <fieldset ng-disabled="!form.edit" ng-if="view.record">
+            <input type="hidden" id="longitude" name="longitude" ng-model="form.user.master.longitude">
+            <input type="hidden" id="latitude" name="latitude" ng-model="form.user.master.latitude">
+
+            <div class="record-content">
+
+                <div class="cell small-12 record-data">
+
+                    <div class="grid-x small-12 form-list">
+                    
+                    	<div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Item Number
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Item Number']" ng-if="form.user.master['Item Number']"></span>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Item Description
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Item Description']" ng-if="form.user.master['Item Description']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Retail Price
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Retail Price']" ng-if="form.user.master['Retail Price']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Stocking U/M
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Stocking U/M']" ng-if="form.user.master['Stocking U/M']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Discontinued Item?
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Discontinued Item?']" ng-if="form.user.master['Discontinued Item?']"></span>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Visible Online
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Visible Online']" ng-if="form.user.master['Visible Online']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Quantity Break Code
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Quantity Break Code']" ng-if="form.user.master['Quantity Break Code']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Date Added
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Date Added']" ng-if="form.user.master['Date Added']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    MFG Part #
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['MFG Part #']" ng-if="form.user.master['MFG Part #']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Current Class Code
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Current Class Code']" ng-if="form.user.master['Current Class Code']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Current Class Name
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Current Class Name']" ng-if="form.user.master['Current Class Name']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Current Department Code
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Current Department Code']" ng-if="form.user.master['Current Department Code']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Current Department Name
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Current Department Name']" ng-if="form.user.master['Current Department Name']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Current Fineline Code
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Current Fineline Code']" ng-if="form.user.master['Current Fineline Code']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Current Fineline Name
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Current Fineline Name']" ng-if="form.user.master['Current Fineline Name']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Current Manufacturer
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Current Manufacturer']" ng-if="form.user.master['Current Manufacturer']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Current Vendor Code
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Current Vendor Code']" ng-if="form.user.master['Current Vendor Code']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Current Vendor Name
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Current Vendor Name']" ng-if="form.user.master['Current Vendor Name']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Item Depth
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Item Depth']" ng-if="form.user.master['Item Depth']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Item Width
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Item Width']" ng-if="form.user.master['Item Width']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Item Height
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Item Height']" ng-if="form.user.master['Item Height']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Tax Exempt Category
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Tax Exempt Category']" ng-if="form.user.master['Tax Exempt Category']"></span>
+                            </div>
+                        </div>
+						
+						<div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Order Multiple
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Order Multiple']" ng-if="form.user.master['Order Multiple']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Display in iNet?
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Display in iNet?']" ng-if="form.user.master['Display in iNet?']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    iMap
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['iMAP']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Replacement Cost
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Replacement Cost']" ng-if="form.user.master['Replacement Cost']"></span>
+                            </div>
+                        </div>
+                    
+						<div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Weight
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Weight']" ng-if="form.user.master['Weight']"></span> <span ng-bind="form.user.master['Weight Unit']" ng-if="form.user.master['Weight Unit']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Cubic Feet
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Cubic Feet']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Season
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Season']" ng-if="form.user.master['Season']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Standard Package
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Standard Package']" ng-if="form.user.master['Standard Package']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Purchase U/M
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Purchase U/M']" ng-if="form.user.master['Purchase U/M']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Keep Stock Data?
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Keep Stock Data?']" ng-if="form.user.master['Keep Stock Data?']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Code A3
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Code A3']" ng-if="form.user.master['Code A3']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Code B3
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Code B3']" ng-if="form.user.master['Code B3']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Code C3
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['Code C3']" ng-if="form.user.master['Code C3']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Created
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['created']" ng-if="form.user.master['created']"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label class="text-right middle">
+                                    Updated
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <span ng-bind="form.user.master['updated']" ng-if="form.user.master['updated']"></span>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

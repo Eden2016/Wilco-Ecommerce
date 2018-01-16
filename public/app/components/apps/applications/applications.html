@@ -1,0 +1,185 @@
+<!-- @TODO CHANGE CLASS NAME TO APPLICATIONS-->
+<div
+        class="appcontent utilties-app small-12 grid-x grid-padding-x align-stretch"
+        ng-class="form.activeclass"
+>
+    <div class="cell small-12 large-2 app-side-menu">
+        <div class="app-side-menu-inner inner-view cell">
+            <div class="title-bar ">
+                <div class="title-bar-left">
+                    <a href="/dashboard"><img class="logo" src="app/assets/svgs/w_wilco_logo.svg"></a>
+                </div>
+            </div>
+            <div class="app-menu-container">
+
+                <div class="app-navigator">
+
+                    <dropdown-toggle class="dropdown-custom app-switcher" close-on-click="true">
+                        <toggle class="d-tog">
+                            <a class="app-name"><span>{{ $state.current.title }}</span>
+                                <i class="icon-icons_chevron_down">
+
+                                </i>
+                            </a>
+                        </toggle>
+                        <pane>
+                            <ul class="menu vertical">
+                                <div app-nav></div>
+                            </ul>
+                        </pane>
+                    </dropdown-toggle>
+                </div>
+
+
+                <div class="app-filters">
+                    <ul id="utility-records" class="vertical menu">
+                        <div class="list" infinite-scroll='loadMoreUtilities()'
+                             infinite-scroll-distance='2'
+                             infinite-scroll-container="'#utility-list'">
+
+                            <li
+                                    id="{{ utility.utName }}"
+                                    ng-repeat="utility in currentExisitingUtilityData"
+                                    class="record"
+                                    name="record[]"
+                                    ng-class="{active: utility.utUtilityID === selectedUtilityID}"
+                                    ng-click="filterByUtility({record: utility, index: $index, event: $event})"
+                            >
+                                <a>
+                                    <span>{{ utility.utName }}</span>
+                                </a>
+                            </li>
+                        </div>
+                    </ul>
+
+
+
+                </div>
+
+            </div>
+
+
+            <div class="title-bar-bottom">
+                <div class="title-bar-left">
+                    <div class="grid-x small-12 ">
+
+                        <div class="small-6 cell">
+
+
+                            <button class="button clean"><i class="icon-icons_gear"></i></button>
+                        </div>
+
+                        <div class="small-6 cell">
+                            <button class="button clean float-right" ng-click="addNewRecord()"><i class="icon-icons_plus"></i></button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cell small-4 large-4 app-side-nav">
+        <div class="title-bar title-bar-search">
+            <div class="title-bar-left">
+                <div class="input-group searchbar">
+                    <i class="icon-icons_search"></i>
+                    <input class="input-field search-field" placeholder="Search Applications"
+                           ng-model="userSearch" ng-change="loadDataSet(userSearch)">
+                </div>
+            </div>
+        </div>
+        <div id="record-list" class="inner-view">
+            <ul id="app-records" class="app-records">
+                <div class="list" infinite-scroll='loadMoreApplications()'
+                     infinite-scroll-distance='2'
+                     infinite-scroll-container="'#record-list'">
+
+                    <li
+                            id="{{ application.cuNameLast }}-{{ application.rbApplicationID }}"
+                            ng-repeat="application in currentApplicationData"
+                            class="{{ application.type }}"
+                            name="record[]"
+                            ng-class="{active: application.rbApplicationID === selectedApplicationID && application.type != 'letter'}"
+                            ng-click="loadClickedRecord({record: application, index: $index, event: $event})"
+                    >
+                        <a ng-if="application.type == 'letter'">
+                            <span class="inner"><span>{{ application.cuNameLast }}</span></span>
+                        </a>
+                        <a ng-if="application.type == 'record'">
+                            <span class="inner"><span>{{ application.cuNameLast }}</span></span>
+                        </a>
+                    </li>
+                </div>
+            </ul>
+            <!--<div class="alphabet-controller">-->
+                <!--<ul class="alphabet-scroll" du-scroll-container="record-list">-->
+                    <!--<li ng-repeat="letter in letters">-->
+                        <!--<span du-smooth-scroll="{{ letter }}">{{ letter }}</span>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</div>-->
+
+        </div>
+    </div>
+    <div class="cell small-8 large-6 app-content-view">
+        <div class="grid-x grid-padding-x ">
+            <div class="cell small-12">
+                <nav class="top-bar app-topbar topbar-responsive">
+                    <div class="float-left">
+                        <a
+                                class="Edit"
+                                ng-if="view.record && vm.auth.isAuthenticated() && vm.auth.userHasScopes(['write:records'])"
+                                ng-click="editModeToggle()"
+                        >
+                            <span ng-if="!form.edit">Edit</span>
+                            <span ng-if="form.edit">Cancel</span>
+                        </a>
+                    </div>
+                    <div class="topbar-responsive-links">
+
+                        <div user-nav class="app-user-nav"></div>
+
+
+                    </div>
+                </nav>
+
+                <div
+                        ng-include="'app/components/apps/applications/single.html'"
+                        class="slide-in single-view"
+                        style="height: 100%;"
+                        ng-class="form.activeclass"
+                >
+                </div>
+
+                <div class="title-bar-bottom">
+                    <div class="title-bar-left">
+                        <button
+                                ng-show="view.existingRecord"
+                                ng-click="deleteSingleApplication()"
+                                ng-if="form.edit && vm.auth.isAuthenticated() && vm.auth.userHasScopes(['delete:records'])"
+                        >
+                            Delete Record
+                        </button>
+                        <button
+                                ng-show="view.existingRecord"
+                                ng-click="updateSingleApplication()"
+                                ng-if="form.edit"
+                                style="float:right;"
+                        >
+                            Done
+                        </button>
+                        <button
+                                ng-show="!view.existingRecord"
+                                ng-click="createRecord()"
+                                style="float:right;"
+                        >
+                            Done
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

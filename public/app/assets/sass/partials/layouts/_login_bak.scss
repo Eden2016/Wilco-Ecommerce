@@ -1,0 +1,61 @@
+
+.app-login {
+  height: 100%;
+
+
+  .sign-in-form {
+    padding: 1rem 1.5em;
+    border-radius: .5rem;
+    background-color: #75AADB;
+    border:1px solid white;
+    max-width: 600px;
+    margin: 0 auto;
+    float: none;
+    display: block;
+    margin-top: 10%;
+    position: relative;
+    -webkit-box-shadow: 10px 10px 28px 2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 28px 2px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 28px 2px rgba(0,0,0,0.75);
+    h4 {
+      color: white;
+      margin-bottom: 1rem;
+      font-weight: 600;
+      text-transform: uppercase
+    }
+    label {
+      float:left;
+      color:#2254A5;
+      font-size:15px;
+    }
+    input {
+      border: 1px solid #2254A5;
+      text-indent: 24px;
+    }
+
+
+
+  }
+
+
+  .form-input-icon {
+    position: relative;
+    width: 100%;
+    display: inline-flex;
+    height: auto;
+    i {
+      color:#2254A5;
+      position:absolute;
+      left:0;
+      top:0;
+      padding: 10px;
+    }
+  }
+
+  .forgot-password  {
+    padding: 40px 50px;
+  }
+
+}
+
+

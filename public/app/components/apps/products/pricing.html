@@ -1,0 +1,28 @@
+<div class="inner-view">
+
+    <div class="grid-x record-content">
+
+        <div class="cell small-12 record-data">
+
+            <div class="grid-x small-12 form-list">
+            	<table>
+            		<thead>
+            			<tr>
+            				<th>Store</th>
+            				<th>Retail Price</th>
+            				<th>Promotion Price</th>
+            			</tr>
+            		</thead>
+            		<tbody>
+	            		<tr ng-repeat="i in [1,2,3,4,5,6,7,8,10,11,12,13,14,15,16,17,18,19,99]">
+							<td>{{i}}</td>
+							<td>${{getPricing(i, "Retail Price")}}</td>
+							<td>${{getPricing(i, "Promotion Price")}}</td>
+            		</tbody>
+            	</table>
+            
+            </div>
+
+        </div>
+    </div>
+</div>

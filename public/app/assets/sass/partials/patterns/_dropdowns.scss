@@ -1,0 +1,138 @@
+
+
+
+.dropdown-custom {
+
+  .dropdown-pane:before {
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    content: '';
+    position: absolute;
+    border-bottom: 15px solid white;
+    top: -15px;
+    left: 10%;
+  }
+
+  .dropdown-pane {
+    visibility: hidden;
+
+
+    visibility: hidden;
+    opacity:0;
+    transform-origin: 0% 0%;
+
+
+
+
+
+    display:block!important;
+    -webkit-transition:all .5s ease;
+    -moz-transition:all .5s ease;
+    -o-transition:all .5s ease;
+    transition:all .5s ease;
+    //transform: rotatex(-45deg);
+    //transform: scale(.5) translateY(0px) skewX(0deg) skewY(0deg);
+    transform:scale3d(1, 1, 1) skewY(0deg) skewX(0deg) rotateX(-10deg);
+
+    border-radius: 20px;
+    border: 0;
+    -webkit-box-shadow: 1px -4px 50px -9px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 1px -4px 50px -9px rgba(0, 0, 0, 0.75);
+    box-shadow: 1px -4px 50px -9px rgba(0, 0, 0, 0.75);
+
+    pane {
+
+    }
+
+
+
+
+
+  }
+
+  .dropdown-pane:before {
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    content: '';
+    position: absolute;
+    border-bottom: 15px solid white;
+    top: -15px;
+    left: 10%;
+  }
+
+
+  .dropdown-pane.is-open {
+    opacity:1;
+    visibility: visible;
+    //transform: scale(1) translateY(0px) skewX(0deg) skewY(0deg);
+    //transform: rotateY(0deg);
+    transform:scale3d(1, 1, 1) skewY(0deg) skewX(0deg)  rotateX(0deg);
+    pane {
+
+      opacity:1;
+      visibility: visible;
+
+
+    }
+
+  }
+
+
+
+  .dropdown.menu ul {
+    display: block;
+  }
+
+
+  .dropdown-pane.is-open {
+    display: block;
+    .menu {
+      display:block;
+    }
+
+
+  }
+
+
+
+
+
+
+}
+
+html,.no-js {
+
+
+
+
+
+
+  .d-right {
+
+    .dropdown-pane {
+      left: auto!important;
+      right: 0;
+      top: 40px!important;
+      transform:scale3d(1, 1, 1) skewY(0deg) skewX(0deg) rotateX(-10deg);
+    }
+
+    .dropdown-pane:before {
+      right: 40px;
+      left: auto!important
+
+    }
+
+
+  }
+
+
+
+}
+
+.user-dropdown {
+
+
+}
+
+
+

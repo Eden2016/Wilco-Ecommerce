@@ -1,0 +1,23 @@
+
+
+.dashboard-main {
+  padding: 60px 20px;
+  .logo {
+    max-width:300px;
+    @media print, screen and (max-width: 48em) {
+      max-width:600px;
+    }
+  }
+}
+
+
+.dashboard {
+  height: 100%;
+  .inner-view {
+    overflow: auto;
+    height:100%;
+  }
+}
+
+
+

@@ -1,0 +1,72 @@
+.dashboard {
+  .top-bar {
+    background: transparent;
+    background-color:transparent;
+
+    ul {
+      background: transparent;
+      background-color:transparent;
+    }
+
+    .top-bar-title {
+      a {
+        color:white;
+      }
+
+    }
+    .top-bar-right {
+
+       div {
+        > ul {
+          > li {
+
+            .d-tog {
+              a {    color: white;}
+            }
+
+
+            .avatar {
+              max-width: 20px;
+              display: block;
+              float: left;
+              height: auto;
+              margin-right:4px;
+              img {
+                width: 100%;
+                height: auto;
+                border-radius: 100%;
+              }
+            }
+
+
+          }
+        }
+      }
+
+      .user-dropdown {
+        border-right: 1px solid white;
+        a::after {
+          display:none!important;
+        }
+        .username {
+          float:left;
+        }
+        i {
+          padding: 0 10px;
+          position: relative;
+          top: 4px;
+          display: inline;
+        }
+      }
+      .help {
+        i {
+          span:before {
+            color: rgb(255, 255, 255);
+          }
+        }
+      }
+    }
+  }
+}
+
+

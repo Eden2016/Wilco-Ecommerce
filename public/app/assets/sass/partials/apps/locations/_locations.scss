@@ -1,0 +1,211 @@
+
+
+.locations-app {
+  padding-top: 67px!important;
+  padding-bottom:0px!important;
+
+}
+
+
+.map-container {
+  display: block;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  .map {
+    display: block;
+    height: 100%;
+    width:100%;
+    position: absolute;
+    .cell {
+      display: block;
+      height: 100%!important;
+      position: absolute;
+    }
+  }
+}
+
+
+.map-overlay {
+  width: auto;
+  position: absolute;
+  padding: 2%;
+  height: auto;
+  bottom: 0;
+
+
+  .inner {
+    width: auto;
+    background: white;
+    border-radius: 20px;
+    border: 0;
+    -webkit-box-shadow: 10px 10px 50px -9px rgba(0, 0, 0, 0.75);
+    box-shadow: 10px 10px 50px -9px rgba(0, 0, 0, 0.75);
+    padding: 20px;
+    max-width: 900px;
+    position: relative;
+    display: inline-block;
+  }
+
+  .map-record {
+    width: auto;
+    display: inline-block;
+    min-width: 200px;
+  }
+
+
+  .location-header,.record-snippet {
+    width: 100%;
+    float: left;
+  }
+
+  .record-snippet {
+    ul {
+      li {
+        width: 100%;
+      }
+    }
+  }
+
+
+  .address {
+    ul {
+
+      li {
+        background: transparent;
+        width: 100%;
+        float: left;
+      }
+
+    }
+  }
+
+
+
+  .button-group {
+    a {
+      font-size: 1.2em;
+      color: #b1b1b1;
+    }
+
+    a:hover {
+      color: #0076ff;
+    }
+  }
+
+}
+
+
+.app-records.map-records {
+
+  .record-snippet {
+    width:100%;
+    ul {
+      width:100%;
+
+    }
+  }
+  li {
+    float: left;
+    width:100%;
+    a {
+      > span {
+        padding: 4px 6px;
+        display: block;
+      }
+    }
+
+    .avatar {
+      padding: 12px;
+    }
+
+  }
+}
+
+.app-records.map-records,.app-records.map-record,.map-overlay {
+
+  .avatar-cell {
+    max-width: 100px;
+    .avatar {
+      width: 100%;
+    }
+  }
+  .address {
+    padding: 0;
+    display: inline-block;
+    padding-left: 0;
+    width: auto!important;
+    max-width: 76% !important;
+    ul {
+      padding-left:0;
+      list-style:none;
+      margin-left: 0;
+      background-color:transparent;
+      .record-title {
+        padding: 0;
+        margin-bottom: 0;
+        font-size: 1.2em;
+      }
+      li {
+        background: transparent;
+        p {
+          font-size: 12px;
+          margin-bottom:0;
+        }
+      }
+    }
+
+  }
+}
+
+.map-record {
+  .avatar {
+    padding: 4px 18px;
+  }
+
+  .address {
+    float:left;
+    list-style:none;
+  }
+
+  .location-header {
+    border-bottom: 1px solid gainsboro;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+
+    .small-2,.small-10 {
+      width:auto;
+      float:left;
+    }
+  }
+
+  ul {
+    margin-bottom: 0;
+    margin-left: 0;
+  }
+}
+
+
+// animate
+
+.map-overlay {
+  visibility: visible;
+  opacity:1;
+  -webkit-transition:all .5s ease-in-out;
+  -moz-transition:all .5s ease-in-out;
+  -o-transition:all .5s ease-in-out;
+  transition:all .5s ease-in-out;
+  bottom:0;
+
+
+
+}
+
+.map-overlay.ng-hide {
+  visibility: hidden;
+  opacity:0;
+
+  bottom:-100px;
+}
+
+

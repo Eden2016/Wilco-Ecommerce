@@ -1,0 +1,39 @@
+<div class="top-bar-right">
+    <div>
+
+        <ul class="dropdown vertical medium-horizontal menu"
+            data-responsive-menu="drilldown medium-dropdown" data-auto-height="true"
+            data-animate-height="true">
+            <li class="dropdown-custom user-dropdown d-right">
+                <dropdown-toggle>
+                    <toggle class="d-tog">
+                        <a>
+                        <span class="avatar">
+                            <img ng-src="{{vm.profile.picture}}" src="app/assets/svgs/img_default_userimg.svg">
+                        </span>
+                            <p class="username">Hello, {{ vm.profile.name }}</p>
+                            <i class="icon-icons_chevron_down"></i>
+                        </a>
+                    </toggle>
+                    <pane>
+                        <ul class="menu vertical">
+                            <li ng-if="$parent.vm.auth.isAuthenticated() && $parent.vm.auth.userHasScopes(['admin:users'])">
+                                <a href="#">User Admin</a>
+                            </li>
+                            <li>
+                                <a ng-click="$parent.vm.runLogout()" href="#">Log Out</a>
+                            </li>
+                        </ul>
+                    </pane>
+                </dropdown-toggle>
+            </li>
+            <li class="help">
+                <a href="#">
+                    <i class="icon-icons_help">
+                        <span class="path1"></span><span class="path2"></span>
+                    </i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

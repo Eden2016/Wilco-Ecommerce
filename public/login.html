@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="esgApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="esgApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="esgApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="esgApp" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My AngularJS App</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="app/assets/libs/foundation-sites/dist/css/foundation.min.css">
+    <link rel="stylesheet" href="app/assets/css/app.css">
+    <link rel="stylesheet" href="app/assets/icomoon/style.css">
+
+</head>
+<body>
+
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+
+<div class="app-view align-stretch align-self-top ">
+
+
+
+    <div class="app-inner">
+        <div class="grid-x grid-padding-x align-center-middle  app-login" >
+            <div class="cell small-4">
+                <img class="logo" src="app/assets/svgs/w_wilco_logo_white.svg">
+                <form>
+                    <div class="sign-in-form">
+
+                        <label for="sign-in-form-username">Username</label>
+                        <span class="form-input-icon">
+                            <i class="icon-icons_lock"></i>
+                            <input type="text" class="sign-in-form-username" id="sign-in-form-username">
+                        </span>
+                        <label for="sign-in-form-password">Password</label>
+                        <span class="form-input-icon">
+                            <i class="icon-icons_key"></i>
+
+
+                            <input type="text" class="sign-in-form-password" id="sign-in-form-password">
+                        </span>
+
+                        <div class="grid-x grid-padding-x  app-login" >
+                            <div class="cell small-6">
+
+                            </div>
+                            <div class="cell small-6">
+                                <button type="submit" class="sign-in-form-button button primary float-right">Sign In</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+                <div class="dark">
+                    <a href="#" class="forgot-password float-left" >Forgot Password</a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+<!-- In production use:
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+-->
+<script src="app/assets/libs/angular/angular.js"></script>
+<script src="app/assets/libs/angular-route/angular-route.js"></script>
+<script src="app/app.js"></script>
+<script src="app/assets/libs/jquery/dist/jquery.js"></script>
+<script src="app/assets/libs/what-input/dist/what-input.js"></script>
+<script src="app/assets/libs/foundation-sites/scss/foundation.css"></script>
+
+<script>
+    $(document).foundation();
+</script>
+
+</body>
+</html>

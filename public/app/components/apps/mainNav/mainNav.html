@@ -1,0 +1,77 @@
+<div class="app-side-menu-inner inner-view cell">
+    <div class="title-bar ">
+        <div class="title-bar-left">
+            <a href="/dashboard"><img class="logo" src="app/assets/svgs/w_wilco_logo.svg"></a>
+        </div>
+    </div>
+    <div class="app-menu-container">
+
+
+        <div class="app-navigator">
+
+            <dropdown-toggle class="dropdown-custom app-switcher" close-on-click="true">
+                <toggle class="d-tog"><a class="app-name"><span>{{ $state.current.title }}</span><i
+                        class="icon-icons_chevron_down"></i></a></toggle>
+                <pane>
+                    <ul class="menu vertical">
+                        <div app-nav></div>
+                    </ul>
+                </pane>
+            </dropdown-toggle>
+        </div>
+
+
+        <div class="app-filters">
+            <ul class="vertical menu" data-drilldown id="m1" style="display:none;">
+
+                <li>
+                    <ul class="dropdown vertical menu" data-responsive-menu="drilldown medium-dropdown"
+                        data-auto-height="true" data-animate-height="true" dropdown-menu data-click-open>
+
+                        <li class="app-switcher">
+                            <a href="#">
+                                <span class="avatar"></span>
+                                <p class="username">Current App Name</p>
+                                <i class="icon-icons_chevron_down"></i>
+                            </a>
+                            <ul class="menu">
+
+
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="vertical menu">
+                        <li><a href="#0">Filter</a></li>
+                        <li><a href="#0">Filter</a></li>
+                        <li><a href="#0">Filter</a></li>
+                        <li><a href="#0">Filter</a></li>
+                        <li><a href="#0">Filter</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="title-bar-bottom">
+        <div class="title-bar-left">
+            <div class="grid-x small-12 ">
+
+                <div class="small-6 cell">
+
+
+                    <button class="button clean"><i class="icon-icons_gear"></i></button>
+                </div>
+
+                <div class="small-6 cell">
+                    <button class="button clean float-right" ng-click="addNewRecord()"><i class="icon-icons_plus"></i></button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

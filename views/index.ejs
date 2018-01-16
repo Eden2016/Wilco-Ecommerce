@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html lang="en" ng-app="esgApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html lang="en" ng-app="esgApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html lang="en" ng-app="esgApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="esgApp" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Wilco Middleware Tools</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="app/assets/libs/foundation-sites/dist/css/foundation.min.css">
+    <link rel="stylesheet" href="app/assets/sass/app.css">
+    <link rel="stylesheet" href="app/assets/icomoon/style.css">
+    <link rel="stylesheet" href="app/assets/wilco-icons/style.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css">
+    <link rel="stylesheet" href="app/assets/foundation-icons/foundation-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-grid/4.0.6/ui-grid.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+    <script src="app/assets/js/modernizr-custom.js"></script>
+
+
+</head>
+<body ng-controller="BodyCtrl" ng-class="isLoading()?'loading':''">
+
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<div class="app-view align-stretch align-self-top">
+    <div class="preloader">
+        <div class="spinner-container">
+            <div class="Spinner"><!--
+    --><div class="Spinner-line Spinner-line--1"><!--
+        --><div class="Spinner-line-cog"><!--
+            --><div class="Spinner-line-cog-inner Spinner-line-cog-inner--left"></div><!--
+        --></div><!--
+        --><div class="Spinner-line-ticker"><!--
+            --><div class="Spinner-line-cog-inner Spinner-line-cog-inner--center"></div><!--
+        --></div><!--
+        --><div class="Spinner-line-cog"><!--
+            --><div class="Spinner-line-cog-inner Spinner-line-cog-inner--right"></div><!--
+        --></div><!--
+    --></div><!--
+    --><div class="Spinner-line Spinner-line--2"><!--
+        --><div class="Spinner-line-cog"><!--
+            --><div class="Spinner-line-cog-inner Spinner-line-cog-inner--left"></div><!--
+        --></div><!--
+        --><div class="Spinner-line-ticker"><!--
+            --><div class="Spinner-line-cog-inner Spinner-line-cog-inner--center"></div><!--
+        --></div><!--
+        --><div class="Spinner-line-cog"><!--
+            --><div class="Spinner-line-cog-inner Spinner-line-cog-inner--right"></div><!--
+        --></div><!--
+    --></div><!--
+    --><div class="Spinner-line Spinner-line--3"><!--
+        --><div class="Spinner-line-cog"><!--
+            --><div class="Spinner-line-cog-inner Spinner-line-cog-inner--left"></div><!--
+        --></div><!--
+        --><div class="Spinner-line-ticker"><!--
+            --><div class="Spinner-line-cog-inner Spinner-line-cog-inner--center"></div><!--
+        --></div><!--
+        --><div class="Spinner-line-cog"><!--
+            --><div class="Spinner-line-cog-inner Spinner-line-cog-inner--right"></div><!--
+        --></div><!--
+    --></div><!--
+    --><div class="Spinner-line Spinner-line--4"><!--
+        --><div class="Spinner-line-cog"><!--
+            --><div class="Spinner-line-cog-inner Spinner-line-cog-inner--left"></div><!--
+        --></div><!--
+        --><div class="Spinner-line-ticker"><!--
+            --><div class="Spinner-line-cog-inner Spinner-line-cog-inner--center"></div><!--
+        --></div><!--
+        --><div class="Spinner-line-cog"><!--
+            --><div class="Spinner-line-cog-inner Spinner-line-cog-inner--right"></div><!--
+        --></div><!--
+    --></div><!--
+
+--></div><!--/spinner -->
+        </div>
+        <p class="loading-text">Loading</p>
+    </div>
+
+    <div class="app-inner">
+        <ui-view class="main-container"></ui-view>
+    </div>
+</div>
+<div class="toast-container">
+    <global-toast></global-toast>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-foundation-6/0.11.5/angular-foundation.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-touch.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-animate.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.6.4/angular-sanitize.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-scroll/1.0.2/angular-scroll.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ng-toast/2.0.0/ngToast.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-grid/4.0.6/ui-grid.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ui-grid-draggable-rows@0.3.3/js/draggable-rows.min.js"></script>
+<script src="https://cdn.auth0.com/js/auth0/8.8/auth0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-auth0/2.0.0/angular-auth0.min.js"></script>
+<script src="app/assets/libs/angular-jwt/dist/angular-jwt.js"></script>
+<script src="app/assets/js/BzmDatePickerMod.js"></script>
+<script src='app/assets/libs/ngInfiniteScroll/build/ng-infinite-scroll.min.js'></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.full.min.js"></script>
+
+
+<script src="https://maps.google.com/maps/api/js?key=AIzaSyCw32rz8gwMAcdNyK7dpaWxM7o6l2lu2EA&libraries=geometry"></script>
+
+<script src="app/assets/libs/ngmap/build/scripts/ng-map.min.js"></script>
+
+<script src="app/app.js"></script>
+<script src="app/shared/controllers.js"></script>
+<script src="app/components/apps/utilities/utilities.js"></script>
+<script src="app/components/login/loginCtrl.js"></script>
+<script src="app/components/callback/CallbackCtrl.js"></script>
+<script src="app/components/apps/userNav/userNavCtrl.js"></script>
+<script src="app/components/apps/mainNav/mainNavCtrl.js"></script>
+<script src="app/components/dashboard/dashboardCtrl.js"></script>
+<script src="app/components/apps/locations/locationsCtrl.js"></script>
+<script src="app/components/apps/consumers/consumers.js"></script>
+<script src="app/components/apps/applications/applications.js"></script>
+<script src="app/components/apps/measures/measures.js"></script>
+<script src="app/components/apps/settings/settings.js"></script>
+<script src="app/components/apps/products/products.js"></script>
+<script src="app/components/apps/productsFeatured/productsFeatured.js"></script>
+<script src="app/components/apps/productBrands/productBrands.js"></script>
+<script src="app/components/apps/productSpecies/productSpecies.js"></script>
+<script src="app/components/apps/productColors/productColors.js"></script>
+<script src="app/components/apps/productSizes/productSizes.js"></script>
+<script src="app/components/apps/productCategories/productCategories.js"></script>
+<script src="app/components/apps/systemUsers/systemUsers.js"></script>
+<script src="app/components/apps/stores/stores.js"></script>
+
+<script src="app/shared/directives.js"></script>
+<script src="app/shared/filters.js"></script>
+
+<script src="https://cdn.auth0.com/js/lock/11.0.1/lock.min.js"></script>
+
+<script src="app/shared/services.js"></script>
+<script src="app/services/authService.js"></script>
+<script src="app/services/DataService.api.js"></script>
+<script src="app/services/WooService.js"></script>
+<script src="app/services/OldDataService.js"></script>
+<script src="app/services/MessagingService.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/what-input/4.1.6/what-input.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.1/js/foundation.js"></script>
+
+<script>
+    $(document).foundation();
+</script>
+
+
+</body>
+</html>

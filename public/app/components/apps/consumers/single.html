@@ -1,0 +1,639 @@
+<div class="inner-view">
+    <form class=""
+          name="singleConsumerForm"
+          id="singleConsumerForm"
+          ng-submit="updateSingleConsumer()">
+        <fieldset ng-disabled="!form.edit" ng-if="view.record">
+            <input type="hidden" id="longitude" name="longitude" ng-model="form.user.longitude">
+            <input type="hidden" id="latitude" name="latitude" ng-model="form.user.latitude">
+
+            <div class="record-content">
+
+                <div class="cell small-12 record-title">
+                    <div class="grid-x small-12 form-list">
+                        <div class="small-3 cell avatar-cell">
+                            <img class="avatar" src="app/assets/svgs/img_default_userimg.svg">
+                        </div>
+
+                        <div class="small-9 cell record-name">
+                            <span
+                                    ng-bind="form.user.cuNameLast"
+                                    ng-if="form.user.cuNameLast"
+                            ></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cell small-12 record-data">
+
+                    <div class="grid-x small-12 form-list">
+
+                        <!-- Customer ID -->
+                        <div class="grid-x small-12" ng-if="form.user.cuCustomerID || form.edit">
+
+                            <div  class="small-3 cell">
+                                <label for="cuCustomerID" class="text-right middle">
+                                    Consumer ID
+                                </label>
+                            </div>
+                            <div class="small-9 cell">
+                                <input
+
+                                        id="cuCustomerID"
+                                        name="cuCustomerID"
+                                        type="text"
+                                        placeholder="Customer ID"
+                                        ng-model="form.user.cuCustomerID"
+                                        ng-disabled="true"
+                                >
+                            </div>
+
+                        </div>
+                        <!-- Utility ID -->
+                        <div class="grid-x small-12" ng-if="form.user.cuUtilityID|| form.edit">
+
+                            <div  class="small-3 cell">
+                                <label for="cuUtilityID" class="text-right middle">
+                                    Utility
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <select
+
+                                        id="cuUtilityID"
+                                        name="cuUtilityID"
+                                        type="text"
+                                        placeholder="Utility ID"
+                                        ng-if="form.edit"
+                                        ng-model="utilitySelect"
+                                        ng-options="utility.utName for utility in utilities"
+                                        ng-change="onUtilitySelected(utilitySelect)"
+                                >
+                                </select>
+
+                                <span
+                                        ng-bind="selectedUtility.utName"
+                                        ng-if="selectedUtility.utName && !form.edit"
+                                ></span>
+                            </div>
+
+                        </div>
+                        <!-- First Name -->
+                        <div class="grid-x small-12" ng-if="form.user.cuNameFirst|| form.edit">
+                            <div  class="small-3 cell">
+                                <label
+                                        for="cuNameFirst"
+                                        class="text-right middle"
+                                >
+                                    First Name
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <input
+
+                                        id="cuNameFirst"
+                                        name="cuNameFirst"
+                                        type="text"
+                                        ng-model="form.user.cuNameFirst"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.cuNameFirst"
+                                        ng-if="form.user.cuNameFirst && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Last Name -->
+                        <div class="grid-x small-12" ng-if="form.user.cuNameLast|| form.edit">
+                            <div  class="small-3 cell">
+                                <label
+                                        for="cuNameLast"
+                                        class="text-right middle"
+                                >
+                                    Last Name
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <input
+
+                                        id="cuNameLast"
+                                        name="cuNameLast"
+                                        type="text"
+                                        ng-model="form.user.cuNameLast"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.cuNameLast"
+                                        ng-if="form.user.cuNameLast && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Active -->
+                        <div class="grid-x small-12" ng-if="form.user.cuActive|| form.edit">
+                            <div  class="small-3 cell">
+                                <label
+                                        for="cuActive"
+                                        class="text-right middle"
+                                >
+                                    Active
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <input
+
+                                        id="cuActive"
+                                        name="cuActive"
+                                        type="text"
+                                        ng-model="form.user.cuActive"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.cuActive"
+                                        ng-if="form.user.cuActive && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Consumer Type ID -->
+                        <div class="grid-x small-12" ng-if="form.user.cuCustomerTypeID|| form.edit">
+
+                            <div  class="small-3 cell">
+                                <label for="cuCustomerTypeID" class="text-right middle">
+                                    Consumer Type
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <select
+
+                                        id="cuCustomerTypeID"
+                                        name="cuCustomerTypeID"
+                                        type="text"
+                                        placeholder="Consumer Type ID"
+                                        ng-if="form.edit"
+                                        ng-model="consumerTypeSelect"
+                                        ng-options="consumerType.ctCustomerType for consumerType in consumerTypes"
+                                        ng-change="onConsumerTypeSelected(consumerTypeSelect)"
+                                >
+                                </select>
+
+                                <span
+                                        ng-bind="selectedConsumerType.ctCustomerType"
+                                        ng-if="selectedConsumerType.ctCustomerType && !form.edit"
+                                ></span>
+                            </div>
+
+                        </div>
+                        <!-- Utility Customer Account Number -->
+                        <div class="grid-x small-12" ng-if="form.user.cuUtilityCustomerAccountNo|| form.edit">
+                            <div  class="small-3 cell">
+                                <label
+                                        for="cuUtilityCustomerAccountNo"
+                                        class="text-right middle"
+                                >
+                                    Utility Customer Account Number
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <input
+
+                                        id="cuUtilityCustomerAccountNo"
+                                        name="cuUtilityCustomerAccountNo"
+                                        type="text"
+                                        ng-model="form.user.cuUtilityCustomerAccountNo"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.cuUtilityCustomerAccountNo"
+                                        ng-if="form.user.cuUtilityCustomerAccountNo && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Address -->
+                        <div class="grid-x small-12 address-cell"
+                             ng-if="
+                             form.user.cuAddress ||
+                             form.user.cuAddress2 ||
+                             form.user.cuCity ||
+                             form.user.cuState ||
+                             form.user.cuZip ||
+                             form.edit
+                            "
+                        >
+
+                            <div class="small-3 cell">
+                                <label for="cuAddress" class="text-right middle">
+                                    Address
+                                </label>
+                            </div>
+                            <div class="small-9 cell">
+                                <div class="input-group" >
+                                    <input
+                                            id="cuAddress"
+                                            name="cuAddress"
+                                            type="text"
+                                            placeholder="Street"
+                                            ng-model="form.user.cuAddress"
+                                            ng-if="form.edit"
+                                    >
+                                    <span
+                                            ng-bind="form.user.cuAddress"
+                                            ng-if="form.user.cuAddress && !form.edit"
+                                    ></span>
+                                    <br>
+                                </div>
+
+
+                                <div class="input-group" ng-if="form.user.cuAddress2 && !form.edit">
+                                    <input
+                                            id="cuAddress2"
+                                            name="cuAddress2"
+                                            type="text"
+                                            placeholder="Street 2"
+                                            ng-model="form.user.cuAddress2"
+                                            ng-if="form.edit"
+                                    >
+                                    <span
+                                            ng-bind="form.user.cuAddress2"
+                                            ng-if="form.user.cuAddress2 && !form.edit"
+                                    ></span>
+                                    <br>
+                                </div>
+
+
+                                <div class="input-group" >
+                                    <div >
+                                        <input
+                                                ng-if="form.edit"
+                                                type="text"
+                                                id="cuCity"
+                                                name="cuCity"
+                                                placeholder="City"
+                                                ng-model="form.user.cuCity"
+                                                ng-if="form.edit"
+                                        >
+                                        <span
+                                                ng-bind="form.user.cuCity"
+                                                ng-if="form.user.cuCity && !form.edit"
+                                        ></span>
+                                    </div>
+
+                                    <div ng-if="form.user.cuState && !form.edit">
+                                        <input ng-if="form.edit"
+
+                                               id="cuState"
+                                               name="cuState"
+                                               type="text"
+                                               placeholder="State"
+                                               ng-model="form.user.cuState"
+                                        >
+                                        <span
+                                                ng-bind="form.user.cuState"
+                                                ng-if="form.user.cuState && !form.edit"
+                                        ></span>
+
+                                    </div>
+                                    <div ng-if="form.user.cuZip && !form.edit">
+                                        <input
+                                                ng-if="form.edit"
+                                                type="text"
+                                                id="cuZip"
+                                                name="cuZip"
+                                                placeholder="Zip"
+                                                ng-model="form.user.cuZip"
+                                        >
+                                        <span
+                                                ng-bind="form.user.cuZip"
+                                                ng-if="form.user.cuZip && !form.edit"
+                                        ></span>
+                                    </div>
+                                </div>
+
+                                <!-- The field name is utCounty, however after examining the data, the field is actually used for Country not County -->
+                                <div class="input-group">
+                                    <br>
+                                    <input
+                                            id="cuCounty"
+                                            name="cuCounty"
+                                            type="text"
+                                            placeholder="Country"
+                                            ng-model="form.user.cuCounty"
+                                            ng-if="form.edit"
+                                    >
+                                    <span
+                                            ng-bind="form.user.cuCounty"
+                                            ng-if="form.user.cuCounty && !form.edit"
+                                    ></span>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <!-- Mailing Address -->
+                        <div class="grid-x small-12 address-cell"
+                             ng-if="
+                             form.user.cuMailAddress ||
+                             form.user.cuMailAddress2 ||
+                             form.user.cuMailCity ||
+                             form.user.cuMailState ||
+                             form.user.cuMailZip ||
+                             form.edit
+                            "
+                        >
+
+                            <div class="small-3 cell">
+                                <label for="cuMailAddress" class="text-right middle">
+                                    Mail Address
+                                </label>
+                            </div>
+                            <div class="small-9 cell">
+                                <div class="input-group" ng-if="form.user.cuMailAddress || form.edit">
+                                    <input
+                                            id="cuMailAddress"
+                                            name="cuMailAddress"
+                                            type="text"
+                                            placeholder="Street"
+                                            ng-model="form.user.cuMailAddress"
+                                            ng-if="form.edit"
+                                    >
+                                    <span
+                                            ng-bind="form.user.cuMailAddress"
+                                            ng-if="form.user.cuMailAddress && !form.edit"
+                                    ></span>
+                                    <br>
+                                </div>
+
+
+                                <div class="input-group" ng-if="form.user.cuMailAddress2 || form.edit">
+                                    <input
+                                            id="cuMailAddress2"
+                                            name="cuMailAddress2"
+                                            type="text"
+                                            placeholder="Street 2"
+                                            ng-model="form.user.cuMailAddress2"
+                                            ng-if="form.edit"
+                                    >
+                                    <span
+                                            ng-bind="form.user.cuMailAddress2"
+                                            ng-if="form.user.cuMailAddress2 && !form.edit"
+                                    ></span>
+                                    <br>
+                                </div>
+
+
+                                <div class="input-group" ng-if="form.user.cuMailCity || form.edit">
+                                    <div >
+                                        <input
+                                                ng-if="form.edit"
+                                                type="text"
+                                                id="cuMailCity"
+                                                name="cuMailCity"
+                                                placeholder="City"
+                                                ng-model="form.user.cuMailCity"
+                                                ng-if="form.edit"
+                                        >
+                                        <span
+                                                ng-bind="form.user.cuMailCity"
+                                                ng-if="form.user.cuMailCity && !form.edit"
+                                        ></span>
+                                    </div>
+
+                                    <div ng-if="form.user.cuMailState ">
+                                        <input ng-if="form.edit"
+
+                                               id="cuMailState"
+                                               name="cuMailState"
+                                               type="text"
+                                               placeholder="State"
+                                               ng-model="form.user.cuMailState"
+                                        >
+                                        <span
+                                                ng-bind="form.user.cuMailState"
+                                                ng-if="form.user.cuMailState && !form.edit"
+                                        ></span>
+
+                                    </div>
+                                    <div ng-if="form.user.cuMailZip && !form.edit">
+                                        <input
+                                                ng-if="form.edit"
+                                                type="text"
+                                                id="cuMailZip"
+                                                name="cuMailZip"
+                                                placeholder="Zip"
+                                                ng-model="form.user.cuMailZip"
+                                        >
+                                        <span
+                                                ng-bind="form.user.cuMailZip"
+                                                ng-if="form.user.cuMailZip && !form.edit"
+                                        ></span>
+                                    </div>
+                                </div>
+
+                                <!-- The field name is utCounty, however after examining the data, the field is actually used for Country not County -->
+                                <div class="input-group" ng-if="form.user.cuMailCounty || form.edit" >
+
+                                    <input
+                                            id="cuMailCounty"
+                                            name="cuMailCounty"
+                                            type="text"
+                                            placeholder="Country"
+                                            ng-model="form.user.cuMailCounty"
+                                            ng-if="form.edit"
+                                    >
+                                    <span
+                                            ng-bind="form.user.cuMailCounty"
+                                            ng-if="form.user.cuMailCounty && !form.edit"
+                                    ></span>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <!-- Customer Office Phone -->
+                        <div class="grid-x small-12" ng-if="form.user.cuPhone|| form.edit">
+                            <div  class="small-3 cell">
+                                <label
+                                        for="cuPhone"
+                                        class="text-right middle"
+                                >
+                                    Office Phone
+                                </label>
+                            </div>
+                            <div class="small-9 cell" >
+                                <input
+
+                                        id="cuPhone"
+                                        name="cuPhone"
+                                        type="text"
+                                        ng-model="form.user.cuPhone"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.cuPhone"
+                                        ng-if="form.user.cuPhone && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Customer Mobile Phone -->
+                        <div class="grid-x small-12" ng-if="form.user.cuMobile|| form.edit">
+                            <div  class="small-3 cell">
+                                <label
+                                        for="cuMobile"
+                                        class="text-right middle"
+                                >
+                                    Mobile Phone
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <input
+
+                                        id="cuMobile"
+                                        name="cuMobile"
+                                        type="text"
+                                        ng-model="form.user.cuMobile"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.cuMobile"
+                                        ng-if="form.user.cuMobile && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Customer Fax -->
+                        <div class="grid-x small-12" ng-if="form.user.cuFax|| form.edit">
+                            <div  class="small-3 cell">
+                                <label
+                                        for="cuFax"
+                                        class="text-right middle"
+                                >
+                                    Fax
+                                </label>
+                            </div>
+                            <div class="small-9 cell">
+                                <input
+
+                                        id="cuFax"
+                                        name="cuFax"
+                                        type="text"
+                                        ng-model="form.user.cuFax"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.cuFax"
+                                        ng-if="form.user.cuFax && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Customer Notes -->
+                        <div class="grid-x small-12" ng-if="form.user.cuNotes|| form.edit">
+                            <div  class="small-3 cell">
+                                <label
+                                        for="cuNotes"
+                                        class="text-right middle"
+                                >
+                                    Notes
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <input
+
+                                        id="cuNotes"
+                                        name="cuNotes"
+                                        type="text"
+                                        ng-model="form.user.cuNotes"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.cuNotes"
+                                        ng-if="form.user.cuNotes && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Customer Email -->
+                        <div class="grid-x small-12" ng-if="form.user.eMail|| form.edit">
+                            <div  class="small-3 cell">
+                                <label
+                                        for="eMail"
+                                        class="text-right middle"
+                                >
+                                    Notes
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <input
+
+                                        id="eMail"
+                                        name="eMail"
+                                        type="text"
+                                        ng-model="form.user.eMail"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.eMail"
+                                        ng-if="form.user.eMail && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Record Created -->
+                        <div class="grid-x small-12" ng-if="form.user.cuRecCreated || form.edit">
+                            <div  class="small-3 cell">
+                                <label for="cuRecCreated" class="text-right middle">
+                                    Record Created
+                                </label>
+                            </div>
+                            <div class="small-9 cell">
+                                <input
+
+                                        id="cuRecCreated"
+                                        name="cuRecCreated"
+                                        ng-model="form.user.cuRecCreated"
+                                        ng-disabled="true"
+                                        ng-if="false"
+                                >
+                                <span
+                                        ng-bind="form.user.cuRecCreated | date : timeDateFormat"
+                                        ng-if="form.user.cuRecCreated || form.edit"
+                                ></span>
+
+                            </div>
+                        </div>
+                        <!-- Record Modified -->
+                        <div class="grid-x small-12" ng-if="form.user.cuRecModified || form.edit">
+                            <div  class="small-3 cell">
+                                <label for="cuRecModified" class="text-right middle">
+                                    Record Modified
+                                </label>
+                            </div>
+                            <div class="small-9 cell">
+                                <input
+
+                                        id="cuRecModified"
+                                        name="cuRecModified"
+                                        ng-model="form.user.cuRecModified"
+                                        ng-disabled="true"
+                                        ng-if="false"
+                                >
+                                <span
+                                        ng-bind="form.user.cuRecModified | date : timeDateFormat"
+                                        ng-if="form.user.cuRecModified || form.edit"
+                                ></span>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

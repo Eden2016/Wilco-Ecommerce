@@ -1,0 +1,134 @@
+// a flag to toggle asset pipeline / compass integration
+// defaults to true if twbs-font-path function is present (no function => twbs-font-path('') parsed as string == right side)
+// in Sass 3.3 this can be improved with: function-exists(twbs-font-path);
+//
+// Variables
+// --------------------------------------------------
+
+// ~~ global theme
+
+// Standard Colors
+$color-black: #000000 !default;
+$color-white: #ffffff !default;
+
+
+$white: white;
+
+// Customer Color Pallete
+
+$color-1: #025129 !default;
+$color-2: #26678f !default;
+$color-3: #d38000 !default;
+$color-4: #0755a0 !default;
+$color-5: #006837 !default;
+$color-6: #72a6c9 !default;
+$color-7: #000000 !default;
+$color-8: #000000 !default;
+
+
+$light-blue: #D7EEFB;
+$off-white: #F9F9F9;
+$light-grey: #E7E7E7;
+$medium-grey: #E4E6E8;
+$dark-grey: #D6D8DB;
+$darkest-grey: #848484;
+
+$app-menu-text: #464647;
+
+
+
+$table-break: 64em;
+$phone-break: 650px;
+
+
+// Header Fonts Size & Color
+$h1content: #025129 !default;
+// size
+$h1size: 36px !default;
+
+$h2content: #3480ac !default;
+// size
+$h2size: 28px !default;
+
+$h3content: #3480ac!default;
+// size
+$h3size: 24px !default;
+
+$h4content: #3480ac!default;
+// size
+$h4size: 20px !default;
+
+$h5content: #3480ac!default;
+// size
+$h5size: 18px !default;
+
+$h6content: #3480ac!default;
+// size
+$h6size: 18px !default;
+
+// Footer
+$footerWidgetTitle: #006837 !default;
+$footerWidgetMenu: #006837 !default;
+$footerWidgetMenuHover: #006837 !default;
+$footerCopyrightText:#42210b !default;
+$footerMenu: #42210b !default;
+
+
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
+
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+  @if $inset {
+    -webkit-box-shadow:inset $top $left $blur $color;
+    -moz-box-shadow:inset $top $left $blur $color;
+    box-shadow:inset $top $left $blur $color;
+  } @else {
+    -webkit-box-shadow: $top $left $blur $color;
+    -moz-box-shadow: $top $left $blur $color;
+    box-shadow: $top $left $blur $color;
+  }
+}
+
+
+.breakURL {
+  /* These are technically the same, but use both */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  word-break: break-all;
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.breakWords {
+  /* These are technically the same, but use both */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  //-ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  //word-break: break-all;
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  white-space: unset;
+}

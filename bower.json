@@ -1,0 +1,36 @@
+{
+  "name": "esg_database",
+  "description": "",
+  "main": "app.js",
+  "authors": [
+    "Alex Hathaway <alex@hathaway.xyz>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/assets/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-route": "^1.6.4",
+    "angular-mocks": "^1.6.4",
+    "angular-cookies": "^1.6.4",
+    "angular-loader": "^1.6.4",
+    "angular-sanitize": "^1.6.4",
+    "angular": "angularjs#^1.6.4",
+    "angular-scenario": "^1.6.4",
+    "angular-resource": "^1.6.4",
+    "modernizr": "^3.5.0",
+    "jquery": "^3.2.1",
+    "ngstorage": "^0.3.11",
+    "angular-jwt": "^0.1.9",
+    "auth0-lock": "^10.19.0",
+    "angular-lock": "^2.0.3",
+    "ngmap": "^1.18.4"
+  }
+}

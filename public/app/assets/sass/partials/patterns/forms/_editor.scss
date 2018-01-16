@@ -1,0 +1,259 @@
+
+
+
+
+
+.record-content {
+
+  padding: 0;
+  padding-left: 10px;
+
+  input:disabled, input[readonly], textarea:disabled, textarea[readonly] {
+    background-color: transparent;
+    cursor: not-allowed;
+    border: 1px solid rgba(202, 202, 202, 0);
+    -webkit-box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0);
+    box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0);
+  }
+
+
+  .form-list {
+    transition: all 0.5s ease;
+    .grid-x {
+      padding: 20px 10px 0 0;
+      margin-bottom: 0;
+
+    }
+
+    .small-12 {
+      transition: all 0.5s ease;
+    }
+    .small-9 {
+      transition: all 0.5s ease;
+      padding-top: 4px;
+      span {
+        display: block;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        width: 100%;
+        height: 2.4375rem;
+        margin: 0 0 1rem;
+        padding: .5rem;
+        font-family: inherit;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #0a0a0a;
+      }
+    }
+
+
+    .avatar-cell {
+
+      padding-right:10px;
+    }
+
+    .record-name {
+      border-bottom:0px solid #e7e7e7;
+      padding-right:10px;
+
+      input,span {
+        font-size: 45px;
+        //margin-top: 24px;
+        color:#464647;
+        height: auto;
+
+
+      }
+    }
+
+    .address-cell,.multi-line {
+
+      div {
+        display: block;
+        height:auto;
+      }
+
+      .input-group {
+        margin-bottom:0;
+      }
+
+      .input-group:first-child {
+        padding-top: .5rem;
+      }
+      .input-group:last-child {
+        span {
+          padding-bottom: .5rem;
+        }
+      }
+      span {
+        float:left;
+        width:auto;
+        margin-bottom:0;
+        position:relative;
+        transition: all 0.1s ease;
+        opacity:1;
+        height:auto;
+        padding-top:0;
+        padding-bottom:0;
+      }
+
+      input {
+        width: auto;
+        float: left;
+        padding-right: 0;
+        transition: all 0.1s ease;
+        //left:100%;
+        position:relative;
+      }
+
+    }
+
+    .multi-line {
+      input {
+        width:100%;
+        margin: 0;
+        line-height: 1;
+        padding: 2px 10px;
+        height: auto;
+        margin-bottom: 2px;
+      }
+      .input-group {
+        display: inline-block;
+      }
+      .input-group:last-child {
+        margin-bottom:4px;
+      }
+    }
+
+
+
+
+
+    label {
+      color:#999999;
+      font-size:16.5px;
+    }
+
+
+    input {
+      transition: all 0.5s ease;
+    }
+
+    /* Have to set height explicity on ui-view
+    to prevent collapsing during animation*/
+    div {
+      position: relative;
+      height: 100%;
+      -webkit-transition:all .03s ease-in-out;
+      -moz-transition:all .03s ease-in-out;
+      -o-transition:all .03s ease-in-out;
+      transition:all .03s ease-in-out;
+    }
+
+    div.ng-enter, .slide-in.ng-leave {
+      position: relative;
+
+      -webkit-transition:all .03s ease-in-out;
+      -moz-transition:all .03s ease-in-out;
+      -o-transition:all .03s ease-in-out;
+      transition:all .03s ease-in-out;
+    }
+
+    div.ng-enter {
+      opacity: 0;
+    }
+
+    .slide-in.ng-enter-active {
+      opacity: 1;
+    }
+
+    div.ng-leave {
+      opacity: 1;
+      top:100px;
+    }
+
+    div.ng-leave-active {
+      opacity: 0;
+
+    }
+  }
+
+
+
+
+
+
+
+}
+
+.editing.single-view {
+  padding-bottom: 100px;
+}
+
+.editing {
+
+
+  .record-data {
+    .form-list {
+      .small-9 {
+
+      }
+    }
+  }
+
+  .title-bar-bottom {
+    bottom:0!important;
+  }
+
+  .form-list {
+    .small-12 {
+      border-bottom:1px solid #e7e7e7;
+    }
+
+    .record-name {
+      input {
+        font-size: inherit;
+        color: black;
+        height: auto;
+        margin-top: 24px;
+      }
+    }
+
+    .address-cell,.multi-line {
+      span {
+        opacity:0;
+        display:none;
+      }
+      input {
+        width: 100%!important;
+        left:0!important;
+      }
+    }
+    .input-group:first-child {
+      padding-top: 0rem;
+    }
+    .multi-line {
+      input {
+        margin: 0 0 1rem;
+        padding: .5rem;
+      }
+    }
+  }
+
+
+}
+
+
+.products-app {
+	.record-content 
+	{
+		.form-list {
+			.small-9 {
+				span {
+					height: auto;
+				}
+			}
+		}
+	}
+}

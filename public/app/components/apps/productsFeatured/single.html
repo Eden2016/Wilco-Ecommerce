@@ -1,0 +1,200 @@
+<div class="inner-view" ng-if="!form.user.item_number" style="padding-left: 2rem">
+    <p>On this screen you can manage featured products on the online store.</p>
+    <ol>
+        <li>Drag and drop items on the left to reorder products in the online store carousel.</li>
+        <li>Click the STAR icons next to the product name to instantly unfeature a product.</li>
+        <li>Click on a product to edit the featured schedule.</li>
+    </ol>
+  </div>
+<div class="inner-view" ng-if="!!form.user.item_number">
+    <form class=""
+          name="singleProductForm"
+          id="singleProductForm"
+          ng-submit="updateSingleProduct()">
+         
+        <fieldset ng-disabled="!form.edit" ng-if="view.record">
+            <input type="hidden" id="longitude" name="longitude" ng-model="form.user.longitude">
+            <input type="hidden" id="latitude" name="latitude" ng-model="form.user.latitude">
+
+            <div class="record-content">
+
+                <div class="cell small-12 record-data">
+
+                    <div class="grid-x small-12 form-list">
+
+                            <div class="grid-x small-12" ng-if="form.new">
+                                    <div  class="small-3 cell">
+                                        <label
+                                                for="relatedSKUs"
+                                                class="text-right middle"
+                                        >
+                                            Related SKUs
+                                        </label>
+                                    </div>
+                                    <div  class="small-9 cell">
+                                        <span ng-if="form.user.related_skus">
+                                            <span
+                                                    ng-repeat="related in form.user.related_skus"
+                                                    class="list-item"
+                                                    ng-click="removeRelated(related)">
+                                                <span class='wicon-remove' ng-if="form.edit"></span> {{related}}{{$last ? '' : ', '}}
+                                            </span>
+                                        </span>
+                                        <select 
+                                            id="relatedSKUs" 
+                                            name="relatedSKUs" 
+                                            ng-if="form.edit">
+                                                <option value='' selected disabled>Please choose</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                        <!-- Product Name -->
+                        <div class="grid-x small-12" ng-if="!form.new">
+
+                            <div  class="small-3 cell">
+                                <label for="productName" class="text-right middle">
+                                    Product Name
+                                </label>
+                            </div>
+                            <div class="small-9 cell">
+                                <input
+
+                                        id="productName"
+                                        name="productName"
+                                        type="text"
+                                        placeholder="Product Name"
+                                        ng-model="form.user.product_name"
+                                        ng-if="form.edit"
+                                >
+                                <span
+                                        ng-bind="form.user.product_name"
+                                        ng-if="form.user.product_name && !form.edit"
+                                ></span>
+                            </div>
+
+                        </div>
+                        
+
+
+                        <!-- Is Featured -->
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label
+                                        for="is-featured"
+                                        class="text-right middle"
+                                >
+                                    Featured Item
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <input
+                                        id="is-featured"
+                                        name="is-featured"
+                                        type="checkbox"
+                                        ng-model="form.user.is_featured"
+                                        ng-if="form.edit"
+                                        ng-true-value="1"
+                                        ng-false-value="0"
+                                >
+                                <span
+                                        ng-if="form.user.is_featured && !form.edit"
+                                >Featured</span>
+                                <span
+                                        ng-if="!form.user.is_featured && !form.edit"
+                                >Not Featured</span>
+                            </div>
+                        </div>
+                        <!-- Has Date Range -->
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label
+                                        for="has-date-range"
+                                        class="text-right middle"
+                                        ng-if="!form.edit || (form.user.is_featured && form.edit)"
+                                >
+                                    Has Date Range
+                                </label>
+                            </div>
+                            <div class="small-9 cell">
+                                <!-- TODO: Make ng-if depdendent on form.user.is_featured-->
+                                <input
+                                        id="has-date-range"
+                                        name="has-date-range"
+                                        type="checkbox"
+                                        ng-model="form.user.has_date_range"
+                                        ng-if="form.user.is_featured && form.edit"
+                                        ng-true-value="1"
+                                        ng-false-value="0"
+                                >
+                                <span
+                                        ng-if="form.user.has_date_range && !form.edit"
+                                >Yes</span>
+                                <span
+                                        ng-if="!form.user.has_date_range && !form.edit"
+                                >No</span>
+                            </div>
+                        </div>
+                        <!-- Start Date -->
+                        <div class="grid-x small-12" ng-if="form.user.is_featured && form.user.has_date_range">
+                            <div  class="small-3 cell">
+                                <label for="start-date" class="text-right middle">
+                                    Start Date
+                                </label>
+                            </div>
+                            <div class="small-9 cell">
+                                <date-picker
+                                        id="start-date"
+                                        class="start-date"
+                                        ng-model="form.user.start_date"
+                                        format="{{dayDateFormat}}"
+                                        language="en"
+                                        ng-if="form.edit"
+                                        today="true"
+
+                                >
+                                </date-picker>
+                                <span
+                                        ng-bind="form.user.start_date | date : timeDateFormat"
+                                        ng-if="form.user.start_date && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- End Date -->
+                        <div class="grid-x small-12" ng-if="form.user.is_featured && form.user.has_date_range">
+                            <div  class="small-3 cell">
+                                <label for="end-date" class="text-right middle">
+                                    End Date
+                                </label>
+                            </div>
+                            <div class="small-9 cell">
+
+                                <date-picker
+                                        id="end-date"
+                                        class="end-date"
+                                        ng-model="form.user.end_date"
+                                        format="{{dayDateFormat}}"
+                                        language="en"
+                                        ng-if="form.edit"
+                                        today="true"
+                                >
+                                </date-picker>
+
+                                <span
+                                        ng-bind="form.user.end_date | date : timeDateFormat"
+                                        ng-if="form.user.end_date && !form.edit"
+                                ></span>
+
+                            </div>
+                        </div>
+
+
+                        
+                    </div>
+                    
+
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

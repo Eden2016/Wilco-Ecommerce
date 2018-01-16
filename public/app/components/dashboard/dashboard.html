@@ -1,0 +1,39 @@
+<section class="dashboard" ng-controller="DashboardCtrl">
+    <div class="grid-x grid-padding-x ">
+        <div class="cell small-12">
+            <nav class="top-bar topbar-responsive">
+                <div class="top-bar-title">
+
+                    <a class="topbar-responsive-logo" href="#"><strong>Wilco Middleware Tools</strong></a>
+                </div>
+                <div id="topbar-responsive" class="topbar-responsive-links">
+                    <div user-nav class="app-user-nav"></div>
+                </div>
+            </nav>
+
+
+        </div>
+
+
+    </div>
+
+    <div class="inner-view">
+
+        <section class="dashboard-main">
+            <div class="grid-x grid-padding-x align-center-middle text-center" >
+                <div class="cell small-6 medium-4"><img class="logo" src="app/assets/svgs/w_wilco_logo_white.svg"></div>
+            </div>
+
+            <section class="app_nav">
+                <ul class="grid-x grid-padding-x list-style-none" app-nav></ul>
+            </section>
+        </section>
+
+    </div>
+
+
+</section>
+
+<script>
+    $(document).foundation();
+</script>

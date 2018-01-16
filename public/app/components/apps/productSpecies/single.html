@@ -1,0 +1,74 @@
+<div class="inner-view">
+    <form class=""
+          name="singleProductForm"
+          id="singleProductForm"
+          ng-submit="updateSingleProductSpecies()">
+        <fieldset ng-disabled="!form.edit" ng-if="view.record">
+            <input type="hidden" id="longitude" name="longitude" ng-model="form.user.longitude">
+            <input type="hidden" id="latitude" name="latitude" ng-model="form.user.latitude">
+
+            <div class="record-content">
+
+                <div class="cell small-12 record-data">
+
+                    <div class="grid-x small-12 form-list">
+
+                        <!-- Product Name -->
+                        <div class="grid-x small-12">
+
+                            <div  class="small-3 cell">
+                                <label for="speciesName" class="text-right middle">
+                                    Species Name
+                                </label>
+                            </div>
+                            <div class="small-9 cell">
+                                <input
+
+                                        id="speciesName"
+                                        name="speciesName"
+                                        type="text"
+                                        placeholder="Species Name"
+                                        ng-model="form.user.species_name"
+                                        ng-if="form.edit"
+                                >
+                                <span
+                                        ng-bind="form.user.species_name"
+                                        ng-if="form.user.species_name && !form.edit"
+                                ></span>
+                            </div>
+
+                        </div>
+
+                        <!-- Product Description -->
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label for="description"class="text-right middle">
+                                    Description
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <textarea
+
+                                        id="description"
+                                        name="description"
+                                        type="text"
+                                        placeholder="Description"
+                                        ng-model="form.user.description"
+                                        ng-if="form.edit"
+                                >
+                                {{form.user.description}}
+                                </textarea>
+                                <span
+                                        ng-bind="form.user.description"
+                                        ng-if="form.user.description && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

@@ -1,0 +1,556 @@
+<div class="inner-view">
+    <form class=""
+          name="singleUtilityForm"
+          id="singleUtilityForm"
+          ng-submit="updateSingleUtility()">
+        <fieldset ng-disabled="!form.edit" ng-if="view.record">
+            <input type="hidden" id="longitude" name="longitude" ng-model="form.user.longitude">
+            <input type="hidden" id="latitude" name="latitude" ng-model="form.user.latitude">
+
+            <div class="record-content">
+
+                <div class="cell small-12 record-title">
+                    <div class="grid-x small-12 form-list">
+                        <div class="small-3 cell avatar-cell">
+                            <img class="avatar" src="app/assets/svgs/img_default_userimg.svg">
+                        </div>
+
+                        <div class="small-9 cell record-name">
+                            <input 
+                                   id="utName"
+                                   name="utName"
+                                   type="text"
+                                   placeholder="Name"
+                                   ng-model="form.user.utName"
+                                   ng-if="form.edit"
+                                   ng-required="true"
+                            >
+                            <span
+                                    ng-bind="form.user.utName"
+                                    ng-if="form.user.utName && !form.edit"
+                            ></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="cell small-12 record-data">
+                    <div class="grid-x small-12 form-list">
+                        <div class="grid-x small-12" ng-if="form.user.utUtilityID || form.edit">
+
+                            <div ng-if="form.user.utUtilityID || form.edit" class="small-3 cell">
+                                <label for="utUtilityID" class="text-right middle">
+                                    Utility ID
+                                </label>
+                            </div>
+                            <div ng-if="form.user.utUtilityID || form.edit" class="small-9 cell">
+                                <input
+                                        
+                                        id="utUtilityID"
+                                        name="utUtilityID"
+                                        type="text"
+                                        placeholder="Utility ID"
+                                        ng-model="form.user.utUtilityID"
+                                        ng-disabled="true"
+                                >
+                            </div>
+
+                        </div>
+                        <div class="grid-x small-12 address-cell"
+                             ng-if="
+                             form.user.utAddress ||
+                             form.user.utAddress2 ||
+                             form.user.utCity ||
+                             form.user.utState ||
+                             form.user.utZip ||
+                             form.edit
+                            "
+                        >
+
+                            <div class="small-3 cell">
+                                <label for="utAddress" class="text-right middle">
+                                    Address
+                                </label>
+                            </div>
+                            <div class="small-9 cell">
+                                <div class="input-group" ng-if="form.user.utAddress">
+                                    <input 
+                                           id="utAddress"
+                                           name="utAddress"
+                                           type="text"
+                                           placeholder="Street"
+                                           ng-model="form.user.utAddress"
+                                           ng-if="form.edit"
+                                    >
+                                    <span
+                                            ng-bind="form.user.utAddress"
+                                            ng-if="form.user.utAddress && !form.edit"
+                                    ></span>
+                                    <br>
+                                </div>
+
+
+                                <div class="input-group"  ng-if="form.user.utAddress2">
+                                    <input 
+                                           id="utAddress2"
+                                           name="utAddress2"
+                                           type="text"
+                                           placeholder="Street 2"
+                                           ng-model="form.user.utAddress2"
+                                           ng-if="form.edit"
+                                    >
+                                    <span
+                                            ng-bind="form.user.utAddress2"
+                                            ng-if="form.user.utAddress2 && !form.edit"
+                                    ></span>
+                                    <br>
+                                </div>
+
+
+                                <div class="input-group" >
+                                    <div ng-if="form.user.utCity">
+                                        <input
+                                                ng-if="form.edit"
+                                                type="text"
+                                                id="utCity"
+                                                name="utCity"
+                                                placeholder="City"
+                                                ng-model="form.user.utCity"
+                                                ng-if="form.edit"
+                                        >
+                                        <span
+                                                ng-bind="form.user.utCity"
+                                                ng-if="form.user.utCity && !form.edit"
+                                        ></span>
+                                    </div>
+
+                                    <div ng-if="form.user.utState">
+                                        <input ng-if="form.edit"
+                                               
+                                               id="utState"
+                                               name="utState"
+                                               type="text"
+                                               placeholder="State"
+                                               ng-model="form.user.utState"
+                                        >
+                                        <span
+                                                ng-bind="form.user.utState"
+                                                ng-if="form.user.utState && !form.edit"
+                                        ></span>
+
+                                    </div>
+                                    <div ng-if="form.user.utZip ">
+                                        <input
+                                                ng-if="form.edit"
+                                                type="text"
+                                                id="utZip"
+                                                name="utZip"
+                                                placeholder="Zip"
+                                                ng-model="form.user.utZip"
+                                        >
+                                        <span
+                                                ng-bind="form.user.utZip"
+                                                ng-if="form.user.utZip && !form.edit"
+                                        ></span>
+                                    </div>
+
+
+
+
+                                </div>
+
+
+                                <!-- The field name is utCounty, however after examining the data, the field is actually used for Country not County -->
+                                <div class="input-group">
+                                    <br>
+                                    <input 
+                                           id="utCounty"
+                                           name="utCounty"
+                                           placeholder="Country"
+                                           ng-model="form.user.utCounty"
+                                           ng-if="form-edit"
+                                    >
+                                    <span
+                                            ng-bind="form.user.utCounty"
+                                            ng-if="form.user.utCounty && !form.edit"
+                                    ></span>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="grid-x small-12" ng-if="form.user['BPA ID Number'] || form.edit">
+                            <div ng-if="form.user['BPA ID Number'] || form.edit" class="small-3 cell">
+                                <label
+                                        for="bpaIdNumber"
+                                        class="text-right middle"
+                                >
+                                    Bonneville ID
+                                </label>
+                            </div>
+                            <div ng-if="form.user['BPA ID Number'] || form.edit" class="small-9 cell">
+                                <input
+                                        
+                                        id="bpaIdNumber"
+                                        name="bpaIdNumber"
+                                        type="text"
+                                        placeholder="Bonneville ID"
+                                        ng-model="form.user['BPA ID Number']"
+                                >
+                            </div>
+                        </div>
+                        <div class="grid-x small-12 multi-line"
+                             ng-if="form.user['Utility Contact'] || form.user['Utility Contact Phone'] || form.user['Utility Contact Email'] || form.edit">
+
+                            <div class="small-3 cell">
+                                <label for="utilityContact" class="text-right middle">
+                                    Contact
+                                </label>
+                            </div>
+                            <div class="small-9 cell">
+                                <div class="input-group" ng-if="form.user['Utility Contact'] || form.edit">
+                                    <input
+                                            id="utilityContact"
+                                            name="utilityContact"
+                                            type="text"
+                                            placeholder="Utility Contact"
+                                            ng-model="form.user['Utility Contact']"
+                                            ng-if="form.user['Utility Contact'] || form.edit"
+                                    >
+                                </div>
+                                <div class="input-group" ng-if="form.user['Utility Contact Phone'] || form.edit">
+                                    <input type="tel"
+                                           id="utilityContactPhone"
+                                           name="utilityContactPhone"
+                                           placeholder="Utility Contact Phone"
+                                           ng-model="form.user['Utility Contact Phone']"
+                                           ng-if="form.user['Utility Contact Phone'] || form.edit"
+                                    >
+                                </div>
+
+                                <div class="input-group" ng-if="form.user['Utility Contact Email'] || form.edit">
+                                    <input type="email"
+                                           id="utilityContactEmail"
+                                           name="utilityContactEmail"
+                                           placeholder="Utility Contact Email"
+                                           ng-model="form.user['Utility Contact Email']"
+                                           ng-if="form.user['Utility Contact Email'] || form.edit"
+                                    >
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="grid-x small-12" ng-if="form.user.utNotes || form.edit">
+                            <div ng-if="form.user.utNotes || form.edit" class="small-3 cell">
+                                <label for="utNotes" class="text-right middle">
+                                    Notes
+                                </label>
+                            </div>
+                            <div ng-if="form.user.utNotes || form.edit" class="small-9 cell">
+                                <textarea 
+                                          id="utNotes"
+                                          name="utNotes"
+                                          placeholder="Notes"
+                                          ng-model="form.user.utNotes"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <div class="grid-x small-12" ng-if="form.user['Cooling Zone'] || form.edit">
+                            <div ng-if="form.user['Cooling Zone'] || form.edit" class="small-3 cell">
+                                <label for="coolingZone" class="text-right middle">
+                                    Cooling Zone
+                                </label>
+                            </div>
+                            <div ng-if="form.user['Cooling Zone'] || form.edit" class="small-9 cell">
+                                <input 
+                                       id="coolingZone"
+                                       type="text"
+                                       name="coolingZone"
+                                       placeholder="Cooling Zone"
+                                       ng-model="form.user['Cooling Zone']"
+                                >
+                            </div>
+                        </div>
+                        <div class="grid-x small-12" ng-if="form.user['Heating Zone'] || form.edit">
+                            <div ng-if="form.user['Heating Zone'] || form.edit" class="small-3 cell">
+                                <label for="heatingZone" class="text-right middle">
+                                    Heating Zone
+                                </label>
+                            </div>
+                            <div ng-if="form.user['Heating Zone'] || form.edit" class="small-9 cell">
+                                <input 
+                                       id="heatingZone"
+                                       name="heatingZone"
+                                       type="text"
+                                       placeholder="Heating Zone"
+                                       ng-model="form.user['Heating Zone']"
+                                >
+                            </div>
+                        </div>
+                        <div class="grid-x small-12" ng-if="form.user.utActive || form.edit">
+                            <div ng-if="form.user.utActive || form.edit" class="small-3 cell">
+                                <label for="utActive" class="text-right middle">
+                                    Active
+                                </label>
+                            </div>
+                            <div ng-if="form.user.utActive || form.edit" class="small-9 cell">
+                                <div class="checkboxes">
+                                    <input
+                                            class="checkbox"
+                                            id="utActive"
+                                            name="utActive"
+                                            type="checkbox"
+                                            placeholder=""
+                                            ng-true-value="1"
+                                            ng-false-value="0"
+                                            ng-model="form.user.utActive"
+                                    >
+                                    <label  for="utActive"></label>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="grid-x small-12" ng-if="form.user['SRR Designation'] || form.edit">
+                            <div ng-if="form.user['SRR Designation'] || form.edit" class="small-3 cell">
+                                <label for="srrDesignation" class="text-right middle">
+                                    SRR Designation
+                                </label>
+                            </div>
+                            <div ng-if="form.user['SRR Designation'] || form.edit" class="small-9 cell">
+                                <input
+                                        
+                                        id="srrDesignation"
+                                        name="srrDesignation"
+                                        type="text"
+                                        placeholder=""
+                                        ng-model="form.user['SRR Designation']"
+                                >
+                            </div>
+                        </div>
+                        <div class="grid-x small-12" ng-if="form.user.utMainContact || form.edit">
+                            <div ng-if="form.user.utMainContact || form.edit" class="small-3 cell">
+                                <label for="utMainContact" class="text-right middle">
+                                    Main Contact
+                                </label>
+                            </div>
+                            <div ng-if="form.user.utMainContact || form.edit" class="small-9 cell">
+                                <input
+                                        
+                                        id="utMainContact"
+                                        name="utMainContact"
+                                        type="text"
+                                        placeholder="Main Contact"
+                                        ng-model="form.user.utMainContact"
+                                >
+                            </div>
+                        </div>
+                        <div class="grid-x small-12" ng-if="form.user.utMCPhone || form.edit">
+                            <div ng-if="form.user.utMCPhone || form.edit" class="small-3 cell">
+                                <label for="utMCPhone" class="text-right middle">
+                                    Main Contact Phone
+                                </label>
+                            </div>
+                            <div ng-if="form.user.utMCPhone || form.edit" class="small-9 cell">
+                                <input
+                                        type="tel"
+                                        id="utMCPhone"
+                                        name="utMCPhone"
+                                        placeholder="Main Contact Phone"
+                                        ng-model="form.user.utMCPhone"
+                                >
+                            </div>
+                        </div>
+                        <div class="grid-x small-12" ng-if="form.user.utMCMobile || form.edit">
+                            <div ng-if="form.user.utMCMobile || form.edit" class="small-3 cell">
+                                <label for="utMCMobile" class="text-right middle">
+                                    Main Contact Mobile
+                                </label>
+                            </div>
+                            <div ng-if="form.user.utMCMobile || form.edit" class="small-9 cell">
+                                <input
+                                        type="tel"
+                                        id="utMCMobile"
+                                        name="utMCMobile"
+                                        placeholder="Main Contact Mobile"
+                                        ng-model="form.user.utMCMobile"
+                                >
+                            </div>
+                        </div>
+                        <div class="grid-x small-12" ng-if="form.user.utMCFax || form.edit">
+                            <div ng-if="form.user.utMCFax || form.edit" class="small-3 cell">
+                                <label for="utMCFax" class="text-right middle">
+                                    Main Contact Fax
+                                </label>
+                            </div>
+                            <div ng-if="form.user.utMCFax || form.edit" class="small-9 cell">
+                                <input
+                                        type="tel"
+                                        id="utMCFax"
+                                        name="utMCFax"
+                                        placeholder="Main Contact Fax"
+                                        ng-model="form.user.utMCFax"
+                                >
+                            </div>
+                        </div>
+                        <div class="grid-x small-12" ng-if="form.user.utMCEmail || form.edit">
+                            <div ng-if="form.user.utMCEmail || form.edit" class="small-3 cell">
+                                <label for="utMCEmail" class="text-right middle">
+                                    Main Contact Email
+                                </label>
+                            </div>
+                            <div ng-if="form.user.utMCEmail || form.edit" class="small-9 cell">
+                                <input
+                                        type="email"
+                                        id="utMCEmail"
+                                        name="utMCEmail"
+                                        placeholder="Main Contact Email"
+                                        ng-model="form.user.utMCEmail"
+                                >
+                            </div>
+                        </div>
+                        <div class="grid-x small-12" ng-if="form.user.utMCNotes || form.edit" >
+                            <div ng-if="form.user.utMCNotes || form.edit" class="small-3 cell">
+                                <label for="utMCNotes" class="text-right middle">
+                                    Main Contact Notes
+                                </label>
+                            </div>
+                            <div ng-if="form.user.utMCNotes || form.edit" class="small-9 cell">
+                                <textarea
+                                        
+                                        id="utMCNotes"
+                                        name="utMCNotes"
+                                        type="text"
+                                        placeholder="Main Contact Notes"
+                                        ng-model="form.user.utMCNotes"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <div class="grid-x small-12" ng-if="form.user.FiscalYearStart || form.edit">
+                            <div ng-if="form.user.FiscalYearStart || form.edit" class="small-3 cell">
+                                <label for="FiscalYearStart" class="text-right middle">
+                                    Fiscal Year Start
+                                </label>
+                            </div>
+                            <div class="small-9 cell">
+                                <date-picker
+                                        id="FiscalYearStart"
+                                        class="FiscalYearStart"
+                                        placeholder="Track Date Selection"
+                                        ng-model="form.user.FiscalYearStart"
+                                        format="{{dayDateFormat}}"
+                                        language="en"
+                                        ng-if="form.edit"
+                                        today="true"
+                                >
+                                </date-picker>
+                                <span
+                                        ng-bind="form.user.FiscalYearStart | date : dayDateFormat"
+                                        ng-if="form.user.FiscalYearStart && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <div class="grid-x small-12" ng-if="form.user.ProgramStart || form.edit" >
+                            <div ng-if="form.user.ProgramStart || form.edit" class="small-3 cell">
+                                <label for="ProgramStart" class="text-right middle">
+                                    Program Start
+                                </label>
+                            </div>
+                            <div class="small-9 cell">
+                                <date-picker
+                                    id="ProgramStart"
+                                    class="ProgramStart"
+                                    placeholder="Track Date Selection"
+                                    ng-model="form.user.ProgramStart"
+                                    format="{{dayDateFormat}}"
+                                    language="en"
+                                    ng-if="form.edit"
+                                    today="true"
+
+                                >
+                                </date-picker>
+                                <span
+                                        ng-bind="form.user.ProgramStart | date : dayDateFormat"
+                                        ng-if="form.user.ProgramStart && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <div class="grid-x small-12" ng-if="form.user.utRecCreated || form.edit">
+                            <div ng-if="form.user.utRecCreated || form.edit" class="small-3 cell">
+                                <label for="utRecCreated" class="text-right middle">
+                                    Record Created
+                                </label>
+                            </div>
+                            <div class="small-9 cell">
+                                <input
+
+                                        id="utRecCreated"
+                                        name="utRecCreated"
+                                        ng-model="form.user.utRecCreated"
+                                        ng-disabled="true"
+                                        ng-if="false"
+                                >
+                                <span
+                                        ng-bind="form.user.utRecCreated | date : timeDateFormat"
+                                        ng-if="form.user.utRecCreated || form.edit"
+                                ></span>
+
+                            </div>
+                        </div>
+                        <div class="grid-x small-12" ng-if="form.user.utRecModified || form.edit">
+                            <div ng-if="form.user.utRecModified || form.edit" class="small-3 cell">
+                                <label for="utRecModified" class="text-right middle">
+                                    Record Modified
+                                </label>
+                            </div>
+                            <div class="small-9 cell">
+                                <input
+                                    
+                                    id="utRecModified"
+                                    name="utRecModified"
+                                    ng-model="form.user.utRecModified"
+                                    ng-disabled="true"
+                                    ng-if="false"
+                                >
+                                <span
+                                    ng-bind="form.user.utRecModified | date : timeDateFormat"
+                                    ng-if="form.user.utRecModified || form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <div class="grid-x small-12" ng-if="false">
+                            <div ng-if="form.user.HZ || form.edit" class="small-3 cell">
+                                <label for="HZ" class="text-right middle">
+                                    HZ
+                                </label>
+                            </div>
+                            <div ng-if="form.user.HZ || form.edit" class="small-9 cell">
+                                <input
+                                        
+                                        id="HZ"
+                                        name="HZ"
+                                        placeholder="HZ"
+                                        ng-model="form.user.HZ"
+                                >
+                            </div>
+                        </div>
+                        <div class="grid-x small-12" ng-if="false">
+                            <div ng-if="form.user.CZ || form.edit" class="small-3 cell">
+                                <label for="CZ" class="text-right middle">
+                                    CZ
+                                </label>
+                            </div>
+                            <div ng-if="form.user.CZ || form.edit" class="small-9 cell">
+                                <input
+                                        id="CZ"
+                                        name="CZ"
+                                        placeholder="CZ"
+                                        ng-model="form.user.CZ"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

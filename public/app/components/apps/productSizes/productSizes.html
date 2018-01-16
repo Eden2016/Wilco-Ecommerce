@@ -1,0 +1,123 @@
+<div
+        class="appcontent products-app small-12 grid-x grid-padding-x align-stretch"
+        ng-class="form.activeclass"
+>
+
+    <div class="cell small-12 large-5 app-side-menu">
+        <div class="app-side-menu-inner inner-view cell">
+            <div class="title-bar grid-x">
+                <div class="cell small-12 large-3">
+                    <a href="/dashboard"><img class="logo" src="app/assets/svgs/w_wilco_logo.svg"></a>
+                </div>
+                <div class="title-bar-search cell small-12 large-9">
+                    <div class="input-group searchbar">
+                        <i class="icon-icons_search"></i>
+                        <input class="input-field search-field" placeholder="Search Product Species"
+                               ng-model="userSearch" ng-change="loadDataSet(userSearch)">
+                    </div>
+                </div>
+            </div>
+
+            <div class="app-menu-container grid-x">
+
+
+                <div class="app-navigator small-10">
+
+                    <dropdown-toggle class="dropdown-custom app-switcher" close-on-click="true">
+                        <toggle class="d-tog"><a class="app-name"><span>{{ $state.current.title }}</span><i
+                                class="icon-icons_chevron_down"></i></a></toggle>
+                        <pane>
+                            <ul class="menu vertical">
+                                <div app-nav></div>
+                            </ul>
+                        </pane>
+                    </dropdown-toggle>
+                </div>
+
+                <div class="small-2">
+                    <button class="button clean"><i class="icon-icons_gear"></i></button>
+                    <button class="button clean float-right" ng-click="addNewRecord()"><i class="icon-icons_plus"></i></button>
+                </div>
+
+            </div>
+
+            <div id="record-list" class="inner-view">
+                <div class="gridStyle" ui-grid="productSizesGrid" ui-grid-selection>
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <div class="cell small-8 large-7 app-content-view">
+        <div class="grid-x grid-padding-x ">
+            <div class="cell small-12">
+                <nav class="top-bar app-topbar topbar-responsive">
+                    <div class="float-left">
+                        <a class="flyout-menu"><span class="wicon-menu ng-scope"></span>
+                            <ul>
+                                <li class="active">E-Commerce Content</li>
+                                <li>Media Gallery</li>
+                                <li>Fulfilment & Logistics</li>
+                                <li>Pricing</li>
+                                <li>Inventory</li>
+                                <li>Master Data</li>
+                                <li>Location Specific</li>
+                                <li>UPC / Secondary Lookup</li>
+                                <li>Transaction History</li>
+                                <li>Revisions</li>
+                            </ul>
+                        </a>
+
+                        <span class="view-title">E-Commerce Content</span>
+
+                        <a
+                                class="Save"
+                                ng-if="view.record"
+                                ng-click="updateSingleProductSize()"
+                        >
+                            <span class="button" ng-if="form.edit">Save</span>
+                        </a>
+                        <a
+                                class="Delete"
+                                ng-if="view.record"
+                                ng-click="deleteSingleProductSize()"
+                        >
+                            <span class="button" ng-if="form.edit && viewLoaded()">Delete</span>
+                        </a>
+                        <a
+                                class="Edit"
+                                ng-if="view.record"
+                                ng-click="editModeToggle()"
+                        >
+                            <span class="button" ng-if="!form.edit && viewLoaded()">Edit</span>
+                            <span class="button" ng-if="form.edit">Cancel</span>
+                        </a>
+
+
+                    </div>
+                    <div class="topbar-responsive-links">
+
+                        <div user-nav class="app-user-nav"></div>
+
+
+                    </div>
+                </nav>
+
+                <div
+                        ng-include="'app/components/apps/productSizes/single.html'"
+                        class="slide-in single-view"
+                        style="height: 100%;"
+                        ng-class="form.activeclass"
+                >
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,169 @@
+<!-- @TODO CHANGE CLASS NAME TO CONSUMERS-->
+<div
+        class="appcontent products-app small-12 grid-x grid-padding-x align-stretch"
+        ng-class="form.activeclass"
+>
+    <div class="cell small-12 large-5 app-side-menu">
+        <div class="app-side-menu-inner inner-view cell">
+            <div class="title-bar grid-x">
+                <div class="cell small-12 large-3">
+                    <a href="/dashboard"><img class="logo" src="app/assets/svgs/w_wilco_logo.svg"></a>
+                </div>
+                <div class="title-bar-search cell small-12 large-9">
+	                <div class="input-group searchbar">
+	                    <i class="icon-icons_search"></i>
+	                    <input class="input-field search-field" placeholder="Search Products"
+	                           ng-model="userSearch" ng-change="loadDataSet(userSearch)">
+	                </div>
+	            </div>
+            </div>
+            
+            <div class="app-menu-container grid-x">
+
+
+                <div class="app-navigator small-10">
+
+                    <dropdown-toggle class="dropdown-custom app-switcher" close-on-click="true">
+                        <toggle class="d-tog"><a class="app-name"><span>{{ $state.current.title }}</span><i
+                                class="icon-icons_chevron_down"></i></a></toggle>
+                        <pane>
+                            <ul class="menu vertical">
+                                <div app-nav></div>
+                            </ul>
+                        </pane>
+                    </dropdown-toggle>
+                </div>
+                
+                <div class="small-2">
+                	 <button class="button clean"><i class="icon-icons_gear"></i></button>
+                	 <button class="button clean float-right" ng-click="addNewRecord()"><i class="icon-icons_plus"></i></button>
+                </div>
+
+				<!-- redundant code?
+                <div class="app-filters">
+                    <ul class="vertical menu" data-drilldown id="m1" >
+
+                        <li>
+                            <div id="utility-list">
+
+                                <ul id="utility-records" class="vertical menu">
+                                    <div class="list" infinite-scroll='loadMoreUtilities()'
+                                         infinite-scroll-distance='2'
+                                         infinite-scroll-container="'#utility-list'">
+
+                                        <li
+                                                id="{{ utility.utName }}"
+                                                ng-repeat="utility in currentExisitingUtilityData"
+                                                class="record"
+                                                name="record[]"
+                                                ng-class="{active: utility.utUtilityID === selectedUtilityID}"
+                                                ng-click="filterByUtility({record: utility, index: $index, event: $event})"
+                                        >
+                                            <a>
+                                                <span>{{ utility.utName }}</span>
+                                            </a>
+                                        </li>
+                                    </div>
+                                </ul>
+                            </div>
+
+
+                        </li>
+
+
+                    </ul>
+                </div>
+                -->
+
+            </div>
+	        
+            <div id="record-list" class="inner-view">
+            	<div class="gridStyle" ui-grid="productsGrid" ui-grid-selection ui-grid-draggable-rows>
+				</div>
+	            
+	            <!--
+	            
+	            Maybe want the infinite scroll still?
+	            
+	            <ul id="app-records" class="app-records">
+	                <div class="list" infinite-scroll='loadMore()'
+	                     infinite-scroll-distance='2'
+	                     infinite-scroll-container="'#record-list'">
+	                     
+	
+	                    <li
+	                            id="{{$index}}"
+	                            ng-repeat="consumer in currentData"
+	                            class="{{ consumer.type }}"
+	                            ng-class="{active: consumer.cuCustomerID === selectedConsumerID && consumer.type != 'letter'}"
+	                            name="record[]"
+	                            ng-click="loadClickedRecord({record: consumer, index: $index, event: $event})"
+	                    >
+	                        <a ng-if="consumer.type == 'letter'">
+	                            <span class="inner"><span>{{ consumer.cuNameLast | uppercase }}</span></span>
+	                        </a>
+	                        <a ng-if="consumer.type == 'record'">
+	                            <span class="inner"><span>{{ consumer.cuNameLast }}{{consumer.cuNameFirst?", "+consumer.cuNameFirst:""}}</span></span>
+	                        </a>
+	                    </li>
+	                </div>
+	            </ul>-->
+	            <!--<div class="alphabet-controller">-->
+	                <!--<ul class="alphabet-scroll" du-scroll-container="record-list">-->
+	                    <!--<li ng-repeat="letter in letters">-->
+	                        <!--<span du-smooth-scroll="{{ letter }}">{{ letter }}</span>-->
+	                    <!--</li>-->
+	                <!--</ul>-->
+	            <!--</div>-->
+	
+	        </div>
+
+
+
+        </div>
+    </div>
+
+    <div class="cell small-8 large-7 app-content-view">
+        <div class="grid-x grid-padding-x ">
+            <div class="cell small-12">
+                <nav class="top-bar app-topbar topbar-responsive">
+                    <div class="float-left">
+                        
+                    	<a
+                            class="Save"
+                            ng-if="view.record"
+                            ng-click="updateSingleProduct()"
+                        >
+                            <span class="button" ng-if="form.edit">Save</span>
+                        </a>
+                    	<a
+                            class="Edit"
+                            ng-if="view.record"
+                            ng-click="editModeToggle()"
+                        >
+                            <span class="button" ng-if="!form.edit">Edit</span>
+                            <span class="button" ng-if="form.edit">Cancel</span>
+                        </a>
+                        
+                        
+                    </div>
+                    <div class="topbar-responsive-links">
+
+                        <div user-nav class="app-user-nav"></div>
+
+
+                    </div>
+                </nav>
+
+                <div
+                        ng-include="'app/components/apps/productsFeatured/single.html'"
+                        class="slide-in single-view"
+                        style="height: 100%;"
+                        ng-class="form.activeclass"
+                >
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

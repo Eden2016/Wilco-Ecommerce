@@ -1,0 +1,455 @@
+<div class="inner-view">
+    <form class=""
+          name="singleStoreForm"
+          id="singleStoreForm"
+          ng-submit="updateSingleStore()">
+        <fieldset ng-disabled="!form.edit" ng-if="view.record">
+            <input type="hidden" id="longitude" name="longitude" ng-model="form.user.longitude">
+            <input type="hidden" id="latitude" name="latitude" ng-model="form.user.latitude">
+
+            <div class="record-content">
+
+                <div class="cell small-12 record-data">
+
+                    <div class="grid-x small-12 form-list">
+
+                        <!-- Store Name -->
+                        <div class="grid-x small-12">
+
+                            <div  class="small-3 cell">
+                                <label for="storeName" class="text-right middle">
+                                    Store Name
+                                </label>
+                            </div>
+                            <div class="small-9 cell">
+                                <input
+
+                                        id="storeName"
+                                        name="storeName"
+                                        type="text"
+                                        placeholder="Store Name"
+                                        ng-model="form.user.store_name"
+                                        ng-if="form.edit"
+                                >
+                                <span
+                                        ng-bind="form.user.store_name"
+                                        ng-if="form.user.store_name && !form.edit"
+                                ></span>
+                            </div>
+
+                        </div>
+
+                        <!-- Store Address -->
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label for="address"class="text-right middle">
+                                    Address
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <textarea
+
+                                        id="address"
+                                        name="address"
+                                        type="text"
+                                        placeholder="Address"
+                                        ng-model="form.user.address"
+                                        ng-if="form.edit"
+                                >
+                                {{form.user.address}}
+                                </textarea>
+                                <span
+                                        ng-bind="form.user.address"
+                                        ng-if="form.user.address && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+
+                        <!-- Store City -->
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label for="city"class="text-right middle">
+                                    City
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <textarea
+
+                                        id="city"
+                                        name="city"
+                                        type="text"
+                                        placeholder="City"
+                                        ng-model="form.user.city"
+                                        ng-if="form.edit"
+                                >
+                                {{form.user.city}}
+                                </textarea>
+                                <span
+                                        ng-bind="form.user.city"
+                                        ng-if="form.user.city && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+
+                        <!-- Store State -->
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label for="state"class="text-right middle">
+                                    State
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <textarea
+
+                                        id="state"
+                                        name="state"
+                                        type="text"
+                                        placeholder="State"
+                                        ng-model="form.user.state"
+                                        ng-if="form.edit"
+                                >
+                                {{form.user.state}}
+                                </textarea>
+                                <span
+                                        ng-bind="form.user.state"
+                                        ng-if="form.user.state && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+
+                        <!-- Store Zip -->
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label for="zip"class="text-right middle">
+                                    Zip
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <textarea
+
+                                        id="zip"
+                                        name="zip"
+                                        type="text"
+                                        placeholder="Zip"
+                                        ng-model="form.user.zip"
+                                        ng-if="form.edit"
+                                >
+                                {{form.user.zip}}
+                                </textarea>
+                                <span
+                                        ng-bind="form.user.zip"
+                                        ng-if="form.user.zip && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+
+                        <!-- Store Image -->
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label for="storeImage"class="text-right middle">
+                                    Store Image
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <input
+                                        type="file"
+                                        name="storeImage"
+                                        id="storeImage"
+                                        ng-if="form.edit"
+                                >
+                                <img
+                                        src="{{form.user.image.imageSource}}"
+                                        ng-if="form.user.image && !form.edit"
+                                />
+                            </div>
+                        </div>
+
+                        <!-- Store Active -->
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label for="active"class="text-right middle">
+                                    Active
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <textarea
+
+                                        id="active"
+                                        name="active"
+                                        type="text"
+                                        placeholder="Active"
+                                        ng-model="form.user.active"
+                                        ng-if="form.edit"
+                                >
+                                {{form.user.active}}
+                                </textarea>
+                                <span
+                                        ng-bind="form.user.active"
+                                        ng-if="form.user.active && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+
+                        <!-- Store Bark Soil -->
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label for="bark_soil"class="text-right middle">
+                                    Bark Soil
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <textarea
+
+                                        id="bark_soil"
+                                        name="bark_soil"
+                                        type="text"
+                                        placeholder="Bark Soil"
+                                        ng-model="form.user.bark_soil"
+                                        ng-if="form.edit"
+                                >
+                                {{form.user.bark_soil}}
+                                </textarea>
+                                <span
+                                        ng-bind="form.user.bark_soil"
+                                        ng-if="form.user.bark_soil && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+
+                        <!-- Store Lat -->
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label for="lat"class="text-right middle">
+                                    Lat
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <textarea
+
+                                        id="lat"
+                                        name="lat"
+                                        type="text"
+                                        placeholder="Lat"
+                                        ng-model="form.user.lat"
+                                        ng-if="form.edit"
+                                >
+                                {{form.user.lat}}
+                                </textarea>
+                                <span
+                                        ng-bind="form.user.lat"
+                                        ng-if="form.user.lat && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+
+                        <!-- Store Lng -->
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label for="lng"class="text-right middle">
+                                    Lng
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <textarea
+
+                                        id="lng"
+                                        name="lng"
+                                        type="text"
+                                        placeholder="Lng"
+                                        ng-model="form.user.lng"
+                                        ng-if="form.edit"
+                                >
+                                {{form.user.lng}}
+                                </textarea>
+                                <span
+                                        ng-bind="form.user.lng"
+                                        ng-if="form.user.lng && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+
+                        <!-- Store Paint Design Center -->
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label for="paint_design_center"class="text-right middle">
+                                    Paint Design Center
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <textarea
+
+                                        id="paint_design_center"
+                                        name="paint_design_center"
+                                        type="text"
+                                        placeholder="Paint Design Center"
+                                        ng-model="form.user.paint_design_center"
+                                        ng-if="form.edit"
+                                >
+                                {{form.user.paint_design_center}}
+                                </textarea>
+                                <span
+                                        ng-bind="form.user.paint_design_center"
+                                        ng-if="form.user.paint_design_center && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+
+                        <!-- Store Pet Grooming -->
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label for="pet_grooming"class="text-right middle">
+                                    Pet Grooming
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <selet
+                                >
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </selet>
+                                <textarea
+
+                                        id="pet_grooming"
+                                        name="pet_grooming"
+                                        type="text"
+                                        placeholder="Pet Grooming"
+                                        ng-model="form.user.pet_grooming"
+                                        ng-if="form.edit"
+                                >
+                                    {{form.user.pet_grooming}}
+                                </textarea>
+                                <span
+                                        ng-bind="form.user.pet_grooming"
+                                        ng-if="form.user.pet_grooming && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+
+                        <!-- Store Phone -->
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label for="phone"class="text-right middle">
+                                    Phone
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <textarea
+
+                                        id="phone"
+                                        name="phone"
+                                        type="text"
+                                        placeholder="Phone"
+                                        ng-model="form.user.phone"
+                                        ng-if="form.edit"
+                                >
+                                {{form.user.phone}}
+                                </textarea>
+                                <span
+                                        ng-bind="form.user.phone"
+                                        ng-if="form.user.phone && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+
+                        <!-- Store Fax -->
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label for="fax"class="text-right middle">
+                                    Fax
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <textarea
+
+                                        id="fax"
+                                        name="fax"
+                                        type="text"
+                                        placeholder="Fax"
+                                        ng-model="form.user.fax"
+                                        ng-if="form.edit"
+                                >
+                                {{form.user.fax}}
+                                </textarea>
+                                <span
+                                        ng-bind="form.user.fax"
+                                        ng-if="form.user.fax && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+
+                        <!-- Store Number -->
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label for="store_number" class="text-right middle">
+                                    Store Number
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <textarea
+
+                                        id="store_number"
+                                        name="store_number"
+                                        type="text"
+                                        placeholder="Store Number"
+                                        ng-model="form.user.store_number"
+                                        ng-if="form.edit"
+                                >
+                                {{form.user.store_number}}
+                                </textarea>
+                                <span
+                                        ng-bind="form.user.store_number"
+                                        ng-if="form.user.store_number && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+
+                        <!-- Store True Value Hardware -->
+                        <div class="grid-x small-12">
+                            <div  class="small-3 cell">
+                                <label for="true_value_hardware"class="text-right middle">
+                                    True Value Hardware
+                                </label>
+                            </div>
+                            <div  class="small-9 cell">
+                                <textarea
+
+                                        id="true_value_hardware"
+                                        name="true_value_hardware"
+                                        type="text"
+                                        placeholder="True Value Hardware"
+                                        ng-model="form.user.true_value_hardware"
+                                        ng-if="form.edit"
+                                >
+                                {{form.user.true_value_hardware}}
+                                </textarea>
+                                <span
+                                        ng-bind="form.user.true_value_hardware"
+                                        ng-if="form.user.true_value_hardware && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+
+
+                        <a
+                                class="Publish"
+                                ng-if="view.record"
+                                ng-click="publishStore()"
+                        >
+                            <span class="button" ng-if="!form.edit">Publish</span>
+                        </a>
+                        <!---->
+                        <!--<a-->
+                                <!--class="Delete"-->
+                                <!--ng-if="view.record"-->
+                                <!--ng-click="deleteStore()"-->
+                        <!--&gt;-->
+                            <!--<span class="button" ng-if="!form.edit">Delete</span>-->
+                        <!--</a>-->
+
+                    </div>
+
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

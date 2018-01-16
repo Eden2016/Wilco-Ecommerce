@@ -1,0 +1,184 @@
+
+
+.toast-container {
+  position: absolute;
+
+  width:100%;
+  display: block;
+  bottom: 0;
+  left: auto;
+  z-index: 54000;
+  right: auto;
+}
+
+
+
+
+
+$alert-color: #000000 !default;
+$warning-color: red !default;
+$success-color: green !default;
+$primary-color: blue !default;
+$white: white!default;
+
+/// Vertically centers the element inside of its first non-static parent,
+/// @link http://www.sitepoint.com/centering-with-sass/ Centering With Sass
+@mixin vertical-center {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
+
+
+$alert-box-opacity: 0.8;
+
+.alert-box {
+  padding-right: 3.25rem;
+  width: 100%;
+
+  max-width: 600px;
+  margin: 10px auto;
+
+  &.callout {
+    color: $white;
+    font-weight: bold;
+  }
+
+  &.alert {
+    border: 3px solid $alert-color;
+    border-radius: 5px;
+    background-color:rgba($alert-color, $alert-box-opacity);
+  }
+
+  &.warning {
+    border: 3px solid $warning-color;
+    border-radius: 5px;
+    background-color:rgba($warning-color, $alert-box-opacity);
+  }
+
+  &.success {
+    border: 3px solid $success-color;
+    border-radius: 5px;
+    background-color:rgba($success-color, $alert-box-opacity);
+  }
+
+  &.info {
+    border: 3px solid $primary-color;
+    border-radius: 5px;
+    background-color:rgba($primary-color, $alert-box-opacity);
+  }
+
+  i {
+    border: 2px solid $white;
+    border-radius: 100%;
+    padding: 4px;
+    margin-right: 0.5rem;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    padding: 4px 7px;
+
+
+  }
+
+  .fi-x-circle {
+    border: 0;
+    position: absolute;
+    right: 0;
+    font-size: 1.6em;
+    top: 4px;
+    margin-right:0;
+    width: auto;
+  }
+
+
+  .close-button {
+    color: rgba($white, 0.5);
+    font-size: 2rem;
+    @include vertical-center;
+    right: 1rem;
+    font-weight: bold;
+  }
+}
+
+
+.ng-toast__message {
+
+}
+
+
+/* Have to set height explicity on ui-view
+to prevent collapsing during animation*/
+
+
+.ng-toast {
+  li {
+    position: relative;
+    height: 65px;
+    -webkit-transition:all .5s ease-in-out;
+    -moz-transition:all .5s ease-in-out;
+    -o-transition:all .5s ease-in-out;
+    transition:all .5s ease-in-out;
+  }
+
+  .ng-animate {
+    -webkit-transition:all .5s ease-in-out;
+    -moz-transition:all .5s ease-in-out;
+    -o-transition:all .5s ease-in-out;
+    transition:all .5s ease-in-out;
+  }
+
+
+  li.ng-enter, li.ng-leave {
+    position: absolute;
+    left: 0;
+    right: 0;
+    -webkit-transition:all .5s ease-in-out;
+    -moz-transition:all .5s ease-in-out;
+    -o-transition:all .5s ease-in-out;
+    transition:all .5s ease-in-out;
+    opacity:0;
+
+  }
+
+  li.ng-enter {
+    opacity: 0;
+
+    bottom:-100px;
+  }
+
+  li.ng-enter-active {
+    opacity: 1;
+
+    bottom:0px;
+
+  }
+
+  li.ng-leave {
+    opacity: 1;
+    bottom:0px;
+
+  }
+
+  li.ng-leave-active {
+    opacity: 0;
+
+    bottom:-100px;
+  }
+}
+
+
+
+.ng-toast__list {
+
+}
+
+
+
+
+
+
+
+

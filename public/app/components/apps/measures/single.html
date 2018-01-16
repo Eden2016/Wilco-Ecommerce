@@ -1,0 +1,868 @@
+<div class="inner-view">
+    <form class=""
+          name="singleMeasureForm"
+          id="singleMeasureForm"
+          ng-submit="updateSingleMeasure()">
+        <fieldset ng-disabled="!form.edit" ng-if="view.record">
+            <input type="hidden" id="longitude" name="longitude" ng-model="form.user.longitude">
+            <input type="hidden" id="latitude" name="latitude" ng-model="form.user.latitude">
+
+            <div class="record-content">
+
+                <div class="cell small-12 record-title">
+                    <div class="grid-x small-12 form-list">
+                        <div class="small-3 cell avatar-cell">
+                            <img class="avatar" src="app/assets/svgs/img_default_userimg.svg">
+                        </div>
+
+                        <div class="small-9 cell record-name">
+                            <span
+                                    ng-bind="form.user.meName"
+                                    ng-if="form.user.meName"
+                            ></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cell small-12 record-data">
+
+                    <div class="grid-x small-12 form-list">
+
+                        <!-- Measure ID -->
+                        <div class="grid-x small-12" ng-if="form.user.meMeasureID || form.edit">
+
+                            <div ng-if="form.user.meMeasureID || form.edit" class="small-3 cell">
+                                <label for="meMeasureID" class="text-right middle">
+                                    Measure ID
+                                </label>
+                            </div>
+                            <div ng-if="form.user.meMeasureID || form.edit" class="small-9 cell">
+                                <input
+
+                                        id="meMeasureID"
+                                        name="meMeasureID"
+                                        type="text"
+                                        placeholder="Measure ID"
+                                        ng-model="form.user.meMeasureID"
+                                        ng-disabled="true"
+                                >
+                            </div>
+
+                        </div>
+                        <!-- Utility ID -->
+                        <div class="grid-x small-12" ng-if="form.user.meUtilityID|| form.edit">
+
+                            <div ng-if="form.user.meUtilityID|| form.edit" class="small-3 cell">
+                                <label for="meUtilityID" class="text-right middle">
+                                    Utility
+                                </label>
+                            </div>
+                            <div ng-if="form.user.meUtilityID || form.edit" class="small-9 cell">
+                                <select
+
+                                        id="meUtilityID"
+                                        name="meUtilityID"
+                                        type="text"
+                                        placeholder="Utility ID"
+                                        ng-if="form.edit"
+                                        ng-model="utilitySelect"
+                                        ng-options="utility.utName for utility in utilities"
+                                        ng-change="onUtilitySelected(utilitySelect)"
+                                >
+                                </select>
+
+                                <span
+                                        ng-bind="selectedUtility.utName"
+                                        ng-if="selectedUtility.utName && !form.edit"
+                                ></span>
+                            </div>
+
+                        </div>
+                        <!-- Name -->
+                        <div class="grid-x small-12" ng-if="form.user.meName|| form.edit" >
+                            <div ng-if="form.user.meName|| form.edit" class="small-3 cell">
+                                <label
+                                        for="meName"
+                                        class="text-right middle"
+                                >
+                                    Measure Name
+                                </label>
+                            </div>
+                            <div ng-if="form.user.meName || form.edit" class="small-9 cell">
+                                <input
+
+                                        id="meName"
+                                        name="meName"
+                                        type="text"
+                                        ng-model="form.user.meName"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.meName"
+                                        ng-if="form.user.meName && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Measure Code -->
+                        <div class="grid-x small-12" ng-if="form.user.meMeasureCode|| form.edit">
+                            <div ng-if="form.user.meMeasureCode|| form.edit" class="small-3 cell">
+                                <label
+                                        for="meMeasureCode"
+                                        class="text-right middle"
+                                >
+                                    Measure Code
+                                </label>
+                            </div>
+                            <div ng-if="form.user.meMeasureCode || form.edit" class="small-9 cell">
+                                <input
+
+                                        id="meMeasureCode"
+                                        name="meMeasureCode"
+                                        type="text"
+                                        ng-model="form.user.meMeasureCode"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.meMeasureCode"
+                                        ng-if="form.user.meMeasureCode && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Nick Name  -->
+                        <div class="grid-x small-12" ng-if="form.user.meNickName|| form.edit">
+                            <div ng-if="form.user.meNickName|| form.edit" class="small-3 cell">
+                                <label
+                                        for="meNickName"
+                                        class="text-right middle"
+                                >
+                                    Nick Name
+                                </label>
+                            </div>
+                            <div ng-if="form.user.meNickName || form.edit" class="small-9 cell">
+                                <input
+
+                                        id="meNickName"
+                                        name="meNickName"
+                                        type="text"
+                                        ng-model="form.user.meNickName"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.meNickName"
+                                        ng-if="form.user.meNickName && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Program ID -->
+                        <div class="grid-x small-12" ng-if="form.user.meProgramID|| form.edit">
+
+                            <div ng-if="form.user.meProgramID|| form.edit" class="small-3 cell">
+                                <label for="meProgramID" class="text-right middle">
+                                    Program ID
+                                </label>
+                            </div>
+                            <div ng-if="form.user.meProgramID || form.edit" class="small-9 cell">
+                                <select
+
+                                        id="meProgramID"
+                                        name="meProgramID"
+                                        type="text"
+                                        placeholder="Program ID"
+                                        ng-if="form.edit"
+                                        ng-model="programSelect"
+                                        ng-options="program.prName for program in programs"
+                                        ng-change="onProgramSelected(programSelect)"
+                                >
+                                </select>
+
+                                <span
+                                        ng-bind="selectedProgram.prName"
+                                        ng-if="selectedProgram.prName && !form.edit"
+                                ></span>
+                            </div>
+
+                        </div>
+                        <!-- Measure Type ID-->
+                        <div class="grid-x small-12" ng-if="form.user.meMeasureTypeID || form.edit" >
+                            <div ng-if="form.user.meMeasureTypeID || form.edit" class="small-3 cell">
+                                <label
+                                        for="meMeasureTypeID"
+                                        class="text-right middle"
+                                >
+                                    Measure Type ID
+                                </label>
+                            </div>
+                            <div ng-if="form.user.meMeasureTypeID || form.edit" class="small-9 cell">
+                                <input
+
+                                        id="meMeasureTypeID"
+                                        name="meMeasureTypeID"
+                                        type="number"
+                                        ng-model="form.user.meMeasureTypeIDv"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.meMeasureTypeID"
+                                        ng-if="form.user.meMeasureTypeID && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Active -->
+                        <div class="grid-x small-12" ng-if="form.user.meActive|| form.edit">
+                            <div ng-if="form.user.meActive|| form.edit" class="small-3 cell">
+                                <label
+                                        for="meActive"
+                                        class="text-right middle"
+                                >
+                                    Active
+                                </label>
+                            </div>
+                            <div ng-if="form.user.meActive || form.edit" class="small-9 cell">
+                                <div class="checkboxes">
+                                    <input
+
+                                            class="checkbox"
+                                            id="meActive"
+                                            name="meActive"
+                                            type="checkbox"
+                                            ng-true-value="1"
+                                            ng-false-value="0"
+                                            ng-model="form.user.meActive"
+
+
+                                    >
+                                    <label  for="meActive"></label>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- Unit of Measure Not Apply -->
+                        <div class="grid-x small-12" ng-if="form.user.meUnitOfMeasureNotApply || form.edit">
+                            <div ng-if="form.user.meUnitOfMeasureNotApply || form.edit" class="small-3 cell">
+                                <label
+                                        for="meUnitOfMeasureNotApply"
+                                        class="text-right middle"
+                                >
+                                    Unit of Measure Not Apply
+                                </label>
+                            </div>
+                            <div ng-if="form.user.meUnitOfMeasureNotApply || form.edit" class="small-9 cell">
+                                <input
+
+                                        id="meUnitOfMeasureNotApply"
+                                        name="meUnitOfMeasureNotApply"
+                                        ng-model="form.user.meUnitOfMeasureNotApply"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.meUnitOfMeasureNotApply"
+                                        ng-if="form.user.meUnitOfMeasureNotApply && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Unit of Measure -->
+                        <div class="grid-x small-12" ng-if="form.user.meUnitOfMeasure|| form.edit">
+                            <div ng-if="form.user.meUnitOfMeasure|| form.edit" class="small-3 cell">
+                                <label
+                                        for="meUnitOfMeasure"
+                                        class="text-right middle"
+                                >
+                                    Unit of Measure
+                                </label>
+                            </div>
+                            <div ng-if="form.user.meUnitOfMeasure || form.edit" class="small-9 cell">
+                                <input
+
+                                        id="meUnitOfMeasure"
+                                        name="meUnitOfMeasure"
+                                        type="text"
+                                        ng-model="form.user.meUnitOfMeasure"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.meUnitOfMeasure"
+                                        ng-if="form.user.meUnitOfMeasure && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Pre-Condition -->
+                        <div class="grid-x small-12" ng-if="form.user.mePreCondition|| form.edit">
+                            <div ng-if="form.user.mePreCondition|| form.edit" class="small-3 cell">
+                                <label
+                                        for="mePreCondition"
+                                        class="text-right middle"
+                                >
+                                    Pre-Condition
+                                </label>
+                            </div>
+                            <div ng-if="form.user.mePreCondition || form.edit" class="small-9 cell">
+                                <input
+
+                                        id="mePreCondition"
+                                        name="mePreCondition"
+                                        type="text"
+                                        ng-model="form.user.mePreCondition"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.mePreCondition"
+                                        ng-if="form.user.mePreCondition && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Post-Condition -->
+                        <div class="grid-x small-12" ng-if="form.user.mePostCondition|| form.edit">
+                            <div ng-if="form.user.mePostCondition|| form.edit" class="small-3 cell">
+                                <label
+                                        for="mePostCondition"
+                                        class="text-right middle"
+                                >
+                                    Post-Condition
+                                </label>
+                            </div>
+                            <div ng-if="form.user.mePostCondition || form.edit" class="small-9 cell">
+                                <input
+
+                                        id="mePostCondition"
+                                        name="mePostCondition"
+                                        type="text"
+                                        ng-model="form.user.mePostCondition"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.mePostCondition"
+                                        ng-if="form.user.mePostCondition && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Brand -->
+                        <div class="grid-x small-12" ng-if="form.user.meBrand|| form.edit">
+                            <div ng-if="form.user.meBrand|| form.edit" class="small-3 cell">
+                                <label
+                                        for="meBrand"
+                                        class="text-right middle"
+                                >
+                                    Brand
+                                </label>
+                            </div>
+                            <div ng-if="form.user.meBrand || form.edit" class="small-9 cell">
+                                <input
+
+                                        id="meBrand"
+                                        name="meBrand"
+                                        type="text"
+                                        ng-model="form.user.meBrand"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.meBrand"
+                                        ng-if="form.user.meBrand && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Model Number -->
+                        <div class="grid-x small-12" ng-if="form.user.meModelNo|| form.edit">
+                            <div ng-if="form.user.meModelNo|| form.edit" class="small-3 cell">
+                                <label
+                                        for="meModelNo"
+                                        class="text-right middle"
+                                >
+                                    Brand
+                                </label>
+                            </div>
+                            <div ng-if="form.user.meModelNo || form.edit" class="small-9 cell">
+                                <input
+
+                                        id="meModelNo"
+                                        name="meModelNo"
+                                        type="text"
+                                        ng-model="form.user.meModelNo"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.meModelNo"
+                                        ng-if="form.user.meModelNo && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Serial No -->
+                        <div class="grid-x small-12" ng-if="form.user.meSerialNo|| form.edit">
+                            <div ng-if="form.user.meSerialNo|| form.edit" class="small-3 cell">
+                                <label
+                                        for="meSerialNo"
+                                        class="text-right middle"
+                                >
+                                    Serial Number
+                                </label>
+                            </div>
+                            <div ng-if="form.user.meSerialNo || form.edit" class="small-9 cell">
+                                <input
+
+                                        id="meSerialNo"
+                                        name="meSerialNo"
+                                        type="text"
+                                        ng-model="form.user.meSerialNo"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.meSerialNo"
+                                        ng-if="form.user.meSerialNo && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Estimated Rebate Per Unit -->
+                        <div class="grid-x small-12" ng-if="form.user.meEstimatedRebatePerUnit|| form.edit">
+                            <div ng-if="form.user.meEstimatedRebatePerUnit|| form.edit" class="small-3 cell">
+                                <label
+                                        for="meEstimatedRebatePerUnit"
+                                        class="text-right middle"
+                                >
+                                    Estimated Rebate Per Unit
+                                </label>
+                            </div>
+                            <div ng-if="form.user.meEstimatedRebatePerUnit || form.edit" class="small-9 cell">
+                                <input
+
+                                        id="meEstimatedRebatePerUnit"
+                                        name="meEstimatedRebatePerUnit"
+                                        type="text"
+                                        ng-model="form.user.meEstimatedRebatePerUnit"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.meEstimatedRebatePerUnit"
+                                        ng-if="form.user.meEstimatedRebatePerUnit && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Estimated KiloWatts -->
+                        <div class="grid-x small-12" ng-if="form.user.meEstimatedkW|| form.edit" >
+                            <div ng-if="form.user.meEstimatedkW|| form.edit" class="small-3 cell">
+                                <label
+                                        for="meEstimatedkW"
+                                        class="text-right middle"
+                                >
+                                    Estimated Kilo Watts
+                                </label>
+                            </div>
+                            <div ng-if="form.user.meEstimatedkW || form.edit" class="small-9 cell">
+                                <input
+
+                                        id="meEstimatedkW"
+                                        name="meEstimatedkW"
+                                        type="text"
+                                        ng-model="form.user.meEstimatedkW"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.meEstimatedkW"
+                                        ng-if="form.user.meEstimatedkW && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Estimated KiloWatts per Hour -->
+                        <div class="grid-x small-12" ng-if="form.user.meEstimatedkWh|| form.edit">
+                            <div ng-if="form.user.meEstimatedkWh|| form.edit" class="small-3 cell">
+                                <label
+                                        for="meEstimatedkWh"
+                                        class="text-right middle"
+                                >
+                                    Estimated Kilo Watts per Hour
+                                </label>
+                            </div>
+                            <div ng-if="form.user.meEstimatedkWh || form.edit" class="small-9 cell">
+                                <input
+
+                                        id="meEstimatedkWh"
+                                        name="meEstimatedkWh"
+                                        type="text"
+                                        ng-model="form.user.meEstimatedkWh"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.meEstimatedkWh"
+                                        ng-if="form.user.meEstimatedkWh && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Estimated Gallons -->
+                        <div class="grid-x small-12" ng-if="form.user.meEstimatedGallons || form.edit">
+                            <div ng-if="form.user.meEstimatedGallons || form.edit" class="small-3 cell">
+                                <label
+                                        for="meEstimatedGallons"
+                                        class="text-right middle"
+                                >
+                                    Estimated Gallons
+                                </label>
+                            </div>
+                            <div ng-if="form.user.meEstimatedGallons || form.edit" class="small-9 cell">
+                                <input
+
+                                        id="meEstimatedGallons"
+                                        name="meEstimatedGallons"
+                                        type="text"
+                                        ng-model="form.user.meEstimatedGallons"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.meEstimatedGallons"
+                                        ng-if="form.user.meEstimatedGallons && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Estimated Energy Credit -->
+                        <div class="grid-x small-12" ng-if="form.user.meEstimatedEnergyCredit || form.edit">
+                            <div ng-if="form.user.meEstimatedEnergyCredit || form.edit" class="small-3 cell">
+                                <label
+                                        for="meEstimatedEnergyCredit"
+                                        class="text-right middle"
+                                >
+                                    Estimated Energy Credit
+                                </label>
+                            </div>
+                            <div ng-if="form.user.meEstimatedEnergyCredit || form.edit" class="small-9 cell">
+                                <input
+
+                                        id="meEstimatedEnergyCredit"
+                                        name="meEstimatedEnergyCredit"
+                                        type="text"
+                                        ng-model="form.user.meEstimatedEnergyCredit"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.meEstimatedEnergyCredit"
+                                        ng-if="form.user.meEstimatedEnergyCredit && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Estimated Utility Rebate -->
+                        <div class="grid-x small-12" ng-if="form.user.meEstimatedUtilityRebate || form.edit">
+                            <div ng-if="form.user.meEstimatedUtilityRebate || form.edit" class="small-3 cell">
+                                <label
+                                        for="meEstimatedUtilityRebate"
+                                        class="text-right middle"
+                                >
+                                    Estimated Utility Rebate
+                                </label>
+                            </div>
+                            <div ng-if="form.user.meEstimatedUtilityRebate || form.edit" class="small-9 cell">
+                                <input
+
+                                        id="meEstimatedUtilityRebate"
+                                        name="meEstimatedUtilityRebate"
+                                        type="text"
+                                        ng-model="form.user.meEstimatedUtilityRebate"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.meEstimatedUtilityRebate"
+                                        ng-if="form.user.meEstimatedUtilityRebate && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Annual Site Savings -->
+                        <div class="grid-x small-12" ng-if="form.user['Annual Site Savings'] || form.edit">
+                            <div ng-if="form.user['Annual Site Savings'] || form.edit" class="small-3 cell">
+                                <label
+                                        for="AnnualSiteSavings"
+                                        class="text-right middle"
+                                >
+                                    Annual Site Savings
+                                </label>
+                            </div>
+                            <div ng-if="form.user['Annual Site Savings'] || form.edit" class="small-9 cell">
+                                <input
+
+                                        id="AnnualSiteSavings"
+                                        name="AnnualSiteSavings"
+                                        type="text"
+                                        ng-model="form.user['Annual Site Savings']"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user['Annual Site Savings']"
+                                        ng-if="form.user['Annual Site Savings'] && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Estimated Program Rebate -->
+                        <div class="grid-x small-12" ng-if="form.user.meEstimatedProgramRebate || form.edit">
+                            <div ng-if="form.user.meEstimatedProgramRebate || form.edit" class="small-3 cell">
+                                <label
+                                        for="meEstimatedProgramRebate"
+                                        class="text-right middle"
+                                >
+                                    Estimated Program Rebate
+                                </label>
+                            </div>
+                            <div ng-if="form.user.meEstimatedProgramRebate || form.edit" class="small-9 cell">
+                                <input
+
+                                        id="meEstimatedProgramRebate"
+                                        name="meEstimatedProgramRebate"
+                                        type="text"
+                                        ng-model="form.user.meEstimatedProgramRebate"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.meEstimatedProgramRebate"
+                                        ng-if="form.user.meEstimatedProgramRebate && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Max Rebate Amt -->
+                        <div class="grid-x small-12" ng-if="form.user.meMAXRebateAmt || form.edit">
+                            <div ng-if="form.user.meMAXRebateAmt || form.edit" class="small-3 cell">
+                                <label
+                                        for="meMAXRebateAmt"
+                                        class="text-right middle"
+                                >
+                                    Max Rebate Amount
+                                </label>
+                            </div>
+                            <div ng-if="form.user.meMAXRebateAmt || form.edit" class="small-9 cell">
+                                <input
+
+                                        id="meMAXRebateAmt"
+                                        name="meMAXRebateAmt"
+                                        type="text"
+                                        ng-model="form.user.meMAXRebateAmt"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.meMAXRebateAmt"
+                                        ng-if="form.user.meMAXRebateAmt && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Notes -->
+                        <div class="grid-x small-12" ng-if="form.user.meNotes || form.edit">
+                            <div ng-if="form.user.meNotes || form.edit" class="small-3 cell">
+                                <label
+                                        for="meNotes"
+                                        class="text-right middle"
+                                >
+                                    Notes
+                                </label>
+                            </div>
+                            <div ng-if="form.user.meNotes || form.edit" class="small-9 cell">
+                                <input
+
+                                        id="meNotes"
+                                        name="meNotes"
+                                        type="text"
+                                        ng-model="form.user.meNotes"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.meNotes"
+                                        ng-if="form.user.meNotes && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Distribution System Peak Reduction (KW) -->
+                        <div class="grid-x small-12" ng-if="form.user['Distribution System Peak Reduction (KW)'] || form.edit">
+                            <div ng-if="form.user['Distribution System Peak Reduction (KW)'] || form.edit" class="small-3 cell">
+                                <label
+                                        for="DistributionSystemPeakReduction"
+                                        class="text-right middle"
+                                >
+                                    Distribution System Peak Reduction (KW)
+                                </label>
+                            </div>
+                            <div ng-if="form.user['Distribution System Peak Reduction (KW)'] || form.edit" class="small-9 cell">
+                                <input
+
+                                        id="DistributionSystemPeakReduction"
+                                        name="DistributionSystemPeakReduction"
+                                        type="text"
+                                        ng-model="form.user['Distribution System Peak Reduction (KW)']"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user['Distribution System Peak Reduction (KW)']"
+                                        ng-if="form.user['Distribution System Peak Reduction (KW)'] && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- C02 Reduction (tons over life) -->
+                        <div class="grid-x small-12" ng-if="form.user['C02 Reduction (tons over life)'] || form.edit">
+                            <div ng-if="form.user['C02 Reduction (tons over life)'] || form.edit" class="small-3 cell">
+                                <label
+                                        for="C02Reduction"
+                                        class="text-right middle"
+                                >
+                                    C02 Reduction (tons over life)
+                                </label>
+                            </div>
+                            <div ng-if="form.user['C02 Reduction (tons over life)'] || form.edit" class="small-9 cell">
+                                <input
+
+                                        id="C02Reduction"
+                                        name="C02Reduction"
+                                        type="text"
+                                        ng-model="form.user['C02 Reduction (tons over life)']"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user['C02 Reduction (tons over life)']"
+                                        ng-if="form.user['C02 Reduction (tons over life)'] && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Record Created -->
+                        <div class="grid-x small-12" ng-if="form.user.meRecCreated || form.edit">
+                            <div ng-if="form.user.meRecCreated || form.edit" class="small-3 cell">
+                                <label for="meRecCreated" class="text-right middle">
+                                    Record Created
+                                </label>
+                            </div>
+                            <div class="small-9 cell">
+                                <input
+
+                                        id="meRecCreated"
+                                        name="meRecCreated"
+                                        ng-model="form.user.meRecCreated"
+                                        ng-disabled="true"
+                                        ng-if="false"
+                                >
+                                <span
+                                        ng-bind="form.user.meRecCreated | date : timeDateFormat"
+                                        ng-if="form.user.meRecCreated || form.edit"
+                                ></span>
+
+                            </div>
+                        </div>
+                        <!-- Record Modified -->
+                        <div class="grid-x small-12" ng-if="form.user.meRecModified || form.edit">
+                            <div ng-if="form.user.meRecModified || form.edit" class="small-3 cell">
+                                <label for="meRecModified" class="text-right middle">
+                                    Record Modified
+                                </label>
+                            </div>
+                            <div class="small-9 cell">
+                                <input
+
+                                        id="meRecModified"
+                                        name="meRecModified"
+                                        ng-model="form.user.meRecModified"
+                                        ng-disabled="true"
+                                        ng-if="false"
+                                >
+                                <span
+                                        ng-bind="form.user.meRecModified | date : timeDateFormat"
+                                        ng-if="form.user.meRecModified || form.edit"
+                                ></span>
+
+                            </div>
+                        </div>
+                        <!-- Lost Oppurtunity -->
+                        <div class="grid-x small-12" ng-if="form.user['meLost Opportunity'] || form.edit">
+                            <div ng-if="form.user['meLost Opportunity'] || form.edit" class="small-3 cell">
+                                <label
+                                        for="meLostOpportunity"
+                                        class="text-right middle"
+                                >
+                                    Distribution System Peak Reduction (KW)
+                                </label>
+                            </div>
+                            <div ng-if="form.user['meLost Opportunity'] || form.edit" class="small-9 cell">
+                                <input
+
+                                        id="meLostOpportunity"
+                                        name="meLostOpportunity"
+                                        type="text"
+                                        ng-model="meLostOpportunity"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user['meLost Opportunity']"
+                                        ng-if="form.user['meLost Opportunity'] && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Max Rebate Percent -->
+                        <div class="grid-x small-12" ng-if="form.user.MaxRebatePcnt || form.edit">
+                            <div ng-if="form.user.MaxRebatePcnt || form.edit" class="small-3 cell">
+                                <label
+                                        for="MaxRebatePcnt"
+                                        class="text-right middle"
+                                >
+                                    Max Rebate Percent
+                                </label>
+                            </div>
+                            <div ng-if="form.user.MaxRebatePcnt || form.edit" class="small-9 cell">
+                                <input
+
+                                        id="MaxRebatePcnt"
+                                        name="MaxRebatePcnt"
+                                        type="text"
+                                        ng-model="MaxRebatePcnt"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.MaxRebatePcnt"
+                                        ng-if="form.user.MaxRebatePcnt && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+                        <!-- Life Cycle -->
+                        <div class="grid-x small-12" ng-if="form.user.meLifeCycle || form.edit">
+                            <div ng-if="form.user.meLifeCycle || form.edit" class="small-3 cell">
+                                <label
+                                        for="meLifeCycle"
+                                        class="text-right middle"
+                                >
+                                    Life Cycle
+                                </label>
+                            </div>
+                            <div ng-if="form.user.meLifeCycle || form.edit" class="small-9 cell">
+                                <input
+
+                                        id="meLifeCycle"
+                                        name="meLifeCycle"
+                                        type="text"
+                                        ng-model="meLifeCycle"
+                                        ng-if="form.edit"
+
+                                >
+                                <span
+                                        ng-bind="form.user.meLifeCycle"
+                                        ng-if="form.user.meLifeCycle && !form.edit"
+                                ></span>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

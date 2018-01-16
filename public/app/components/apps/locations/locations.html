@@ -1,0 +1,238 @@
+<div
+        class="appcontent locations-app small-12 grid-x grid-padding-x align-stretch app-content-view"
+        ng-class="form.activeclass"
+>
+
+    <div class=" app-top-nav   top-bar app-topbar topbar-responsive">
+        <div class="top-bar-left">
+            <a href="/dashboard" class="logo-container"><img class="logo" src="app/assets/svgs/w_wilco_logo.svg"></a>
+            <div class="app-menu-container">
+
+
+                <div class="app-navigator">
+
+                    <dropdown-toggle class="dropdown-custom app-switcher" close-on-click="true">
+                        <toggle class="d-tog"><a class="app-name"><span>{{ $state.current.title }}</span><i
+                                class="icon-icons_chevron_down"></i></a></toggle>
+                        <pane>
+                            <ul class="menu vertical">
+                                <div app-nav></div>
+                            </ul>
+                        </pane>
+                    </dropdown-toggle>
+                </div>
+
+
+                <div class="app-filters">
+                    <ul class="vertical menu" data-drilldown id="m1" style="display:none;">
+
+                        <li>
+                            <ul class="dropdown vertical menu" data-responsive-menu="drilldown medium-dropdown"
+                                data-auto-height="true" data-animate-height="true" dropdown-menu data-click-open>
+
+                                <li class="app-switcher">
+                                    <a href="#">
+                                        <span class="avatar"></span>
+                                        <p class="username">Current App Name</p>
+                                        <i class="icon-icons_chevron_down"></i>
+                                    </a>
+                                    <ul class="menu">
+
+
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <ul class="vertical menu">
+                                <li><a href="#0">Filter</a></li>
+                                <li><a href="#0">Filter</a></li>
+                                <li><a href="#0">Filter</a></li>
+                                <li><a href="#0">Filter</a></li>
+                                <li><a href="#0">Filter</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="top-bar-right">
+            <div user-nav class="app-user-nav"></div>
+        </div>
+
+
+    </div>
+
+    <div class="cell small-4 app-side-nav">
+        <div class="title-bar title-bar-search">
+            <div class="title-bar-left">
+                <div class="input-group searchbar">
+                    <i class="icon-icons_search"></i>
+                    <form id="addressSubmitForm" name="addressSubmitForm" ng-submit="searchAddress()">
+                        <input id="addressSearch" name="addressSearch" class="input-field search-field" placeholder="Search Locations"
+                               ng-model="addressSearch">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="record-list" class="inner-view">
+            <ul id="app-records" class="app-records map-records">
+
+                <li
+                        id="{{ utility.utName }}"
+                        ng-repeat="utility in data"
+                        ng-class="{active: utility.utUtilityID === selectedUtilityID && utility.type != 'letter' && selected}"
+                        class="{{ utility.type }}"
+                        name="record[]"
+                        ng-click="loadClickedLocation({record: utility, index: $index, event: $event})"
+                >
+                    <a>
+                        <span class="cell small-12">
+                            <span class="grid-x small-12">
+
+                                <!-- RECORD MARKUP -->
+                                <span ng-if="utility.type == 'record'" class="small-2 cell avatar-cell"
+                                      style="float:left;">
+                                    <img class="avatar" src="app/assets/svgs/img_default_userimg.svg">
+                                </span>
+
+                                <div ng-if="utility.type == 'record'" class="small-10 cell record-name">
+
+                                    <span class="inner">
+
+
+                                        <!--<span>{{ utility.utAddress }}</span>-->
+                                        <!--<span ng-if="utility.utAddress2 != null"> {{ utility.utAddress2 }}</span>-->
+                                        <!--<span ng-if="utility.utCity != null"> {{ utility.utCity }}</span>-->
+                                        <span class="address">
+                                            <ul>
+                                                <li><h4 class="record-title">{{ utility.utName }}</h4></li>
+                                                <li><p>{{ utility.utAddress }}</p></li>
+                                                <li ng-show="utility.utAddress2" ng-hide="!utility.utAddress2"><p>{{ utility.utAddress2 }}</p></li>
+                                                <li><p>{{utility.utCity}},  {{utility.utState}}  {{utility.utZip}}</p></li>
+                                            </ul>
+                                        </span>
+                                    </span>
+
+                                </div>
+
+                                <!-- LETTER MARKUP -->
+                                <div ng-if="utility.type == 'letter'" class="small-8 cell record-name">
+
+                                    <span class="inner">
+                                        <span>{{ utility.utName }}</span>
+                                    </span>
+
+                                </div>
+
+                            </span>
+                        </span>
+                    </a>
+
+                </li>
+            </ul>
+            <!--<div class="alphabet-controller">-->
+                <!--<ul class="alphabet-scroll" du-scroll-container="record-list">-->
+                    <!--<li ng-repeat="letter in letters">-->
+                        <!--<span du-smooth-scroll="{{ letter }}">{{ letter }}</span>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</div>-->
+
+        </div>
+    </div>
+
+    <div class="cell small-8 app-content-view">
+
+        <div class="map-container">
+            <div class="map">
+                <ng-map
+                        id="utility_map"
+                        center="[{{vm.profile['https://esg.digital/latitude']}},{{vm.profile['https://esg.digital/longitude']}}]"
+                        style="display: block; height: 100%;"
+                        zoom="7"
+                >
+                    <marker id="{{utility.utUtilityID}}" ng-repeat="utility in data"
+                            position="[{{utility.latitude}},{{utility.longitude}}]"
+                            on-click="loadClickedMarker(this)">
+                    </marker>
+                </ng-map>
+            </div>
+            <div class="map-overlay fade-in-up" ng-hide="selectedUtility == null">
+                <div class="inner">
+                    <div class="button-group button-group-topRight light">
+                        <a ng-hide="true" class="button"><i class="icon-icons_edit"></i></a>
+                        <a class="button" ng-click="deselectUtility()"><i class="icon-icons_close"></i></a>
+                    </div>
+                    <div class="map-record">
+
+
+
+
+                                <!-- RECORD MARKUP -->
+
+
+
+                                <div class="location-header">
+                                    <div  class=" avatar-cell"
+                                          style="float:left;">
+                                        <img class="avatar" src="app/assets/svgs/img_default_userimg.svg">
+                                     </div>
+
+                                    <div  class="record-name">
+
+                                        <span class="address">
+                                            <ul>
+                                                <li><h4 class="record-title">{{selectedUtility.utName}}</h4></li>
+                                                <li><p>{{selectedUtility.utAddress}}</p></li>
+                                                <li ng-show="selectedUtility.utAddress2" ng-hide="!selectedUtility.utAddress2"><p>{{ selectedUtility.utAddress2 }}</p></li>
+                                                <li><p>{{selectedUtility.utCity}},  {{selectedUtility.utState}}  {{selectedUtility.utZip}}</p></li>
+                                            </ul>
+                                        </span>
+                                        <!--@TODO: Add Address-->
+                                    </div>
+
+                                </div>
+
+                                <div class="record-snippet">
+
+                                        <ul class="list-style-none ">
+                                            <li class="auto cell" ng-if="contactName">
+                                                <b>Contact:</b>
+                                                <p> {{contactName}} </p>
+                                            </li>
+                                            <li class="auto cell" ng-if="contactEmail">
+                                                <b>Contact Email:</b>
+                                                <p><a href="mailto:{{contactEmail}}">{{contactEmail}}</a></p>
+                                            </li>
+                                            <li class="auto cell" ng-if="contactPhone">
+                                                <b>Contact Phone:</b>
+                                                <p>{{contactPhone}} </p>
+                                            </li>
+                                            <li class="auto cell" >
+                                                <b>Distance from :</b>
+                                                <p>{{selectedDistance | number:1}} Miles</p>
+                                            </li>
+                                        </ul>
+
+
+
+
+
+                                </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

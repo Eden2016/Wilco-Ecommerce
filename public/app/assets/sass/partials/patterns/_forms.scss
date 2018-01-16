@@ -1,0 +1,13 @@
+
+$activeColor: #d7eefb;
+
+%shadow-transition {
+  transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+}
+
+
+
+
+@import "forms/editor";
+@import "forms/bzm-datepicker";
+@import "forms/inputs";

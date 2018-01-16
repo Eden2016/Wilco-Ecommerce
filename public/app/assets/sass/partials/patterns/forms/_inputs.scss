@@ -1,0 +1,163 @@
+
+//keyframe and animation mixins
+
+
+@mixin animation($value) {
+  -webkit-animation: $value;
+  -moz-animation: $value;
+  -ms-animation: $value;
+  -o-animation: $value;
+  animation: $value;
+}
+
+/* ========= */
+
+.checkboxes{
+
+
+
+  label {
+    height: auto;
+    line-height: 1;
+    display: inline-block;
+    user-select: none;
+    position: relative;
+    padding: 6px 8px;
+    border:1px solid rgba(0, 0, 0, 0.3);
+    margin-left: 0!important;
+    cursor: pointer;
+    overflow: hidden;
+    color: rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin: 0rem;
+
+    position: relative;
+    top: 2px;
+
+
+    cursor:none;
+    -webkit-transition:all .5s ease-in-out;
+    -moz-transition:all .5s ease-in-out;
+    -o-transition:all .5s ease-in-out;
+    transition:all .5s ease-in-out;
+
+
+    &:after {
+      content: "\f126";
+      display: block;
+      font-size: 20px;
+      text-align:center;
+      opacity:0;
+      // foundation icon
+      font-family: "foundation-icons";
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased;
+      display: inline-block;
+      text-decoration: inherit;
+
+    }
+    &:hover {
+      border:1px solid rgba(0, 0, 0, 0.5);
+      color: black;
+    }
+    &:active {
+
+      -webkit-filter: brightness(0.8);
+    }
+
+
+  }
+
+  input {
+    display: none;
+
+    &:checked + {
+      label {
+        color: #269b0a;
+        opacity:1;
+        border:1px solid rgba(0, 0, 0, 0.0);
+
+        &:after{
+          content: "\f126";
+          display: block;
+
+          opacity:1;
+          color:#269b0a;
+
+        }
+      }
+
+      label {
+
+      }
+    }
+  }
+}
+
+
+.editing {
+  .checkboxes {
+
+    input {
+
+
+      &:checked + {
+        label {
+          border: 1px solid rgba(0, 0, 0, 0.3);
+        }
+      }
+    }
+
+    label {
+      border: 1px solid rgba(148, 148, 148, 0.60);
+      cursor:pointer;
+
+      &:hover {
+        border:1px solid rgba(0, 0, 0, 0.5);
+        color: black;
+      }
+      &:active {
+
+        -webkit-filter: brightness(0.8);
+      }
+    }
+
+
+
+  }
+}
+
+
+/* ========= */
+
+.radios{
+  input[type="radio"] {
+    -webkit-appearance: none;
+    //margin:0 2rem;
+    width:2rem;
+    height:2rem;
+    outline:none;
+    background:rgba(0, 0, 0, 0.3);
+
+    border-radius:50%;
+
+    cursor:pointer;
+
+    &:hover,
+    &:checked {
+      background:rgba(0, 0, 0, 0.5);
+
+    }
+
+    &:checked {
+      background:#269b0a;
+
+
+    }
+  }
+}
+
