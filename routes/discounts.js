@@ -131,7 +131,7 @@ function break_amount(row, q) {
 
 // helper to calculate a number rounded to two decimal places, since this is often required $xx.xx
 function round_cents(num) {
-    return Math.round(num) / 100;
+    return Math.round(num * 100) / 100;
 }
 
 // helper to calculate discount amount percentage
@@ -161,6 +161,23 @@ function discount_markup(base, cost, quantity, percentage) {
     return {total_discount: discount_total, per_item_discount: discount_per_item};
 }
 
+// helper to determine if there exists an actual sales price
+function valid_sales_price(discount) {
+    if (discount['90 Promotion Price'] != 0 &&
+        discount['90 Promotion Price'] != null) {
+        return true;
+    }
+    return false;
+}
+
+// helper to get sales difference
+function sale_price_difference(discount) {
+    if (valid_sales_price(discount)) {
+        return (discount['Retail Price'] - discount['90 Promotion Price']) * discount['quantity'];
+    }
+    return 0;
+}
+
 // reset family totals after calculated
 function reset_family_totals() {
     family_breaks = {
@@ -178,8 +195,7 @@ function reset_family_totals() {
 function is_sales_price_better(row, discount) {
     if (DEBUG) { console.log(row['Retail Price'], discount); }
     if (DEBUG) { console.log('sales price :' + row['90 Promotion Price'] + ', discount price: ' + (row['Retail Price']-discount)); }
-    if (row['90 Promotion Price'] != 0 &&
-        row['90 Promotion Price'] != null &&
+    if (valid_sales_price(row) &&
         row['90 Promotion Price'] <= (row['Retail Price'] - discount)) {
         if (DEBUG) { console.log('sales price BETTER!'); };
         return true;
@@ -208,9 +224,22 @@ function calculate_single_specialty_discount(sku, discount, quantity) {
     // if there is a sales price, check to see if it's better than the discount
     if (is_sales_price_better(discount, d.per_item_discount)) {
         d.total_discount = 0;
+        d.total_display_discount = sale_price_difference(discount);
         d.per_item_discount = 0;
+    } else {
+        d.total_display_discount = d.total_discount;
+        d.total_discount = d.total_discount - sale_price_difference(discount);
     }
-    return {product_id: discount['product_id'], sku: sku, type: 'specialty', total: discount['quantity']*discount['Retail Price']-d.total_discount, total_discount: d.total_discount, per_item_discount: d.per_item_discount, quantity: quantity};
+    return {
+        product_id: discount['product_id'],
+        sku: sku,
+        type: 'specialty',
+        total: discount['quantity']*discount['Retail Price']-d.total_discount,
+        total_discount: d.total_discount,
+        per_item_discount: d.per_item_discount,
+        total_display_discount: d.total_display_discount,
+        quantity: quantity
+    };
 }
 
 // calculate the discount for a single quantity discount object
@@ -240,6 +269,7 @@ function calculate_single_quantity_discount(row, quantity) {
         row['quantity'] = parseInt(quantity);
         active_family_break_codes[row['qbc_code']].push(row);
         d = {total_discount: 0, per_item_discount: 0}; //TODO: temp
+        return ; // return nothing i guess for now, it will be pushed somewhere else
     } else if (row['qbc_type'] == 'L') {
         if (!(row['qbc_code'] in family_breaks['L'])) { family_breaks['L'][row['qbc_code']] = {}; }
         family_breaks['L'][row['qbc_code']][row['sku']] = quantity;
@@ -248,25 +278,28 @@ function calculate_single_quantity_discount(row, quantity) {
         }
         active_family_break_codes[row['qbc_code']].push(row);
         d = {total_discount: 0, per_item_discount: 0}; //TODO: temp
+        return ; // return nothing i guess for now, it will be pushed somewhere else
     }
 
     // if there is a sales price, check to see if it's better than the discount
     if (is_sales_price_better(row, d.per_item_discount)) {
         d.total_discount = 0;
+        d.total_display_discount = sale_price_difference(row);
         d.per_item_discount = 0;
+    } else {
+        d.total_display_discount = d.total_discount;
+        d.total_discount = d.total_discount - sale_price_difference(discount);
     }
-    return {product_id: row['product_id'], sku: row.sku, type: 'quantity', quantity: quantity, total: row['quantity']*row['Retail Price']-d.total_discount, total_discount: d.total_discount, per_item_discount: d.per_item_discount};
+    return {product_id: row['product_id'],
+        sku: row.sku,
+        type: 'quantity',
+        quantity: quantity,
+        total: row['quantity']*row['Retail Price']-d.total_discount,
+        total_discount: d.total_discount,
+        total_display_discount: d.total_display_discount,
+        per_item_discount: d.per_item_discount
+    };
 }
-
-
-/* calculate discount ([m1, m2])
-  *   if m.sale price is better than m.discount {
-  *       return min_total ( calculate_discount([m1.sale, m2) , calculate_discount([m1.discount, m2) )
-  *   } else {
-  *      push (mdiscount)
-  *   }
-  *   return discounts
- */
 
 // helper for calculate_single_family_break_code
 function sum_array_object_values (discounts, key) {
@@ -275,6 +308,7 @@ function sum_array_object_values (discounts, key) {
         total += discounts[i][key];
     } return total
 }
+
 // total up discounts for single family break code recursively
 function calculate_single_family_break_code(_rows) {
     var discounts = [];
@@ -304,6 +338,7 @@ function calculate_single_family_break_code(_rows) {
                     type: 'quantity-family',
                     total: _row['total'],
                     total_discount: _row['total_discount'],
+                    total_display_discount: _row['total_display_discount'],
                     per_item_discount: _row['per_item_discount'],
                     quantity: _row['quantity']
                 });
@@ -316,7 +351,8 @@ function calculate_single_family_break_code(_rows) {
                         sku: _row['sku'],
                         type: 'quantity-family',
                         total: _row['quantity'] * _row['Retail Price'] - _discount,
-                        total_discount: _discount,
+                        total_discount: _discount - sale_price_difference(_row),
+                        total_display_discount: _discount,
                         per_item_discount: _discount / _row['quantity'],
                         quantity: _row['quantity']
                     });
@@ -327,13 +363,15 @@ function calculate_single_family_break_code(_rows) {
                     Object.assign(_rows_1[i], { // set up object as a pre-calculated discount
                         pre_calculated_non_discount: false,
                         total: _row['quantity'] * _row['Retail Price'] - _discount,
-                        total_discount: _discount,
+                        total_discount: _discount - sale_price_difference(_row), // TODO FIGURE THIS ONE OUT
+                        total_display_discount: _discount,
                         per_item_discount: _discount / _row['quantity']
                     });
                     Object.assign(_rows_2[i], { // set up object as a pre-calculated sale price (no discount)
                         pre_calculated_non_discount: true,
                         total: _row['quantity'] * _row['90 Promotion Price'],
                         total_discount: 0,
+                        total_display_discount: sale_price_difference(_row),
                         per_item_discount: 0
                     });
                     var calculation_1 = calculate_single_family_break_code(_rows_1);
@@ -348,7 +386,7 @@ function calculate_single_family_break_code(_rows) {
                 }
             }
         }
-    } else {
+    } else { // no discount
         _rows.forEach(function(_row) {
             var cost_to_use = (_row['90 Promotion Price'] > 0) ? _row['90 Promotion Price'] : _row['Retail Price'];
             discounts.push({
@@ -357,6 +395,7 @@ function calculate_single_family_break_code(_rows) {
                 type: 'quantity-family',
                 total: _row['quantity'] * cost_to_use,
                 total_discount: 0,
+                total_display_discount: sale_price_difference(_row),
                 per_item_discount: 0,
                 quantity: _row['quantity']
             });
@@ -389,7 +428,7 @@ function calculate_family_totals() {
 // take a list of product/discount information, calculate total for all their discounts
 function calculate_all_discounts(rows, cart) {
     var total_discount = 0;
-    var discounts = [[], 0];
+    var discounts = [[], 0, 0];
     for (var i = 0; i < rows.length; i++) {
         var discount;
         if (is_specialty_discount(rows[i])) {
@@ -397,15 +436,20 @@ function calculate_all_discounts(rows, cart) {
         } else {
             discount = calculate_single_quantity_discount(rows[i], cart[rows[i].sku]);
         }
-        discounts[0].push(discount);
-        discounts[1] += discount.total_discount;
+        if (discount) {
+            discounts[0].push(discount);
+            discounts[1] += discount.total_discount;
+            discounts[2] += discount.total_display_discount;
+        }
+
     }
     var family_totals = calculate_family_totals();
     family_totals.forEach(function(family_discount) {
         discounts[0].push(family_discount);
         discounts[1] += family_discount.total_discount;
+        discounts[2] += family_discount.total_display_discount
     });
-    discounts[0] = discounts[0].filter(function (d) { return d.total_discount > 0; }); // filter out all results with no discount
+    //discounts[0] = discounts[0].filter(function (d) { return d.total_discount > 0; }); // filter out all results with no discount
     if (DEBUG) { console.log('total_discount: $' + discounts[1]); }
     reset_family_totals();
     return discounts;
@@ -551,7 +595,7 @@ exports.get_specialty_program_discounts_new = function (req, res) {
             handle_error_message(res, err);
         }
         var discounts = [];
-
+        //console.log(rows);
         // modify sale,retail prices on the returned rows to utilize prices sent from woo
         for (var i = 0; i < rows.length; i++) {
             var sku = rows[i]['sku'];
@@ -573,12 +617,13 @@ exports.get_specialty_program_discounts_new = function (req, res) {
             discounts = perm(rows, full_cart);
         }
 
-        var return_object = [{}, discounts[1]]; // adjusting the return object at the very end is much easier than changing things elsewhere
+        var return_object = {"discounts" : {}, total_calculated_discount : round_cents(discounts[1]), total_display_discount : round_cents(discounts[2])};
         discounts[0].forEach(function (_discount) {
-            return_object[0][_discount['product_id']] = {
-                line_item_with_discount: _discount['total'] / _discount['quantity'],
-                line_total_with_discount: _discount['total'],
-                line_total_discount: _discount['total_discount']
+            return_object['discounts'][_discount['product_id']] = {
+                line_item_with_discount: round_cents(_discount['total'] / _discount['quantity']),
+                line_total_with_discount: round_cents(_discount['total']),
+                line_total_discount: round_cents(_discount['total_discount']),
+                line_total_display_discount: round_cents(_discount['total_display_discount'])
             };
         });
         res.json(return_object); // return only final total (for now..)
