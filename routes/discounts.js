@@ -604,6 +604,19 @@ exports.get_specialty_program_discounts_new = function (req, res) {
             rows[i]['product_id'] = full_cart[sku]['product_id'];
             rows[i]['quantity'] = full_cart[sku]['quantity'];
         }
+        var return_object = {"discounts" : {}, total_calculated_discount : 0, total_display_discount : 0};
+        cart.forEach(function(sku) {
+            var item = full_cart[sku];
+            console.log('looking at sku', item);
+            var sales_pricing = item['sale_price'] > 0;
+            var line_total_display_discount = sales_pricing ? (item['regular_price']-item['sale_price']) * item['quantity'] : 0;
+            return_object['discounts'][item['product_id']] = {
+                line_item_with_discount: sales_pricing ? item['sale_price'] : item['regular_price'],
+                line_total_with_discount: sales_pricing ? item['sale_price']*item['quantity'] : item['regular_price']*item['quantity'],
+                line_total_discount: 0,
+                line_total_display_discount: line_total_display_discount
+            };
+        });
         // retro-fit cart to look how it used to, this is only important because legacy code
         for (var i = 0; i < cart.length; i++) {
             full_cart[cart[i]] = full_cart[cart[i]]['quantity'];
@@ -616,8 +629,6 @@ exports.get_specialty_program_discounts_new = function (req, res) {
             if (DEBUG) { console.log(rows); }
             discounts = perm(rows, full_cart);
         }
-
-        var return_object = {"discounts" : {}, total_calculated_discount : round_cents(discounts[1]), total_display_discount : round_cents(discounts[2])};
         discounts[0].forEach(function (_discount) {
             return_object['discounts'][_discount['product_id']] = {
                 line_item_with_discount: round_cents(_discount['total'] / _discount['quantity']),
@@ -626,6 +637,12 @@ exports.get_specialty_program_discounts_new = function (req, res) {
                 line_total_display_discount: round_cents(_discount['total_display_discount'])
             };
         });
+
+        Object.keys(return_object['discounts']).forEach(function(product_id) {
+            return_object.total_display_discount += return_object['discounts'][product_id].line_total_display_discount;
+            return_object.total_calculated_discount += return_object['discounts'][product_id].line_total_discount;
+        });
+
         res.json(return_object); // return only final total (for now..)
     });
 
