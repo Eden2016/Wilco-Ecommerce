@@ -106,6 +106,19 @@ exports.get_products_by_search = function(req, res) {
     });
 };
 
+exports.get_product_brans_by_search = function(req, res) {
+    var term = req.params.searchTerm;
+
+    con.query('SELECT * FROM products_brands pb WHERE INSTR(UPPER(pb.brand_name), UPPER(' + term + '))', function (err, rows) {
+        if (err) {
+            handle_error_message(res, err);
+        }
+
+        res.json(rows);
+
+    });
+};
+
 exports.get_products_by_featured = function(req, res) {
     var term = req.params.searchTerm;
 
