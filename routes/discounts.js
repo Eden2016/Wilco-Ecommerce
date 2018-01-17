@@ -204,6 +204,32 @@ function is_sales_price_better(row, discount) {
     return false;
 }
 
+function return_discount_object(discount, d, type) {
+    // if there is a sales price, check to see if it's better than the discount
+    console.log('d:', d);
+    if (is_sales_price_better(discount, d.per_item_discount)) {
+        d.total = discount['quantity'] * discount['90 Promotion Price'];
+        d.total_discount = 0;
+        d.total_display_discount = sale_price_difference(discount);
+        d.per_item_discount = 0;
+    } else {
+        d.total = discount['quantity'] * discount['Retail Price'] - d.total_discount,
+        d.total_display_discount = d.total_discount;
+        d.total_discount = d.total_discount - sale_price_difference(discount);
+    }
+    return {
+        product_id: discount['product_id'],
+        sku: discount['sku'],
+        type: type,
+        total: d.total,
+        total_discount: d.total_discount,
+        per_item_discount: d.per_item_discount,
+        total_display_discount: d.total_display_discount,
+        quantity: discount['quantity']
+    };
+
+}
+
 // calculate the discount for a single specialty discount object
 function calculate_single_specialty_discount(sku, discount, quantity) {
     var base = base_price(discount);
@@ -220,26 +246,7 @@ function calculate_single_specialty_discount(sku, discount, quantity) {
         d = {total_discount: quantity*(discount['Retail Price'] - discount['price_amount']),
             per_item_discount: discount['Retail Price'] - discount['price_amount']};
     }
-
-    // if there is a sales price, check to see if it's better than the discount
-    if (is_sales_price_better(discount, d.per_item_discount)) {
-        d.total_discount = 0;
-        d.total_display_discount = sale_price_difference(discount);
-        d.per_item_discount = 0;
-    } else {
-        d.total_display_discount = d.total_discount;
-        d.total_discount = d.total_discount - sale_price_difference(discount);
-    }
-    return {
-        product_id: discount['product_id'],
-        sku: sku,
-        type: 'specialty',
-        total: discount['quantity']*discount['Retail Price']-d.total_discount,
-        total_discount: d.total_discount,
-        per_item_discount: d.per_item_discount,
-        total_display_discount: d.total_display_discount,
-        quantity: quantity
-    };
+    return return_discount_object(discount, d, 'specialty');
 }
 
 // calculate the discount for a single quantity discount object
@@ -252,7 +259,7 @@ function calculate_single_quantity_discount(row, quantity) {
     //if there is no break for the quantity, no discount, except for family codes. those need to look at every
     // sku in the cart to tally a total quantity before we can write them off as no discount
     if (break_value == 0 && !(row['qbc_type'] in family_breaks)) {
-        return {sku: row.sku, type: 'quantity', quantity: quantity, total_discount: 0, per_item_discount: 0};
+        return ;
     }
     if (row['qbc_type'] == 'P') {
         d = discount_percentage(base, quantity, break_value);
@@ -280,25 +287,7 @@ function calculate_single_quantity_discount(row, quantity) {
         d = {total_discount: 0, per_item_discount: 0}; //TODO: temp
         return ; // return nothing i guess for now, it will be pushed somewhere else
     }
-
-    // if there is a sales price, check to see if it's better than the discount
-    if (is_sales_price_better(row, d.per_item_discount)) {
-        d.total_discount = 0;
-        d.total_display_discount = sale_price_difference(row);
-        d.per_item_discount = 0;
-    } else {
-        d.total_display_discount = d.total_discount;
-        d.total_discount = d.total_discount - sale_price_difference(discount);
-    }
-    return {product_id: row['product_id'],
-        sku: row.sku,
-        type: 'quantity',
-        quantity: quantity,
-        total: row['quantity']*row['Retail Price']-d.total_discount,
-        total_discount: d.total_discount,
-        total_display_discount: d.total_display_discount,
-        per_item_discount: d.per_item_discount
-    };
+    return return_discount_object(row, d, 'quantity');
 }
 
 // helper for calculate_single_family_break_code
@@ -607,7 +596,6 @@ exports.get_specialty_program_discounts_new = function (req, res) {
         var return_object = {"discounts" : {}, total_calculated_discount : 0, total_display_discount : 0};
         cart.forEach(function(sku) {
             var item = full_cart[sku];
-            console.log('looking at sku', item);
             var sales_pricing = item['sale_price'] > 0;
             var line_total_display_discount = sales_pricing ? (item['regular_price']-item['sale_price']) * item['quantity'] : 0;
             return_object['discounts'][item['product_id']] = {
@@ -642,7 +630,7 @@ exports.get_specialty_program_discounts_new = function (req, res) {
             return_object.total_display_discount += return_object['discounts'][product_id].line_total_display_discount;
             return_object.total_calculated_discount += return_object['discounts'][product_id].line_total_discount;
         });
-
+        console.log(return_object);
         res.json(return_object); // return only final total (for now..)
     });
 
