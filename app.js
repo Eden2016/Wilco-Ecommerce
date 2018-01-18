@@ -1,5 +1,3 @@
-#!/usr/bin/env nodejs
-
 /**
  * Module dependencies
  */
@@ -7,8 +5,6 @@ require('dotenv').config();
 
 var express = require('express'),
     bodyParser = require('body-parser'),
-    // methodOverride = require('method-override'),
-    // errorHandler = require('error-handler'),
     morgan = require('morgan'),
     routes = require('./routes'),
     api = require('./routes/api'),
@@ -19,7 +15,6 @@ var express = require('express'),
     discounts = require('./routes/discounts'),
     http = require('http'),
     path = require('path'),
-    // jwt = require('jsonwebtoken');
     jwt = require('express-jwt'),
     jwksRsa = require('jwks-rsa'),
     jwtAuthz = require('express-jwt-authz'),
@@ -30,7 +25,6 @@ var app = express();
 var cors = require('cors');
 
 // KUE && REDIS
-
 var redis = require('redis');
 var kue = require('kue');
 var client = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST);
@@ -71,6 +65,7 @@ const checkReadScope = jwtAuthz(['read:products']);
 const checkUpdateScope = jwtAuthz(['update:products']);
 const checkDeleteScope = jwtAuthz(['delete:products']);
 
+const checkFullCrudScope = jwtAuthz(['create:products', 'read:products', 'update:products', 'create:products']);
 
 /**
  * Configuration
@@ -93,8 +88,6 @@ app.use(function (req, res, next) {
 });
 app.use(robots(__dirname + '/robots.txt'));
 app.use('/kue-ui', kue.app);
-
-
 
 var env = process.env.NODE_ENV || 'development';
 
@@ -209,8 +202,8 @@ if (env === 'production') {
     app.get('/api/:table', checkJwt, checkReadScope, api.get_records);
     app.get('/api/:table/:id', checkJwt, checkReadScope, api.get_record_by_id);
     app.post('/api/update', checkJwt, checkUpdateScope, api.update_record);
-    app.post('/api/update/description', api.update_description);
-    app.post('/api/new', checkJwt, checkUpdateScope, api.create_record);
+    app.post('/api/update/description', checkJwt, checkUpdateScope, api.update_description);
+    app.post('/api/new', checkJwt, checkCreateScope, checkUpdateScope, api.create_record);
     app.post('/api/delete', checkJwt, checkDeleteScope, api.delete_record);
 
     app.get('/api/v1/products/featured', checkJwt, checkReadScope, api.get_products_by_featured);
@@ -220,18 +213,18 @@ if (env === 'production') {
     app.get('/api/v1/products/master/:sku', checkJwt, checkReadScope, api.get_products_master_by_SKU);
     app.get('/api/v1/products/location/:sku', checkJwt, checkReadScope, api.get_products_location_by_SKU);
     app.get('/api/v1/products/images/:sku', checkJwt, checkReadScope, api.get_product_images_by_SKU);
-    app.get('/api/v1/products/lookup', api.lookup_products);
+    app.get('/api/v1/products/lookup', checkJwt, checkReadScope, api.lookup_products);
 
-    app.post('/api/v1/swiftype/delete', api.swiftDelete);
-    app.post('/api/v1/images/sync', imageCatalog.syncImage);
+    app.post('/api/v1/swiftype/delete', checkJwt, checkDeleteScope, api.swiftDelete);
+    app.post('/api/v1/images/sync', checkJwt, checkUpdateScope, imageCatalog.syncImage);
 
-    app.get('/api/v1/process/single/:sku', woo.processSingle);
-    app.get('/api/v1/process/all', woo.syncAll);
-    app.get('/api/v1/process/all/:lite', woo.syncAll);
-    app.get('/api/v1/process/queue', woo.runWooQueue);
-    app.get('/api/v1/process/queue/:lite', woo.runWooQueue);
-    app.get('/api/v1/process/clear', woo.clearWooQueue);
-    app.get('/api/v1/process/featured', featured.processAll);
+    app.get('/api/v1/process/single/:sku', checkJwt, checkUpdateScope, woo.processSingle);
+    app.get('/api/v1/process/all', checkJwt, checkUpdateScope, woo.syncAll);
+    app.get('/api/v1/process/all/:lite', checkJwt, checkUpdateScope, woo.syncAll);
+    app.get('/api/v1/process/queue', checkJwt, checkUpdateScope, woo.runWooQueue);
+    app.get('/api/v1/process/queue/:lite', checkJwt, checkUpdateScope, woo.runWooQueue);
+    app.get('/api/v1/process/clear', checkJwt, checkDeleteScope, woo.clearWooQueue);
+    app.get('/api/v1/process/featured', checkJwt, checkFullCrudScope, featured.processAll);
 
     // transaction history
     app.get('/api/v1/transactions/history', checkJwt, checkReadScope, api.customer_transaction_history);
@@ -250,9 +243,9 @@ if (env === 'production') {
     // WooCommerce:product endpoints
     app.put('/api/v1/products/update/:id', checkJwt, checkReadScope, api.update_product); // update a product
     app.post('/api/v1/products/new', checkJwt, checkReadScope, api.create_product); // create product
-    app.post('/api/v1/products/new/:id', api.create_product_variation); // create product
-    app.delete('/api/v1/products/delete', checkJwt, checkReadScope, api.delete_product); // delete a product X
-    app.delete('/api/v1/productVariation/delete', checkJwt, checkReadScope, api.delete_product_variation); // delete a product X
+    app.post('/api/v1/products/new/:id', checkJwt, checkCreateScope, api.create_product_variation); // create product
+    app.delete('/api/v1/products/delete', checkJwt, checkDeleteScope, api.delete_product); // delete a product X
+    app.delete('/api/v1/productVariation/delete', checkJwt, checkDeleteScope, api.delete_product_variation); // delete a product X
     app.get('/api/v1/products/all', checkJwt, checkReadScope, api.get_products_all); // get all products X
     app.get('/api/v1/products/:id', checkJwt, checkReadScope, api.get_product_by_id); // get product by id X
     app.get('/api/v1/products/sku/:id', checkJwt, checkReadScope, api.get_product_by_sku); // get product by id X
@@ -260,28 +253,28 @@ if (env === 'production') {
     app.get('/api/v1/products/:id/reviews/:id', checkJwt, checkReadScope, api.get_product_reviews_by_id); // get specific review of product
 
     // WooCommmerce:attribute endpoints
-    app.post('/api/v1/products/attributes/:attribute/terms', checkJwt, checkReadScope, api.create_attribute_term); // create new attribute term
-    app.delete('/api/v1/products/attributes/:attribute/terms', checkJwt, checkReadScope, api.delete_attribute_term); // delete attribute term
-    app.put('/api/v1/products/attributes/:attribute/terms/:id', checkJwt, checkReadScope, api.update_attribute_term); // update attribute term
+    app.post('/api/v1/products/attributes/:attribute/terms', checkJwt, checkCreateScope, api.create_attribute_term); // create new attribute term
+    app.delete('/api/v1/products/attributes/:attribute/terms', checkJwt, checkDeleteScope, api.delete_attribute_term); // delete attribute term
+    app.put('/api/v1/products/attributes/:attribute/terms/:id', checkJwt, checkUpdateScope, api.update_attribute_term); // update attribute term
 
     // WooCommerce:category endpoints
-    app.post('/api/v1/products/categories', checkJwt, checkReadScope, api.create_category); // create new category
-    app.delete('/api/v1/products/categories', checkJwt, checkReadScope, api.delete_category); // delete category
-    app.put('/api/v1/products/categories/:id', checkJwt, checkReadScope, api.update_category); // update category
+    app.post('/api/v1/products/categories', checkJwt, checkCreateScope, api.create_category); // create new category
+    app.delete('/api/v1/products/categories', checkJwt, checkDeleteScope, api.delete_category); // delete category
+    app.put('/api/v1/products/categories/:id', checkJwt, checkUpdateScope, api.update_category); // update category
     app.get('/api/v1/products/categories', checkJwt, checkReadScope, api.get_categories_all); // get all categories
     app.get('/api/v1/products/categories/:id', checkJwt, checkReadScope, api.get_category_by_id); // get category by id
 
     // WooCommerce:brand endpoints
-    app.post('/api/v1/products/brands', checkJwt, checkReadScope, api.create_brand); // create new brand
-    app.delete('/api/v1/products/brands', checkJwt, checkReadScope, api.delete_brand); // delete brand
-    app.put('/api/v1/products/brands/:id', checkJwt, checkReadScope, api.update_brand); // update brand
+    app.post('/api/v1/products/brands', checkJwt, checkCreateScope, api.create_brand); // create new brand
+    app.delete('/api/v1/products/brands', checkJwt, checkDeleteScope, api.delete_brand); // delete brand
+    app.put('/api/v1/products/brands/:id', checkJwt, checkUpdateScope, api.update_brand); // update brand
     app.get('/api/v1/products/brands', checkJwt, checkReadScope, api.get_brands_all); // get all brands
     app.get('/api/v1/products/brands/:id', checkJwt, checkReadScope, api.get_brand_by_id); // get brand by id
 
     // WooCommerce:store endpoints (WP REST API)
     //app.post('/api/v1/stores', checkJwt, checkReadScope, api.create_store); // create new store
     //app.delete('/api/v1/stores', checkJwt, checkReadScope, api.delete_store); // delete store
-    app.post('/api/v1/stores', checkJwt, checkReadScope, wooStores.processSingle); // update store
+    app.post('/api/v1/stores', checkJwt, checkUpdateScope, wooStores.processSingle); // update store
 }
 
 
