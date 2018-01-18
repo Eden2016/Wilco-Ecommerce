@@ -110,6 +110,8 @@ if (env === 'development') {
     app.get('/api/v1/get_products_by_search/:searchTerm', api.get_products_by_search);
     app.get('/api/v1/get_product_categories_by_search/:searchTerm', api.get_product_categories_by_search);
 
+    app.get('/api/v1/get_product_brands_by_search/:searchTerm', api.get_product_brans_by_search);
+
     app.get('/api/v1/products/featured', api.get_products_by_featured);
     app.get('/api/v1/products/featured_categories', api.get_featured_product_categories);
     app.get('/api/v1/products/master', api.get_products_master);

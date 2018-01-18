@@ -119,8 +119,10 @@ app.controller('ProductBrandsCtrl', ['$scope', '$rootScope', 'DataService.api', 
         $scope.productBrands = [];
         $scope.productBrands = response.data;
 
+
         $scope.productBrands.forEach(function(brand) {
-            brand.image = JSON.parse(brand.image);
+            if (brand.image)
+                brand.image = JSON.parse(brand.image);
         });
 
         console.log($scope.productBrands);
@@ -515,7 +517,7 @@ app.controller('ProductBrandsCtrl', ['$scope', '$rootScope', 'DataService.api', 
             let subString = String(searchTerm).toUpperCase();
 
             console.log("result of");
-            DS.findProductsBySKU(searchTerm).then(processProductBrands);
+            DS.findProductBrandsBySearchTerms(searchTerm).then(processProductBrands);
             console.log("data set");
         }
 

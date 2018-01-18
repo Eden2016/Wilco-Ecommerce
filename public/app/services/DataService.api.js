@@ -184,6 +184,16 @@ app.service('DataService.api', ['$http', 'DataService.cache', 'MessagingService'
         return ret;
     };
 
+    this.findProductBrandsBySearchTerms = function (sku) {
+        //return http promise
+        var ret = $http({
+            method: 'GET',
+            url: '/api/v1/get_product_brands_by_search/'+sku,
+        });
+
+        return ret;
+    };
+
     this.getProductSpecies = function () {
         //return http promise
         var ret = $http({
