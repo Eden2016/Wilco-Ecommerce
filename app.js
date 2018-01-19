@@ -215,16 +215,16 @@ if (env === 'production') {
     app.get('/api/v1/products/images/:sku', checkJwt, checkReadScope, api.get_product_images_by_SKU);
     app.get('/api/v1/products/lookup', checkJwt, checkReadScope, api.lookup_products);
 
-    app.post('/api/v1/swiftype/delete', checkJwt, checkDeleteScope, api.swiftDelete);
-    app.post('/api/v1/images/sync', checkJwt, checkUpdateScope, imageCatalog.syncImage);
+    app.post('/api/v1/swiftype/delete', api.swiftDelete);
+    app.post('/api/v1/images/sync', imageCatalog.syncImage);
 
-    app.get('/api/v1/process/single/:sku', checkJwt, checkUpdateScope, woo.processSingle);
-    app.get('/api/v1/process/all', checkJwt, checkUpdateScope, woo.syncAll);
-    app.get('/api/v1/process/all/:lite', checkJwt, checkUpdateScope, woo.syncAll);
-    app.get('/api/v1/process/queue', checkJwt, checkUpdateScope, woo.runWooQueue);
-    app.get('/api/v1/process/queue/:lite', checkJwt, checkUpdateScope, woo.runWooQueue);
-    app.get('/api/v1/process/clear', checkJwt, checkDeleteScope, woo.clearWooQueue);
-    app.get('/api/v1/process/featured', checkJwt, checkFullCrudScope, featured.processAll);
+    app.get('/api/v1/process/single/:sku', woo.processSingle);
+    app.get('/api/v1/process/all', woo.syncAll);
+    app.get('/api/v1/process/all/:lite', woo.syncAll);
+    app.get('/api/v1/process/queue', woo.runWooQueue);
+    app.get('/api/v1/process/queue/:lite', woo.runWooQueue);
+    app.get('/api/v1/process/clear', woo.clearWooQueue);
+    app.get('/api/v1/process/featured', featured.processAll);
 
     // transaction history
     app.get('/api/v1/transactions/history', checkJwt, checkReadScope, api.customer_transaction_history);
