@@ -258,7 +258,33 @@
 	}
 }
 
-.remove-image__inner {
-  background: #1879ba;
+.remove-image .remove-image__inner {
+  background: #d6d8db;
   margin-top: 5px;
+  padding: 5px;
+  display: inline-block;
+  position: relative;
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -10px;
+    left: 5px;
+    border: 5px solid transparent;
+    border-bottom-color: #d6d8db;
+  }
+  span.remove-image_message {
+    display: inline-block;
+    margin-right: 5px;
+    width: auto;
+  }
+  .remove-image_btns {
+    display: inline-block;
+    a {
+      display: inline-block;
+      span.button {
+        display: inline-block;
+      }
+    }
+  }
 }
