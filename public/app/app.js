@@ -27,6 +27,7 @@ let REQUESTED_SCOPES = 'openid profile read:products update:products delete:prod
 
 // Declare app level module which depends on views, and components
 var app = angular.module('esgApp', [
+    'ui.tinymce',
     'auth0.auth0',
     'angular-jwt',
     'ui.router',
