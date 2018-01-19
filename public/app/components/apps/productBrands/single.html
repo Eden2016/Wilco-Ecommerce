@@ -81,8 +81,36 @@
                                 >
                                 <img
                                         src="{{form.user.image.imageSource}}"
-                                        ng-if="form.user.image && !form.edit"
+                                        ng-if="form.user.image"
                                 />
+
+                                <div 
+                                    class="remove-image"
+                                    ng-if="form.user.image && form.edit"
+                                    >
+                                    <a
+                                        ng-click="showRemoveImage()">
+                                        <span class="button">Remove Image</span>
+                                    </a>
+
+                                    <div 
+                                        class="remove-image__inner"
+                                        ng-if="removeImage"
+                                        >
+                                        <span>Are you sure you want to remove image?</span>
+                                        <div class="remove-image_btns">
+                                            <a
+                                                ng-click="removeProductBrandImage()">
+                                                <span class="button">Yes</span>
+                                            </a>
+                                            <a
+                                                ng-click="leaveImage()">
+                                                <span class="button">No</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div> <!-- .remove-image -->
+
                             </div>
                         </div>
 

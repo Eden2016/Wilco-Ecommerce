@@ -14,6 +14,8 @@ app.controller('ProductBrandsCtrl', ['$scope', '$rootScope', 'DataService.api', 
 
     $scope.scrollMode = true;
 
+    $scope.removeImage = false;
+
     $scope.currentData = [];
 
     $scope.currentProductBrandsData = [];
@@ -358,6 +360,55 @@ app.controller('ProductBrandsCtrl', ['$scope', '$rootScope', 'DataService.api', 
             //$scope.publishProductBrand();
         }
 
+    };
+
+    $scope.removeProductBrandImage = function () {
+        var message = {
+            id: Math.random().toString(36).substring(2) + (new Date()).getTime().toString(36),
+            text: 'P',
+            type: 'success',
+            platform: 'server'
+        };
+
+        if ($scope.form.user && $scope.form.user.woo_id) {
+            $scope.form.user.image = null;
+            // prepare our data to be pushed to WC
+            var wooData = {
+                name: $scope.form.user.brand_name,
+                description: $scope.form.user.description,
+                image: null
+            };
+
+            
+            DS.updateProductBrand($scope.form.user)
+                .then(updateSuccess, updateFailure)
+                .finally(function () {
+                    console.log("finally");
+                });
+
+            DS.wooUpdateProductBrand($scope.form.user.woo_id, wooData).then(function(response) {
+                response = JSON.parse(response.data);
+                console.log("update response:");
+                console.log(response);
+
+                message.text = "Image removed succesfuly.";
+                    
+                MS.addMessage(message);
+                //message.text = "Product Brand already exists (ID: " + response.id + "), updating instead.";
+            });
+        } else {
+            message.text = "This product isnt conected to WooCommerce.";
+                    
+            MS.addMessage(message);
+        }
+    };
+
+    $scope.showRemoveImage = function () {
+        $scope.removeImage = true;
+    };
+
+    $scope.leaveImage = function () {
+        $scope.removeImage = !$scope.removeImage;
     };
 
 
