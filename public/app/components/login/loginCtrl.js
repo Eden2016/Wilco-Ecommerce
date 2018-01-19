@@ -5,8 +5,10 @@ app.controller('LoginCtrl', ['$scope', 'DataService.api', '$state','authService'
     $scope.test = {
         text: 'test login'
     };
-    
-    authService.lock.show();
+
+    var urlForRedirect = window.location.protocol + '//' + window.location.host + '/callback';
+
+    authService.lock.show({auth: {params: {redirectUri: urlForRedirect}}});
 
     $scope.formSubmit = function () {
         authService.login();
