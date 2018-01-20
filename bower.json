@@ -31,6 +31,7 @@
     "angular-jwt": "^0.1.9",
     "auth0-lock": "^10.19.0",
     "angular-lock": "^2.0.3",
-    "ngmap": "^1.18.4"
+    "ngmap": "^1.18.4",
+    "angular-ui-tinymce": "^0.0.19"
   }
 }
