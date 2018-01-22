@@ -5,6 +5,19 @@
 'use strict';
 
 app.controller('ProductsCtrl', ['$scope', '$rootScope', 'DataService.api', 'WooService', 'MessagingService', 'authService', '$q', function ($scope, $rootScope, DS, WS, MS, authService, $q) {
+    $scope.tinymceOptions = {
+        theme: 'modern',
+        plugins: 'layer powerpaste searchreplace autolink directionality advcode visualblocks visualchars fullscreen image link media template paste codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount tinymcespellchecker a11ychecker imagetools mediaembed  linkchecker contextmenu colorpicker textpattern help',
+        toolbar1: 'formatselect | bold italic strikethrough forecolor backcolor | alignleft aligncenter alignright alignjustify  | link | numlist bullist outdent indent  | removeformat | anchor | charmap | paste',
+        image_advtab: true,
+        menubar: false,
+        statusbar: false,
+        content_css: [
+            '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+            '//www.tinymce.com/css/codepen.min.css'
+        ]
+
+    };
     var vm = this;
     vm.auth = authService;
 
