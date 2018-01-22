@@ -57,3 +57,7 @@
 .icon-icons_chevron_down:before {
   content: "\e907";
 }
+
+#mceu_5-preview, #mceu_4-preview {
+  display: none !important;
+}

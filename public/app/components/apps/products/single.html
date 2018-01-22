@@ -114,7 +114,7 @@
                             </div>
                             <div  class="small-9 cell">
                                 <textarea
-                                        ui-tinymce
+                                        ui-tinymce="tinymceOptions"
                                         id="description"
                                         name="description"
                                         type="text"
@@ -124,7 +124,7 @@
                                 {{descriptionsIDs[form.user.item_number]}}
                                 </textarea>
                                 <span
-                                        ng-bind="descriptionsIDs[form.user.item_number]"
+                                        ng-bind-html="descriptionsIDs[form.user.item_number]"
                                         ng-if="descriptionsIDs[form.user.item_number] && !form.edit"
                                 ></span>
                             </div>
