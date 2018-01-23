@@ -123,10 +123,11 @@
                                 >
                                 {{descriptionsIDs[form.user.item_number]}}
                                 </textarea>
-                                <span
-                                        ng-bind-html="descriptionsIDs[form.user.item_number]"
+                                <div
+                                        class="descriptionBlock"
+                                        ng-bind-html="toTrusted(descriptionsIDs[form.user.item_number])"
                                         ng-if="descriptionsIDs[form.user.item_number] && !form.edit"
-                                ></span>
+                                ></div>
                             </div>
                         </div>
                         <!-- Last Name -->
