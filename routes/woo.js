@@ -541,23 +541,28 @@ function WooProcess(product, job) {
                                 }
                             }
                             request(options, (err,res,body) => {
-                                body = JSON.parse(body);
-                                
-                                image.wooID = body.id;
+                                try {
+                                    body = JSON.parse(body);
+                                    
+                                    image.wooID = body.id;
 
-                                wooImages.push({
-                                    id: image.wooID
-                                });
-                                
-                                delete image.timestamp;
-                                var updateData = {
-                                    table: 'images',
-                                    values: image
-                                }
-                                request.post(baseURL+'/api/update', {form:updateData,json:true}, (err,res,body) => {
+                                    wooImages.push({
+                                        id: image.wooID
+                                    });
+                                    
+                                    delete image.timestamp;
+                                    var updateData = {
+                                        table: 'images',
+                                        values: image
+                                    }
+                                    request.post(baseURL+'/api/update', {form:updateData,json:true}, (err,res,body) => {
+                                        i++;
+                                        next();
+                                    });
+                                } catch (e) {
                                     i++;
                                     next();
-                                });
+                                }
                             });
                             
                               
