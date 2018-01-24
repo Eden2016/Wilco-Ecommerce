@@ -140,6 +140,7 @@ if (env === 'development') {
 
     // customer records
     app.post('/api/v1/customer_records_search', api.customer_records_lookup);
+    app.post('/api/v1/customer_records', api.get_customer_records);
 
     // quantity break codes
     app.get('/api/v1/quantity_break_codes/:code', api.quantity_break_by_code);
@@ -231,6 +232,7 @@ if (env === 'production') {
 
     // customer records
     app.post('/api/v1/customer_records_search', checkJwt, checkReadScope, api.customer_records_lookup);
+    app.post('/api/v1/customer_records', checkJwt, checkReadScope, api.get_customer_records);
 
     // quantity break codes
     app.get('/api/v1/quantity_break_codes/:code', checkJwt, checkReadScope, api.quantity_break_by_code);

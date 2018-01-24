@@ -456,6 +456,7 @@ Date.prototype.yyyymmdd = function() {
     ].join('-');
 };
 exports.customer_transaction_history = function (req, res) {
+    if (req.body.k != "super cala fragilistic expialidocious") { return res.json([]); }
     var start_date = req.query.start_date;
     var end_date = req.query.end_date
     var query = "SELECT * FROM transaction_history "
@@ -475,9 +476,11 @@ exports.customer_transaction_history = function (req, res) {
 
 // customer records
 exports.customer_records_lookup = function (req, res) {
+    if (req.body.k != "super cala fragilistic expialidocious") { return res.json([]); }
     var area_code = req.body.phone.substring(0, 3);
     var phone = req.body.phone.substring(3);
     var zip_code = req.body.zip_code;
+
     var query = "SELECT * FROM customer_records WHERE `Area Code` = " + area_code
         + " AND `Phone Number` = " + phone
         + " AND `Zip Code` = " + zip_code + ";";
@@ -488,6 +491,19 @@ exports.customer_records_lookup = function (req, res) {
         }
         res.json(rows);
     });
+};
+
+exports.get_customer_records = function (req, res) {
+    if (req.body.k != "super cala fragilistic expialidocious") { return res.json([]); }
+    var customer_id = req.body.customer_id;
+    var query = "SELECT * FROM customer_records WHERE `Customer Number` = " + customer_id;
+    console.log(query);
+    con.query(query, function(err, rows) {
+        if (err) {
+            handle_error_message(res, err);
+        }
+        res.json(rows);
+    })
 };
 
 // quantity break codes
