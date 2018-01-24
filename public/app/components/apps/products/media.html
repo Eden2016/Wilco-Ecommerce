@@ -3,14 +3,72 @@
 
         <div class="cell small-12 record-data">
 
-            <div class="grid-x small-12">
+            <div class="grid-x small-12 form-list ">
             
-            	<div class="grid-x grid-padding-x small-12 small-up-2 medium-up-4">
-            		<div class="cell" ng-repeat="image in form.user.images"><img src="{{image.image}}" ng-if="image.valid"></div>
-            	</div>
-            
-            </div>
+            	<pre style="display: none;">
+            		{{form.user | json}}
+            	</pre>
+            	
+            	<!-- Featured Image -->
+                <div class="grid-x small-12" ng-if="form.user.images[0]">
 
+                    <div  class="small-3 cell">
+                        <label for="fearuredImage" class="text-right middle">
+                            Featured Image
+                        </label>
+                    </div>
+                    <div class="small-6 cell fratured_image_wrap" ng-if="form.user.images[0].valid">
+                        <img src="{{form.user.images[0].image}}">
+                    </div>
+
+                </div>
+
+                <!-- Secondary Images -->
+                <div class="grid-x small-12" ng-if="form.user.images">
+
+                    <div  class="small-3 cell">
+                        <label for="secondaryImage" class="text-right middle">
+                            Secondary Images
+                        </label>
+                    </div>
+                    <div  class="small-6 cell">
+						<div class="grid-x grid-padding-x small-12 small-up-2 medium-up-4 secondary_images_wrap">
+		            		<div class="cell" ng-repeat="image in form.user.images">
+		            			<img src="{{image.image}}" ng-if="image.valid">
+		            		</div>
+		            	</div>
+                    </div>
+
+                </div>
+
+
+                <!-- Product Name -->
+                <div class="grid-x small-12">
+
+                    <div  class="small-3 cell">
+                        <label for="video" class="text-right middle">
+                            Video
+                        </label>
+                    </div>
+                    <div class="small-9 cell">
+                        <input
+
+                                id="video"
+                                name="video"
+                                type="text"
+                                placeholder="Video link"
+                                ng-model="form.user.product_video_url"
+                                ng-if="form.edit"
+                        >
+                        <span
+                                ng-bind="form.user.product_video_url"
+                                ng-if="form.user.product_video_url && !form.edit"
+                        ></span>
+                    </div>
+
+                </div>
+
+            </div>
         </div>
     </div>
 </div>
