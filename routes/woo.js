@@ -278,132 +278,135 @@ function WooProcess(product, job) {
                     var vo = self.targetProduct.master['Visible Online'];
             
                     l("\tVisible online? "+vo);
-            
                     // check if the product should be visible online
                     if ((vo == 1 || vo == "1" || vo == "Yes" || vo == "yes") && self.targetProduct.product_name !== null) {
-                        // prepare our other woo Data
-                        self.targetProductWooData.name = (self.targetProduct.product_name == null) ? self.targetProduct.master['Item Description'] : self.targetProduct.product_name;
-                        self.targetProductWooData.regular_price = (self.targetProductWooData.p90price !== '0') ? ""+self.targetProductWooData.p90price : ""+self.targetProduct.master['Retail Price'];
-                        self.targetProductWooData.description = (descriptions[self.targetProduct.item_number] == null) ? self.targetProduct.full_desc : descriptions[self.targetProduct.item_number];
-                        self.targetProductWooData.sku = self.targetProduct.item_number;
-                        self.targetProductWooData.is_featured = self.targetProduct.is_featured;
-                        self.targetProductWooData.has_date_range = self.targetProduct.has_date_range;
-                        self.targetProductWooData.start_date = self.targetProduct.start_date;
-                        self.targetProductWooData.end_date = self.targetProduct.end_date;
-                        self.targetProductWooData.related_skus = JSON.parse(self.targetProduct.related_skus);
-                        self.targetProductWooData.meta_data.push({
-                            key: 'hide_pricing_online',
-                            value: ""+self.targetProduct['hide_pricing_online']
-                        });
+                        getDescriptions(function (err, foundDescs) {
+                            var correctDescription = foundDescs[self.targetProduct.item_number];
 
-                        // clear the description
-                        if (self.targetProductWooData.description !== null) {
-                            self.targetProductWooData.description = self.targetProductWooData.description.replace(/\\'/g, "'");
-                            self.targetProductWooData.description = self.targetProductWooData.description.replace(/\\"/g, "'");
-                        }
+                            // prepare our other woo Data
+                            self.targetProductWooData.name = (self.targetProduct.product_name == null) ? self.targetProduct.master['Item Description'] : self.targetProduct.product_name;
+                            self.targetProductWooData.regular_price = (self.targetProductWooData.p90price !== '0') ? ""+self.targetProductWooData.p90price : ""+self.targetProduct.master['Retail Price'];
+                            self.targetProductWooData.description = correctDescription;
+                            self.targetProductWooData.sku = self.targetProduct.item_number;
+                            self.targetProductWooData.is_featured = self.targetProduct.is_featured;
+                            self.targetProductWooData.has_date_range = self.targetProduct.has_date_range;
+                            self.targetProductWooData.start_date = self.targetProduct.start_date;
+                            self.targetProductWooData.end_date = self.targetProduct.end_date;
+                            self.targetProductWooData.related_skus = JSON.parse(self.targetProduct.related_skus);
+                            self.targetProductWooData.meta_data.push({
+                                key: 'hide_pricing_online',
+                                value: ""+self.targetProduct['hide_pricing_online']
+                            });
 
-                        // make sure fineline is added to categories
-                        if (self.targetProduct.master.finelineCat.length > 0) {
-                            for (var i=0; i<self.targetProduct.master.finelineCat.length; i++) {
-                                self.targetProductWooData.categories.push({id:self.targetProduct.master.finelineCat[i]});
+                            // clear the description
+                            if (self.targetProductWooData.description !== null) {
+                                self.targetProductWooData.description = self.targetProductWooData.description.replace(/\\'/g, "'");
+                                self.targetProductWooData.description = self.targetProductWooData.description.replace(/\\"/g, "'");
                             }
-                        }
 
-                        // if there's no cats, assign it to Miscellaneous
-                        if (self.targetProductWooData.categories.length == 0) {
-                            self.targetProductWooData.categories.push({id:1211});
-                        }
-                        
-                        // check if it's a simple or variable product
-                        if (self.targetProduct.master_sku !== null) {
-                            // it's a variation
-                            l("\tProduct is a variation");
-                            // we need a parent ID, so get it or create it
-                            async.waterfall([
-                                function(cb) {
-                                    self.wooGetOrCreateParent(cb);
+                            // make sure fineline is added to categories
+                            if (self.targetProduct.master.finelineCat.length > 0) {
+                                for (var i=0; i<self.targetProduct.master.finelineCat.length; i++) {
+                                    self.targetProductWooData.categories.push({id:self.targetProduct.master.finelineCat[i]});
                                 }
-                            ],
-                                function(err, result) {  
-                                    var parent = result;
+                            }
 
-                                    var parentData = Object.assign({}, self.targetProductWooData);
-                                    parentData.sku = self.targetProduct.master_sku;
-                                    parentData.description = self.targetProductWooData.description;
-                                    parentData.attributes = parent.attributes;
+                            // if there's no cats, assign it to Miscellaneous
+                            if (self.targetProductWooData.categories.length == 0) {
+                                self.targetProductWooData.categories.push({id:1211});
+                            }
 
-                                    // set parent ID for later, it'll only get used on mode=variation
-                                    self.targetProductWooData.parent = parent.id;
-                                
-                                    l("\t\tHave the parent with Woo ID: "+parent.id);
-                                    
-                                    // set our child product data to the correct attributes
-                                    self.targetProductWooData.attributes = self.processVariables(self.targetProductWooData.attributes, 2);
-
-                                    // and make sure out parent has all the correct attributes too
-                                    parentData.attributes = self.processVariables(parentData.attributes, 1);
-
-                                    // before we create our variation, update the parent to make sure all atrributes exist
-                                    async.waterfall([
+                            // check if it's a simple or variable product
+                            if (self.targetProduct.master_sku !== null) {
+                                // it's a variation
+                                l("\tProduct is a variation");
+                                // we need a parent ID, so get it or create it
+                                async.waterfall([
                                         function(cb) {
-                                            //self.wooUpdateProduct(parent.id, parentData, cb);
-                                            parentData.key = 'super cala fragilistic expialidocious';
-                                            parentData.mode = 'parent';
-                                            request.post(wooURL+'/wp-content/themes/wilco-child/woosync.php', {form:parentData, json:true}, (err,res,body) => { 
-                                                cb();
-                                            });
+                                            self.wooGetOrCreateParent(cb);
                                         }
                                     ],
-                                        function(err, result) {
-                                            // now we can create the child variation
-                                            l("\t\Create or update the variation with data:");
-                                            l(self.targetProductWooData);
-                                            async.waterfall([
+                                    function(err, result) {
+                                        var parent = result;
+
+                                        var parentData = Object.assign({}, self.targetProductWooData);
+                                        parentData.sku = self.targetProduct.master_sku;
+                                        parentData.description = self.targetProductWooData.description;
+                                        parentData.attributes = parent.attributes;
+
+                                        // set parent ID for later, it'll only get used on mode=variation
+                                        self.targetProductWooData.parent = parent.id;
+
+                                        l("\t\tHave the parent with Woo ID: "+parent.id);
+
+                                        // set our child product data to the correct attributes
+                                        self.targetProductWooData.attributes = self.processVariables(self.targetProductWooData.attributes, 2);
+
+                                        // and make sure out parent has all the correct attributes too
+                                        parentData.attributes = self.processVariables(parentData.attributes, 1);
+
+                                        // before we create our variation, update the parent to make sure all atrributes exist
+                                        async.waterfall([
                                                 function(cb) {
-                                                    //self.wooCreateChildProduct(parent.id, self.targetProductWooData, cb);
-                                                    self.targetProductWooData.key = 'super cala fragilistic expialidocious';
-                                                    self.targetProductWooData.mode = 'variation';
-                                                    request.post(wooURL+'/wp-content/themes/wilco-child/woosync.php', {form:self.targetProductWooData, json:true}, (err,res,body) => { 
+                                                    //self.wooUpdateProduct(parent.id, parentData, cb);
+                                                    parentData.key = 'super cala fragilistic expialidocious';
+                                                    parentData.mode = 'parent';
+                                                    request.post(wooURL+'/wp-content/themes/wilco-child/woosync.php', {form:parentData, json:true}, (err,res,body) => {
                                                         cb();
-                                                    });
+                                                });
                                                 }
                                             ],
-                                                function(err,result) {
-                                                    self.resetSyncToWoo();
+                                            function(err, result) {
+                                                // now we can create the child variation
+                                                l("\t\Create or update the variation with data:");
+                                                l(self.targetProductWooData);
+                                                async.waterfall([
+                                                        function(cb) {
+                                                            //self.wooCreateChildProduct(parent.id, self.targetProductWooData, cb);
+                                                            self.targetProductWooData.key = 'super cala fragilistic expialidocious';
+                                                            self.targetProductWooData.mode = 'variation';
+                                                            request.post(wooURL+'/wp-content/themes/wilco-child/woosync.php', {form:self.targetProductWooData, json:true}, (err,res,body) => {
+                                                                cb();
+                                                        });
+                                                        }
+                                                    ],
+                                                    function(err,result) {
+                                                        self.resetSyncToWoo();
 
-                                                    l("\t\t\tFinished with the variation.");
-                                                    l("***************************************");
-                                                    if (done!==null) {
-                                                        done();
+                                                        l("\t\t\tFinished with the variation.");
+                                                        l("***************************************");
+                                                        if (done!==null) {
+                                                            done();
+                                                        }
                                                     }
-                                                }
-                                            );
-                                        }
-                                    );
-                                }
-                            );
-                        } else { // else product.master_sku !== null
-                            // it's a simple product
-                            l("\tProduct is a simple product, create or update it with data:");
-                            l(self.targetProductWooData);
-
-                            // full sync
-                            async.waterfall([
-                                function(cb) {
-                                    self.wooCreateProduct(self.targetProductWooData, cb);
-                                }
-                            ],
-                                function(err, result) {
-                                    self.resetSyncToWoo();
-
-                                    l("\t\tFinished with the simple product.");
-                                    l("***************************************");
-                                    if (done!==null) {
-                                        done();
+                                                );
+                                            }
+                                        );
                                     }
-                                }
-                            );
-                        } // endif product.master_sku !== null
+                                );
+                            } else { // else product.master_sku !== null
+                                // it's a simple product
+                                l("\tProduct is a simple product, create or update it with data:");
+                                l(self.targetProductWooData);
+
+                                // full sync
+                                async.waterfall([
+                                        function(cb) {
+                                            self.wooCreateProduct(self.targetProductWooData, cb);
+                                        }
+                                    ],
+                                    function(err, result) {
+                                        self.resetSyncToWoo();
+
+                                        l("\t\tFinished with the simple product.");
+                                        l("***************************************");
+                                        if (done!==null) {
+                                            done();
+                                        }
+                                    }
+                                );
+                            } // endif product.master_sku !== null
+                        });
                     } else {
                         // product shouldn't be visible online, make sure it isn't
                         l("\tProduct is not visible, make sure it's no online");
@@ -1317,10 +1320,7 @@ function WooProcess(product, job) {
             url: 'https://hooks.slack.com/services/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',
             method: 'POST',
             body: JSON.stringify(data)
-        }
-    
-        console.log(data);
-        console.log(options);
+        };
     
         request(options, (err,res,body) => {});
     }
@@ -1347,25 +1347,18 @@ function sl(message) {
         url: 'https://hooks.slack.com/services/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',
         method: 'POST',
         body: JSON.stringify(data)
-    }
-
-    console.log(data);
-    console.log(options);
+    };
 
     request(options, (err,res,body) => {});
 }
 
 function getDescriptions(cb) {
-    if (descriptions.length==0) {
-        request(baseURL+'/api/productDescriptions/', {json:true}, (err,res,body) => {
-            body.map(function(cv,i,a) {
-                descriptions[cv.item_number] = cv.full_desc;
-            });
-            cb(null, descriptions);
+    request(baseURL+'/api/productDescriptions/', {json:true}, (err,res,body) => {
+        body.map(function(cv,i,a) {
+            descriptions[cv.item_number] = cv.full_desc;
         });
-    } else {
-        cb(null,descriptions);
-    }
+        cb(null, descriptions);
+    });
 }
 
 function getBrands(cb) {
