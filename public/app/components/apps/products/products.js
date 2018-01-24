@@ -4,14 +4,16 @@
  */
 'use strict';
 
-app.controller('ProductsCtrl', ['$scope', '$rootScope', 'DataService.api', 'WooService', 'MessagingService', 'authService', '$q', function ($scope, $rootScope, DS, WS, MS, authService, $q) {
+app.controller('ProductsCtrl', ['$scope', '$sce', '$rootScope', 'DataService.api', 'WooService', 'MessagingService', 'authService', '$q', function ($scope, $sce, $rootScope, DS, WS, MS, authService, $q) {
     $scope.tinymceOptions = {
         theme: 'modern',
-        plugins: 'layer powerpaste searchreplace autolink directionality advcode visualblocks visualchars fullscreen image link media template paste codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount tinymcespellchecker a11ychecker imagetools mediaembed  linkchecker contextmenu colorpicker textpattern help',
-        toolbar1: 'formatselect | bold italic strikethrough forecolor backcolor | alignleft aligncenter alignright alignjustify  | link | numlist bullist outdent indent  | removeformat | anchor | charmap | paste',
-        image_advtab: true,
+        resize: true,
+        plugins: 'lists advlist powerpaste blockquote searchreplace autolink numlist bullist directionality hr advcode visualblocks visualchars fullscreen unlink image link media template paste codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime textcolor wordcount tinymcespellchecker a11ychecker imagetools mediaembed  linkchecker contextmenu colorpicker textpattern help',
+        toolbar1: 'bold italic strikethrough | numlist bullist | blockquote | hr | alignleft aligncenter alignright | link | unlink',
+        toolbar2: 'formatselect | forecolor | pastetext | removeformat | charmap | outdent indent',
+        advlist_bullet_styles: "circle",
         menubar: false,
-        statusbar: false,
+        statusbar: true,
         content_css: [
             '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
             '//www.tinymce.com/css/codepen.min.css'
@@ -148,7 +150,15 @@ app.controller('ProductsCtrl', ['$scope', '$rootScope', 'DataService.api', 'WooS
     getCategories();
     getSpecies();
     getVariable();
-    
+
+    $scope.prepareDescriptioForSave = function (data) {
+        return data.replace(/<ul>/g, '<ul type="circle" style="list-style-type: circle;">').replace(/'/g, "\\'");
+    };
+
+    $scope.toTrusted = function(html_code) {
+        return $sce.trustAsHtml(html_code);
+    };
+
     $scope.productsGrid = { 
     	infiniteScrollDown: true,
     	enableRowSelection: true,
@@ -731,8 +741,8 @@ app.controller('ProductsCtrl', ['$scope', '$rootScope', 'DataService.api', 'WooS
 
         var data = {
             item_number: $scope.form.user.item_number,
-            full_desc: $scope.descriptionsIDs[$scope.form.user.item_number]
-        }
+            full_desc: $scope.prepareDescriptioForSave($scope.descriptionsIDs[$scope.form.user.item_number])
+        };
 
         // whenever we update a product, redo a full sync of it
         $scope.form.user.sync_to_woo = 1;

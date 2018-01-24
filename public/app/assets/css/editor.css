@@ -1,0 +1,7 @@
+.descriptionBlock ul {
+    list-style: circle !important;
+}
+
+span.mce-preview {
+    display: none !important;
+}
