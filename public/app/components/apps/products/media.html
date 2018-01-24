@@ -59,6 +59,7 @@
                                 placeholder="Video link"
                                 ng-model="form.user.product_video_url"
                                 ng-if="form.edit"
+                                pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)"
                         >
                         <span
                                 ng-bind="form.user.product_video_url"
