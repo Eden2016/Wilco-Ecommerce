@@ -457,12 +457,13 @@ Date.prototype.yyyymmdd = function() {
 };
 exports.customer_transaction_history = function (req, res) {
     if (req.body.k != "super cala fragilistic expialidocious") { return res.json([]); }
-    var start_date = req.query.start_date;
-    var end_date = req.query.end_date
+    var start_date = req.body.start_date;
+    var end_date = req.body.end_date;
+    var customer_number = req.body.customer_number;
     var query = "SELECT * FROM transaction_history "
         +"JOIN stores ON stores.store_number = transaction_history.`Store Number`"
         + "JOIN customer_records ON transaction_history.`Customer Number` = customer_records.`Customer Number`"
-        + "WHERE transaction_history.`Customer Number` = "+ req.query['customer_number']
+        + "WHERE transaction_history.`Customer Number` = "+ customer_number
         + " AND Date <= Date \'" + end_date
         + "\' && Date >= Date \'" +  start_date + "\' ORDER BY Date DESC;";
     console.log(query);
@@ -494,7 +495,7 @@ exports.customer_records_lookup = function (req, res) {
 };
 
 exports.get_customer_records = function (req, res) {
-    if (req.body.k != "super cala fragilistic expialidocious") { return res.json([]); }
+    if (req.body.k != "super cala fragilistic expialidocious") { return res.json(['no access allowed']); }
     var customer_id = req.body.customer_id;
     var query = "SELECT * FROM customer_records WHERE `Customer Number` = " + customer_id;
     console.log(query);
@@ -502,7 +503,12 @@ exports.get_customer_records = function (req, res) {
         if (err) {
             handle_error_message(res, err);
         }
-        res.json(rows);
+        if (rows.length > 0) {
+            return res.json(rows);
+        } else {
+            return res.json(['no results found']);
+        }
+
     })
 };
 

@@ -136,7 +136,7 @@ if (env === 'development') {
     app.use(cors());
 
     // transaction history
-    app.get('/api/v1/transactions/history', api.customer_transaction_history);
+    app.post('/api/v1/transactions/history', api.customer_transaction_history);
 
     // customer records
     app.post('/api/v1/customer_records_search', api.customer_records_lookup);
@@ -228,7 +228,7 @@ if (env === 'production') {
     app.get('/api/v1/process/featured', featured.processAll);
 
     // transaction history
-    app.get('/api/v1/transactions/history', checkJwt, checkReadScope, api.customer_transaction_history);
+    app.post('/api/v1/transactions/history', checkJwt, checkReadScope, api.customer_transaction_history);
 
     // customer records
     app.post('/api/v1/customer_records_search', checkJwt, checkReadScope, api.customer_records_lookup);
