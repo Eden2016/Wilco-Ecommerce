@@ -144,11 +144,11 @@ app.controller('ProductsCtrl', ['$scope', '$sce', '$rootScope', 'DataService.api
     $scope.colorsIDs = [];
     $scope.selectedColor = [];
     
-    //getProducts();
+    getProducts();
     getDescriptions();
     getBrands();
     getCategories();
-    getSpecies();
+    //getSpecies();
     getVariable();
 
     $scope.prepareDescriptioForSave = function (data) {
@@ -725,18 +725,26 @@ app.controller('ProductsCtrl', ['$scope', '$sce', '$rootScope', 'DataService.api
 
     $scope.updateSingleProduct = function () {
         // JSONify our arrays
-        $scope.form.user.species_id = JSON.stringify($scope.form.user.species_id);
+        var specIds = $scope.form.user.species_id;
+        if (typeof specIds === 'string') {
+            specIds = specIds.replace(/\\/g, '');
+        }
 
+        if (specIds !== null) {
+            specIds = JSON.stringify(specIds);
+        }
+
+        $scope.form.user.species_id = specIds;
         if ($scope.form.user.added_category && $scope.form.user.added_category.length == 0) {
             $scope.form.user.added_category = null;
         } else {
-            $scope.form.user.added_category = JSON.stringify($scope.form.user.added_category);
+            $scope.form.user.added_category = $scope.form.user.added_category !== null ? JSON.stringify($scope.form.user.added_category) : null;
         }
 
         if ($scope.form.user.related_skus && $scope.form.user.related_skus.length == 0) {
             $scope.form.user.related_skus = null;
         } else {
-            $scope.form.user.related_skus = JSON.stringify($scope.form.user.related_skus);
+            $scope.form.user.related_skus = $scope.form.user.related_skus !== null ? JSON.stringify($scope.form.user.related_skus) : null;
         }
 
         var data = {
@@ -1069,7 +1077,11 @@ app.controller('ProductsCtrl', ['$scope', '$sce', '$rootScope', 'DataService.api
 			   $scope.form.master.images = response.data;
 			   $scope.form.user.images = angular.copy($scope.form.master.images);
 			   $scope.view.record.images = response.data;
-		    });
+		    });/*
+            DS.getWooProductsBySKU($scope.form.user['item_number']).then(function(response) {
+                console.log('product_by_sku', response);
+                $scope.form.user.wooProduct =response.data;
+            })*/
     	}
     	else if (screen == "pricing" || screen == "inventory") {
 	    	DS.getProductPricingBySKU($scope.form.user['item_number']).then(function(response) {

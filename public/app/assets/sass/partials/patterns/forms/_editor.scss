@@ -258,6 +258,38 @@
 	}
 }
 
+.product_screen_media {
+  .record-content {
+    .form-list {
+      height: auto;
+    }
+    .secondary_images_wrap {
+      width: 100%;
+      margin: 0;
+      padding-right: 0;
+      justify-content: space-between;
+      > div {
+        text-align: center;
+        border: 1px solid #9c9c9c;
+        height: auto;
+        padding: 0;
+        width: 23%;
+        img {
+          max-width: 100%;
+        }
+      }
+    }
+    .fratured_image_wrap {
+      text-align: center;
+      border: 1px solid #9c9c9c;
+      margin-bottom: 20px;
+      img {
+        max-width: 100%;
+      }
+    }
+  }
+}
+
 .remove-image .remove-image__inner {
   background: #d6d8db;
   margin-top: 5px;
