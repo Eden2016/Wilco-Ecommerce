@@ -1103,7 +1103,7 @@
     "cst": {
       "version": "0.4.10",
       "resolved": "https://registry.npmjs.org/cst/-/cst-0.4.10.tgz",
-      "integrity": "sha512-U5ETe1IOjq2h56ZcBE3oe9rT7XryCH6IKgPMv0L7sSk6w29yR3p5egCK0T3BDNHHV95OoUBgXsqiVG+3a900Ag==",
+      "integrity": "sha1-nAXIJSkKdi8KhcCqu4wP4DWuhRY=",
       "dev": true,
       "requires": {
         "babel-runtime": "6.26.0",
@@ -3433,7 +3433,7 @@
         "lodash": "4.5.1",
         "nib": "1.1.2",
         "node-redis-warlock": "0.2.0",
-        "pug": "2.0.0-rc.1",
+        "pug": "2.0.0-rc.4",
         "redis": "2.6.5",
         "reds": "0.2.5",
         "stylus": "0.54.5",
@@ -5026,8 +5026,8 @@
       "integrity": "sha1-8FKijacOYYkX7wqKw0wa5aaChrM="
     },
     "pug": {
-      "version": "2.0.0-rc.1",
-      "resolved": "https://registry.npmjs.org/pug/-/pug-2.0.0-rc.1.tgz",
+      "version": "2.0.0-rc.4",
+      "resolved": "https://registry.npmjs.org/pug/-/pug-2.0.0-rc.4.tgz",
       "integrity": "sha512-SL7xovj6E2Loq9N0UgV6ynjMLW4urTFY/L/Fprhvz13Xc5vjzkjZjI1QHKq31200+6PSD8PyU6MqrtCTJj6/XA==",
       "dev": true,
       "requires": {
@@ -5684,7 +5684,7 @@
     "safe-buffer": {
       "version": "5.1.1",
       "resolved": "https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.1.1.tgz",
-      "integrity": "sha512-kKvNJn6Mm93gAczWVJg7wH+wGYWNrDHdWvpUmHyEsgCtIwwo3bqPtV4tR5tuPaUhTOo/kvhVwd8XwwOllGYkbg=="
+      "integrity": "sha1-iTMSr2myEj3vcfV4iQAWce6yyFM="
     },
     "sass-graph": {
       "version": "2.2.4",
@@ -6057,6 +6057,22 @@
       "version": "1.0.0",
       "resolved": "https://registry.npmjs.org/sparkles/-/sparkles-1.0.0.tgz",
       "integrity": "sha1-Gsu/tZJDbRC76PeFt8xvgoFQEsM="
+    },
+    "sparkpost": {
+      "version": "2.1.2",
+      "resolved": "https://registry.npmjs.org/sparkpost/-/sparkpost-2.1.2.tgz",
+      "integrity": "sha1-7+7pj6CRWYtNbXKzLkh9eobH6Vw=",
+      "requires": {
+        "lodash": "4.17.4",
+        "request": "2.83.0"
+      },
+      "dependencies": {
+        "lodash": {
+          "version": "4.17.4",
+          "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz",
+          "integrity": "sha1-eCA6TRwyiuHYbcpkYONptX9AVa4="
+        }
+      }
     },
     "spdx-correct": {
       "version": "1.0.2",
@@ -7198,7 +7214,7 @@
         "glob": {
           "version": "7.1.2",
           "resolved": "https://registry.npmjs.org/glob/-/glob-7.1.2.tgz",
-          "integrity": "sha512-MJTUg1kjuLeQCJ+ccE4Vpa6kKVXkPYJ2mOCQyUuKLcLQsdrMCpBPUi8qVE6+YuaJkozeA9NusTAw3hLr8Xe5EQ==",
+          "integrity": "sha1-wZyd+aAocC1nhhI4SmVSQExjbRU=",
           "dev": true,
           "requires": {
             "fs.realpath": "1.0.0",
