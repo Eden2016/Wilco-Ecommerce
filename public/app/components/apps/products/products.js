@@ -144,11 +144,11 @@ app.controller('ProductsCtrl', ['$scope', '$sce', '$rootScope', 'DataService.api
     $scope.colorsIDs = [];
     $scope.selectedColor = [];
     
-    //getProducts();
+    getProducts();
     getDescriptions();
     getBrands();
     getCategories();
-    getSpecies();
+    //getSpecies();
     getVariable();
 
     $scope.prepareDescriptioForSave = function (data) {
@@ -1069,7 +1069,11 @@ app.controller('ProductsCtrl', ['$scope', '$sce', '$rootScope', 'DataService.api
 			   $scope.form.master.images = response.data;
 			   $scope.form.user.images = angular.copy($scope.form.master.images);
 			   $scope.view.record.images = response.data;
-		    });
+		    });/*
+            DS.getWooProductsBySKU($scope.form.user['item_number']).then(function(response) {
+                console.log('product_by_sku', response);
+                $scope.form.user.wooProduct =response.data;
+            })*/
     	}
     	else if (screen == "pricing" || screen == "inventory") {
 	    	DS.getProductPricingBySKU($scope.form.user['item_number']).then(function(response) {

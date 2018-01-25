@@ -13,6 +13,7 @@ var express = require('express'),
     featured = require('./routes/featured'),
     wooStores = require('./routes/wooStores'),
     discounts = require('./routes/discounts'),
+    mail = require('./routes/mail'),
     http = require('http'),
     path = require('path'),
     jwt = require('express-jwt'),
@@ -142,6 +143,9 @@ if (env === 'development') {
     app.post('/api/v1/customer_records_search', api.customer_records_lookup);
     app.post('/api/v1/customer_records', api.get_customer_records);
 
+    // mail
+    app.post('/api/v1/mail/send', mail.send_mail);
+
     // quantity break codes
     app.get('/api/v1/quantity_break_codes/:code', api.quantity_break_by_code);
 
@@ -233,6 +237,9 @@ if (env === 'production') {
     // customer records
     app.post('/api/v1/customer_records_search', checkJwt, checkReadScope, api.customer_records_lookup);
     app.post('/api/v1/customer_records', checkJwt, checkReadScope, api.get_customer_records);
+
+    // mail
+    app.post('/api/v1/mail/send', checkJwt, checkReadScope, mail.send_mail);
 
     // quantity break codes
     app.get('/api/v1/quantity_break_codes/:code', checkJwt, checkReadScope, api.quantity_break_by_code);

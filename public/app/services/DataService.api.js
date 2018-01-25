@@ -54,6 +54,17 @@ app.service('DataService.api', ['$http', 'DataService.cache', 'MessagingService'
         return ret;
     };
 
+    this.getWooProductsBySKU = function (sku) {
+        //return http promise
+        var ret = $http({
+            method: 'GET',
+            url: '/api/v1/products/sku/'+sku,
+            cache: DataServiceCache,
+        });
+
+        return ret;
+    }
+
     this.findFineline = function(fineline) {
         //return http promise
         var ret = $http({
