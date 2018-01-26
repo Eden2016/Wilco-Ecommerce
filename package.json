@@ -22,14 +22,6 @@
     "express-jwt-authz": "^1.0.0",
     "express-robots": "^0.1.6",
     "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^4.0.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-concat-css": "^2.3.0",
-    "gulp-cssmin": "^0.2.0",
-    "gulp-notify": "^3.0.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^3.1.0",
-    "gulp-uglify": "^3.0.0",
     "http": "0.0.0",
     "jade": "^0.31.2",
     "jsonwebtoken": "^7.4.1",
@@ -44,10 +36,20 @@
     "sparkpost": "^2.1.2",
     "swiftype": "^0.3.1",
     "woocommerce-api": "^1.4.2",
-    "xml2js": "^0.4.19",
-    "kue": "^0.11.6"
+    "xml2js": "^0.4.19",    
+"kue": "^0.11.6"
   },
   "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-concat-css": "^2.3.0",
+    "gulp-cssmin": "^0.2.0",
+    "gulp-notify": "^3.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-uglify": "^3.0.0",
+    "gulp-babel-minify": "^0.2.0",
     "jscs": "^3.0.7"
   }
 }

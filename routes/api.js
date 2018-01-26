@@ -456,7 +456,9 @@ Date.prototype.yyyymmdd = function() {
     ].join('-');
 };
 exports.customer_transaction_history = function (req, res) {
-    if (req.body.k != "super cala fragilistic expialidocious") { return res.json([]); }
+    var decide = (req.body.k == "super cala fragilistic expialidocious") ? 'Key good' : 'Key bad';
+    console.log(decide);
+    if (req.body.k !== "super cala fragilistic expialidocious") { return res.json([]); }
     var start_date = req.body.start_date;
     var end_date = req.body.end_date;
     var customer_number = req.body.customer_number;
