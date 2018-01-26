@@ -43,12 +43,12 @@
     "gulp-notify": "^3.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
-    "gulp-uglify": "^3.0.0"
+    "gulp-uglify": "^3.0.0",
+    "kue": "^0.11.6"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-babel-minify": "^0.2.0",
     "jscs": "^3.0.7",
-    "kue": "^0.11.6"
   }
 }
