@@ -4,11 +4,23 @@
         <div class="cell small-12 record-data">
 
             <div class="grid-x small-12 form-list ">
-            
-            	<pre style="display: none;">
-            		{{form.user | json}}
-            	</pre>
             	
+                 <div class="grid-x small-12 quick-tips">
+
+                    <div  class="small-12 cell">
+                        <h3>QUICK TIPS</h3>
+                        <div class="quick-tips-content">
+                            <ul>
+                                <li>Images should be proportionate and sized with a minimum dimension of <b>345x390</b></li>
+                                <li>Maximum dimension recommendation of <b>580x656</b></li>
+                                <li>All images should have a file extension of <b>.jpg</b></li>
+                                <li>Image filesize should <b>not exceed 100kb</b>, recommend limit of 40kb</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
             	<!-- Featured Image -->
                 <div class="grid-x small-12" ng-if="form.user.images[0]">
 
