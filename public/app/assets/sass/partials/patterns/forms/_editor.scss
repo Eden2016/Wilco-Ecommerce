@@ -45,6 +45,33 @@
         line-height: 1.5;
         color: #0a0a0a;
       }
+        .descriptionBlock {
+            padding: .5rem;
+            span {
+                padding: 0;
+                display: inline;
+            }
+        }
+        .mce-tinymce {
+            margin-bottom: 1rem;
+            span {
+                padding: 0;
+            }
+            .mce-resizehandle,
+            .mce-wordcount,
+            .mce-path {
+                display: inline-block;
+                width: auto !important;
+            }
+            .mce-wordcount{
+                padding: .5rem 1rem 0 0 ;
+            }
+            .mce-resizehandle {
+                position: absolute;
+                bottom: 0;
+                height: 15px;
+            }
+        }
     }
 
 
@@ -239,6 +266,13 @@
         padding: .5rem;
       }
     }
+    input {
+        &#hidepricing,
+        &#is-featured,
+        &#has-date-range{
+            margin: 10px 0 0 10px;
+        }
+      }
   }
 
 
