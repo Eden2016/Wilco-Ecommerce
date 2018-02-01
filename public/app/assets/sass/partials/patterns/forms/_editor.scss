@@ -310,7 +310,6 @@
         width: 23%;
         img {
           max-width: 100%;
-          height: auto;
         }
       }
     }
@@ -320,28 +319,6 @@
       margin-bottom: 20px;
       img {
         max-width: 100%;
-      }
-    }
-    .quick-tips {
-      padding-left: 60px;
-      h3 {
-        color: #2170bb;
-        font-size: 19px;
-        font-weight: 900;
-        margin-bottom: 5px;
-        margin-top: 0;
-        font-family: Arial, sans-serif;
-        img {
-            max-width: 30px;
-            margin-right: 10px;
-        }
-      }
-      .quick-tips-content {
-        color: #9198a2;
-        ul {
-          margin-left: 50px;
-          margin-bottom: 15px;
-        }
       }
     }
   }
