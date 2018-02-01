@@ -555,6 +555,9 @@ function WooProcess(product, job) {
                                     wooImages.push({
                                         id: image.wooID
                                     });
+
+                                    l("Uploaded image to woo");
+                                    l(image.wooID);
                                     
                                     delete image.timestamp;
                                     var updateData = {
@@ -566,6 +569,8 @@ function WooProcess(product, job) {
                                         next();
                                     });
                                 } catch (e) {
+                                    l("Failed to upload image");
+                                    l(e);
                                     i++;
                                     next();
                                 }
@@ -1362,16 +1367,16 @@ function sl(message) {
 }
 
 function getDescriptions(cb) {
-    if (descriptions.length==0) {
+    //if (descriptions.length==0) {
         request(baseURL+'/api/productDescriptions/', {json:true}, (err,res,body) => {
             body.map(function(cv,i,a) {
                 descriptions[cv.item_number] = cv.full_desc;
             });
             cb(null, descriptions);
         });
-    } else {
-        cb(null,descriptions);
-    }
+    // } else {
+    //     cb(null,descriptions);
+    // }
 }
 
 function getBrands(cb) {

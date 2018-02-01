@@ -756,12 +756,18 @@ app.controller('ProductsCtrl', ['$scope', '$sce', '$rootScope', 'DataService.api
         $scope.form.user.sync_to_woo = 1;
 
         DS.updateProductDescription(data)
-            .finally(function() {
+            .then(function(resp) {
+                console.log("Descriptions saved, resp:");
+                console.log(resp);
                 DS.updateProduct($scope.form.user)
                     .then(updateSuccess, updateFailure)
                     .finally(function () {
                         console.log("finally");
                     });
+            })
+            .catch(function(err) {
+                console.log("Description save failed, resp:");
+                console.log(err);
             });
         
         
@@ -800,6 +806,7 @@ app.controller('ProductsCtrl', ['$scope', '$sce', '$rootScope', 'DataService.api
             $scope.loadSingleView({record: {}});
         }
 
+        console.log("Now queueing Woo Single");
         DS.wooFullSyncSingle($scope.form.user.item_number);
 
         $scope.editModeToggle();
