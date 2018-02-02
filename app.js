@@ -142,6 +142,7 @@ if (env === 'development') {
     // customer records
     app.post('/api/v1/customer_records_search', api.customer_records_lookup);
     app.post('/api/v1/customer_records', api.get_customer_records);
+    app.post('/api/v1/customer_records_association', api.set_customer_record_association);
 
     // mail
     app.post('/api/v1/mail/send', mail.send_mail);
@@ -237,6 +238,7 @@ if (env === 'production') {
     // customer records
     app.post('/api/v1/customer_records_search', checkJwt, checkReadScope, api.customer_records_lookup);
     app.post('/api/v1/customer_records', checkJwt, checkReadScope, api.get_customer_records);
+    app.post('/api/v1/customer_records_association', checkJwt, checkReadScope, api.set_customer_record_association);
 
     // mail
     app.post('/api/v1/mail/send', checkJwt, checkReadScope, mail.send_mail);
