@@ -539,8 +539,22 @@ exports.get_customer_records = function (req, res) {
             return res.json(['no results found']);
         }
 
-    })
+    });
 };
+
+exports.set_customer_record_association = function (req, res) {
+    if (req.body.k != "super cala fragilistic expialidocious") { return res.json(['no access allowed']); }
+    var customer_number = req.body.customer_number;
+    var query = "UPDATE customer_records SET `online_association_counter` = online_association_counter + 1 " +
+        "WHERE `Customer Number` = '" + customer_number + "';";
+    console.log(query);
+    con.query(query, function(err, rows) {
+        if (err) {
+            handle_error_message(res, err);
+        }
+        res.json(rows);
+    });
+}
 
 // quantity break codes
 exports.quantity_break_by_code = function (req, res) {
