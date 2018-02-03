@@ -62,7 +62,8 @@ const table_names = {
     "pricing": {"table_name": "products_location", "id_name": "`Item Number`"},
     "productLocations": {"table_name": "products_location_secondary", "id_name": "`Item Number`"},
     "productUPC": {"table_name": "products_upc", "id_name": "`Item Number`"},
-    "stores": {"table_name": "stores", "id_name": "id"}
+    "stores": {"table_name": "stores", "id_name": "id"},
+    "grooming_services": {"table_name": "grooming_services", "id_name": "id"}
 
 };
 
@@ -105,6 +106,33 @@ exports.get_products_by_search = function(req, res) {
 
     });
 };
+
+exports.get_grooming_services = function(req, res) {
+    var query_statement = "SELECT * FROM grooming_services;";
+
+    con.query(query_statement, function (err, rows) {
+        if (err) {
+            handle_error_message(res, err);
+        }
+
+        res.json(rows);
+
+    });
+};
+
+exports.get_grooming_services_by_search = function(req, res) {
+    var term = req.params.searchTerm;
+
+    con.query('SELECT * FROM grooming_services gs WHERE UPPER(gs.services_name) LIKE UPPER(\'%' + term + '%\')', function (err, rows) {
+        if (err) {
+            handle_error_message(res, err);
+        }
+
+        res.json(rows);
+
+    });
+};
+
 
 exports.get_product_brans_by_search = function(req, res) {
     var term = req.params.searchTerm;

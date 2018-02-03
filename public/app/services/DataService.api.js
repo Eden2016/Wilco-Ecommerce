@@ -195,6 +195,62 @@ app.service('DataService.api', ['$http', 'DataService.cache', 'MessagingService'
         return ret;
     };
 
+    this.getGroomingServices = function () {
+        //return http promise
+        var ret = $http({
+            method: 'GET',
+            url: '/api/v1/grooming_service/get_grooming_services'
+        });
+
+        return ret;
+    };
+
+    this.findGroomingServicesBySearch = function (searchTerm) {
+        //return http promise
+        var ret = $http({
+            method: 'GET',
+            url: '/api/v1/grooming_service/get_grooming_services_by_search/'+ searchTerm,
+            cache: DataServiceCache,
+        });
+
+        return ret;
+    };
+
+
+
+    this.updateGroomingService = function (GroomingService) {
+        //return http promise
+        if (GroomingService.type) {delete GroomingService.type;}
+
+        var ret = $http({
+            method: 'POST',
+            url: '/api/update',
+            data: {
+                "values": GroomingService,
+                "table": "grooming_services"
+            }
+        });
+
+        return ret;
+    };
+
+    this.deleteGroomingService = function (GroomingService) {
+        //return http promise
+        if (GroomingService.type) {delete GroomingService.type;}
+
+
+        var ret = $http({
+            method: 'POST',
+            url: '/api/delete',
+            data: {
+                "id": GroomingService.id,
+                "table": "grooming_services"
+            }
+        });
+
+        return ret;
+    };
+
     this.findProductBrandsBySearchTerms = function (sku) {
         //return http promise
         var ret = $http({
