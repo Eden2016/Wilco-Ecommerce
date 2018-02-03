@@ -101,6 +101,9 @@ if (env === 'development') {
     app.post('/api/new', api.create_record);
     app.post('/api/delete', api.delete_record);
 
+    app.get('/api/v1/grooming_service/get_grooming_services', api.get_grooming_services);
+    app.get('/api/v1/grooming_service/get_grooming_services_by_search/:searchTerm', api.get_grooming_services_by_search);
+
     app.get('/api/v1/get_products_by_search/:searchTerm', api.get_products_by_search);
     app.get('/api/v1/get_product_categories_by_search/:searchTerm', api.get_product_categories_by_search);
 

@@ -199,6 +199,13 @@ app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'angula
             controllerAs: 'vm',
             title: 'Stores'
         })
+        .state("app.groomingServices", {
+            url: '/groomingServices',
+            controller: 'groomingServicesCtrl',
+            templateUrl: 'app/components/apps/groomingServices/groomingServices.html',
+            controllerAs: 'vm',
+            title: 'Grooming Services'
+        })
 
         .state("wooSync", {
             url: '/wooSync',
