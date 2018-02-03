@@ -113,13 +113,23 @@
                                 </label>
                             </div>
                             <div  class="small-9 cell">
+                                <span ng-click="visualEditorMode = !visualEditorMode" style="cursor: pointer; text-decoration: underline;">Switch mode</span>
                                 <textarea
                                         ui-tinymce="tinymceOptions"
                                         id="description"
                                         name="description"
                                         type="text"
                                         ng-model="descriptionsIDs[form.user.item_number]"
-                                        ng-if="form.edit"
+                                        ng-if="form.edit && visualEditorMode"
+                                >
+                                {{descriptionsIDs[form.user.item_number]}}
+                                </textarea>
+                                <textarea
+                                        id="description"
+                                        name="description"
+                                        type="text"
+                                        ng-model="descriptionsIDs[form.user.item_number]"
+                                        ng-if="form.edit && !visualEditorMode"
                                 >
                                 {{descriptionsIDs[form.user.item_number]}}
                                 </textarea>

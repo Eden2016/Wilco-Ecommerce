@@ -59,6 +59,7 @@ app.controller('ProductsCtrl', ['$scope', '$sce', '$rootScope', 'DataService.api
 
     $scope.consumerTypeSelect = {};
 
+    $scope.visualEditorMode = true;
 
     $scope.view = {
         record: {},
